@@ -22,3 +22,6 @@
 #container a {
   text-decoration: none;
 }
+.item-lines-full {
+  border-width: 0 !important;
+}

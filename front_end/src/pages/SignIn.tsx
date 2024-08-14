@@ -1,6 +1,7 @@
 //Registra un usuario nuevo
 
-import { IonPage,IonButton ,IonHeader,IonTitle } from "@ionic/react";
+import { IonPage,IonButton ,IonHeader,IonTitle, IonContent } from "@ionic/react";
+import FormRegister from "../components/FormRegister";
 
 const Register: React.FC = () => {
     return (
@@ -12,6 +13,9 @@ const Register: React.FC = () => {
                 <IonButton routerLink="/login">login</IonButton>
                 <IonButton routerLink="/menu-and-nav">menu-and-nav</IonButton>
             </IonHeader>
+            <IonContent>
+               <FormRegister/> 
+            </IonContent>           
         </IonPage>
     );
   };
