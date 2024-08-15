@@ -17,21 +17,25 @@ export const Carousel = () => {
     ];
 
     return (
-        <Swiper
+        <section className='h-[100%] flex justify-center items-center'>
+            <Swiper
             modules={[Pagination,Navigation,Scrollbar,A11y,Autoplay]}
             slidesPerView={1}
             pagination={true}
             autoplay
             navigation={true}
             loop={true}
+            className=' md:h-[95%] md:w-[55%]'
         >
             
             {slides.map((slide, index) => (
                 <SwiperSlide key={index} className="flex justify-center items-center">
-                    <img src={slide.src} alt={slide.alt} className="w-full h-full object-cover" />
+                    <img src={slide.src} alt={slide.alt} className="w-full rounded-md object-cover" />
                 </SwiperSlide>
             ))}
         </Swiper>
+        </section>
+        
     );
 };
 
