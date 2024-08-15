@@ -2,17 +2,16 @@
 
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Home.css';
-import ExploreContainer from '../components/ExploreContainer';
 
 const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Polo IT</IonTitle>
-          <IonButton size='small' routerLink='/login'>Iniciar Sesión</IonButton>
-          <IonButton size='small' routerLink='/signin'>Registrarse</IonButton>
-        </IonToolbar>
+        <IonTitle>Home</IonTitle>
+        <IonButton routerLink="/welcome">Welcome</IonButton>
+        <IonButton routerLink="/login">login</IonButton>
+        <IonButton routerLink="/signin">signin</IonButton>
+        <IonButton routerLink="/menu-and-nav">menu-and-nav</IonButton>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">

@@ -10,7 +10,7 @@ const MenuAndNav: React.FC = () => {
                 <IonButton routerLink="/home">Home</IonButton>
                 <IonButton routerLink="/login">login</IonButton>
                 <IonButton routerLink="/signin">signin</IonButton>
-                <IonButton routerLink="/welcome">menu-and-nav</IonButton>
+                <IonButton routerLink="/welcome">welcome</IonButton>
             </IonHeader>
         </IonPage>
     );
