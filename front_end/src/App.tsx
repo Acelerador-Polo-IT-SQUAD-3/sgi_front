@@ -37,40 +37,21 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './input.css'
 import './theme/variables.css';
+import Footer from './components/Footer';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-
         <Route exact path="/">
           <Redirect to="/welcome" />
         </Route>
-
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-
-        <Route exact path="/welcome">
-          <Welcome></Welcome>
-        </Route>
-
-        <Route exact path="/login">
-          <LogIn></LogIn>
-        </Route>
-
-        <Route exact path="/signin">
-          <SignIn></SignIn>
-        </Route>
-
-        <Route exact path="/menu-and-nav">
-          <MenuAndNav></MenuAndNav>
-        </Route>
-
-        
-      </IonRouterOutlet>
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/login" component={LogIn} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/menu-and-nav" component={MenuAndNav} />
     </IonReactRouter>
   </IonApp>
 );
