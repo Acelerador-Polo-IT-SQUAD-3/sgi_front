@@ -1,21 +1,44 @@
-
 import { IonInput, IonItem, IonLabel, IonButton, IonList } from "@ionic/react";
 import { Avatar } from "@mui/material";
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 
 const Form: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [isFormValid, setIsFormValid] = useState(false);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => { // {React.FormEvent<HTMLFormElement}  Indica el tipo de parametro para event.
+    useEffect(() => {
+        setIsFormValid(username !== '' && password !== '');
+    }, [username, password]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('Username:', username);
-        console.log('Password:', password);
-    }
+        try {
+            const response = await fetch('http://localhost:3000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: username, password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Login successful:', data);
+            //redirigir al usuario a otra página
+        } catch (error) {
+            console.error('Error logging in:', error);
+            setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+        }
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2"  >
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2">
             <IonItem lines="none" className="ion-padding">
                 <Avatar></Avatar>
             </IonItem>
@@ -37,10 +60,11 @@ const Form: React.FC = () => {
                     onIonChange={(e) => setPassword(e.detail.value!)} />
             </IonItem>
             <IonItem lines="full" className="ion-padding items-center">
-                <IonButton type="submit">Login</IonButton>
+                <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
             </IonItem>
+            {error && <IonLabel color="danger">{error}</IonLabel>}
             <IonLabel>
-                ¿Todavia no tienes cuenta?{' '}
+                ¿Todavía no tienes cuenta?{' '}
                 <a href="/signin">Regístrate!</a>
             </IonLabel>
             <IonLabel>
@@ -52,3 +76,4 @@ const Form: React.FC = () => {
 };
 
 export default Form;
+

@@ -18,7 +18,7 @@ const Login: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <IonCard className="ion-padding h-full flex justify-center items-center"  >
-                    <Form></Form>
+                    <Form/>
                 </IonCard>
             </IonContent>
         </IonPage>
