@@ -1,6 +1,6 @@
 //Conecta un usuario a la base de datos
 
-import { IonHeader, IonLabel, IonButton, IonPage, IonTitle, IonContent, IonToolbar, IonFooter, IonItem, IonCard } from "@ionic/react";
+import { IonHeader, IonButton, IonPage, IonTitle, IonContent, IonToolbar, IonCard } from "@ionic/react";
 import React from 'react';
 import Form from "../components/Form";
 

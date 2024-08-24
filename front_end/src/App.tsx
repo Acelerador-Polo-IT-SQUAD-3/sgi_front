@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
@@ -37,14 +37,13 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './input.css'
 import './theme/variables.css';
-import Footer from './components/Footer';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-        <Route exact path="/">
+        <Route path="/">
           <Redirect to="/welcome" />
         </Route>
         <Route exact path="/home" component={Home} />

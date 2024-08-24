@@ -1,14 +1,15 @@
-import { IonInput, IonItem, IonLabel, IonButton, IonList } from "@ionic/react";
+import { IonInput, IonItem, IonLabel, IonButton } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
-import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const Form: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isFormValid, setIsFormValid] = useState(false);
-
+    const history = useHistory();
     useEffect(() => {
         setIsFormValid(username !== '' && password !== '');
     }, [username, password]);
@@ -29,8 +30,13 @@ const Form: React.FC = () => {
             }
 
             const data = await response.json();
-            console.log('Login successful:', data);
+            console.log('Login successful:', data.user);
             //redirigir al usuario a otra página
+            const userData = data.user
+            history.push({
+                pathname: '/home',
+                state : {userData}
+            });
         } catch (error) {
             console.error('Error logging in:', error);
             setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
