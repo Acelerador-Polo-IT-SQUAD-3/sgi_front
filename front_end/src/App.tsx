@@ -30,8 +30,6 @@ import '@ionic/react/css/display.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
@@ -40,17 +38,26 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+const setPage = () => {
+  const handleUser = sessionStorage.getItem('user');
+  return handleUser
+        ? <Route path="/">
+            <Redirect to="/home" />
+          </Route>
+        : <Route path="/">
+            <Redirect to="/welcome" />
+          </Route>;
+}
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-        <Route path="/">
-          <Redirect to="/welcome" />
-        </Route>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/login" component={LogIn} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/menu-and-nav" component={MenuAndNav} />
+      {setPage()}
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/welcome" component={Welcome} />
+      <Route exact path="/login" component={LogIn} />
+      <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/menu-and-nav" component={MenuAndNav} />
     </IonReactRouter>
   </IonApp>
 );
