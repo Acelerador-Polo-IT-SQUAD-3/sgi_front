@@ -1,18 +1,15 @@
-//Registra un usuario nuevo
-
-import { IonPage, IonButton, IonHeader, IonTitle, IonContent, IonItem } from "@ionic/react";
+import { IonPage, IonContent } from "@ionic/react";
 import FormRegister from "../components/FormRegister";
+import Header from "../components/Header";
 
 const Register: React.FC = () => {
+    const headerButtons = [
+        { label: 'Inicio', routerLink: '/welcome' },
+        { label: 'Iniciar Sesión', routerLink: '/login'},
+      ];
     return (
         <IonPage>
-            <IonHeader>
-                <IonItem lines="none" className="flex items-stretch">
-                    <IonTitle>SignIn</IonTitle>
-                    <IonButton routerLink="/welcome">welcome</IonButton>
-                    <IonButton routerLink="/login">login</IonButton>
-                </IonItem>
-            </IonHeader>
+            <Header buttons={headerButtons} activeSidebar={false} />
             <IonContent>
                 <FormRegister />
             </IonContent>
