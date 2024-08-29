@@ -6,7 +6,7 @@ import LogIn from './pages/LogIn';
 import MenuAndNav from './pages/MenuAndNav';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
-
+import UserList from './pages/UserList';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -36,6 +36,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './input.css'
 import './theme/variables.css';
 
+
 setupIonicReact();
 
 const setPage = () => {
@@ -58,6 +59,7 @@ const App: React.FC = () => (
       <Route exact path="/login" component={LogIn} />
       <Route exact path="/signin" component={SignIn} />
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
+      <Route exact path="/user/view-participants" component={UserList} />
     </IonReactRouter>
   </IonApp>
 );

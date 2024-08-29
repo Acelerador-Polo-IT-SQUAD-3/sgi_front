@@ -6,6 +6,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import { useHistory } from 'react-router-dom';
 import MenuDisplay from "../components/MenuDisplay";
+import UserList from "./UserList";
 
 const MenuAndNav: React.FC = () => {
 
@@ -36,6 +37,9 @@ const MenuAndNav: React.FC = () => {
                             </Route>
                             <Route path="/user/:name" exact={true}>
                                 <MenuDisplay />
+                            </Route>
+                            <Route path="/user/view-participants" exact={true}>
+                                <UserList />
                             </Route>
                         </IonRouterOutlet>
                     </IonSplitPane>
