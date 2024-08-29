@@ -1,13 +1,15 @@
+
 //Dentro del perfil, una vez que el usuario haya logeado
-
-import { IonButton, IonContent, IonHeader, IonPage } from '@ionic/react';
-import './Home.css';
-import Carousel from '../components/Carousel';
-import React from "react";
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import Carousel from '../components/Carousel';
+import { IonContent } from '@ionic/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
+  const history = useHistory();
+
 
   const history = useHistory();
   const handleUser = sessionStorage.getItem('user')
@@ -26,36 +28,22 @@ const Home: React.FC = () => {
     history.push('/login');
   };
 
-  return (
-    <IonPage>
-      <IonHeader>
-        <section className='flex items-center justify-between'>
-          <div className='flex items-center'>
-            <ul >
-              <li className='ion-padding text-xs h-8'> ID:  {user.id}</li>
-              <li className='ion-padding text-xs h-8'> Nombre: {user.name}</li>
-            </ul>
-            <ul>
-              <li className='ion-padding text-xs h-8'> Apellido: {user.surname}</li>
-              <li className='ion-padding text-xs h-8'> DNI: {user.dni}<br /></li>
-            </ul>
-            <ul>
-              <li className='ion-padding text-xs h-8'> Descripción: {user.description}</li>
-              <li className='ion-padding text-xs h-8'> Email: {user.email}</li>
-            </ul>
-          </div>
-          <div className='ion-padding'>
-            <IonButton routerLink="/menu-and-nav">Profile</IonButton>
-            <IonButton onClick={handleLogout}>Log Out</IonButton>
-          </div>
-        </section>
-      </IonHeader>
 
-      <IonContent fullscreen>
-        <Carousel />
-      </IonContent>
-    </IonPage>
+  const headerButtons = [
+    { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
+    { label: 'Logout', onClick: handleLogout },
+  ];
+
+  return (
+    <>
+      <Header buttons={headerButtons} activeSidebar={true}/>
+      <IonContent>
+        <Carousel/>
+      </IonContent>   
+      <Footer/>
+    </>
   );
 };
 
 export default Home;
+

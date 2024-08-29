@@ -6,7 +6,7 @@ import LogIn from './pages/LogIn';
 import MenuAndNav from './pages/MenuAndNav';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
-
+import UserList from './pages/UserList';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -35,6 +35,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './input.css'
 import './theme/variables.css';
+
 
 setupIonicReact();
 

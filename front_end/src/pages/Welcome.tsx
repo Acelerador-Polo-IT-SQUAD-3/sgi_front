@@ -1,17 +1,18 @@
 //Pagina que muestra informacion a traves de fotos, contiene los vectores que enrutan hacia register y login
 
-import { IonPage, IonHeader, IonTitle, IonButton, IonContent } from "@ionic/react";
+import { IonPage,IonContent } from "@ionic/react";
 import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Welcome: React.FC = () => {
+  const headerButtons = [
+    { label: 'Iniciar Sesión', routerLink: '/login' },
+    { label: 'Registrarse', routerLink: '/signin'},
+  ];
   return (
     <IonPage>
-      <IonHeader className=" bg-transparent flex items-stretch">
-        <IonTitle>Polo IT</IonTitle>
-        <IonButton className="h-8" fill="outline" routerLink='/login'>Iniciar Sesión</IonButton>
-        <IonButton className="h-8 mr-5" routerLink='/signin'>Registrarse</IonButton>
-      </IonHeader>
+      <Header buttons={headerButtons} activeSidebar={false}/>
       <IonContent className="absolute top-0 left-0" fullscreen >
         <Carousel />
       </IonContent>
