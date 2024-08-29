@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 const MenuDisplay: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
-
+  console.log(name)
   return (
     <IonPage>
       <IonHeader>

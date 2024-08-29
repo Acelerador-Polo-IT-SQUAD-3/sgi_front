@@ -1,6 +1,4 @@
 import {
-  IonContent,
-  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -9,76 +7,39 @@ import {
   IonMenuToggle,
   IonNote,
 } from '@ionic/react';
-
+import appPages from '../services/appPages';
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 
-interface AppPage {
-  url: string;
-  iosIcon: string;
-  mdIcon: string;
-  title: string;
-}
-
-const appPages: AppPage[] = [
-  {
-    title: 'Inbox',
-    url: '/folder/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
-  },
-  {
-    title: 'Outbox',
-    url: '/folder/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
-  },
-  {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
-  },
-  {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
-  }
-];
+const getUserPages = (role: string) => {
+  return appPages.filter(page => page.roles.includes(role));
+};
 
 const SideMenu: React.FC = () => {
   const location = useLocation();
-
+  const userRole = 'mentor';
+  const userPages = getUserPages(userRole || 'mentee');
+ 
   return (
-      <IonMenu contentId="main" type="overlay" >
-        <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
-          {appPages.map((appPage, index) => {
-            return (
-              <IonMenuToggle key={index} autoHide={false} >
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-            );
-          })}
-        </IonList>
-      </IonMenu>
+    <IonMenu contentId="main" type="overlay">
+      <IonList id="inbox-list" className='h-full'>
+        <IonListHeader>Bienvenido</IonListHeader>
+        <IonNote>{/*Nombre del usuario*/}</IonNote>
+        {userPages.map((appPage, index) => (
+          <IonMenuToggle key={index} autoHide={false}>
+            <IonItem 
+              className={location.pathname === appPage.url ? 'selected' : ''} 
+              routerLink={appPage.url} 
+              routerDirection="none" 
+              lines="none" 
+              detail={false}
+            >
+              <IonLabel>{appPage.title}</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+        ))}
+
+      </IonList>
+    </IonMenu>
   );
 };
 

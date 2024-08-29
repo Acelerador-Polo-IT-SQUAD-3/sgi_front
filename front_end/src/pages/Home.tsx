@@ -1,67 +1,44 @@
-//Dentro del perfil, una vez que el usuario haya logeado
-
-import { IonButton, IonContent, IonFooter, IonHeader, IonItem, IonPage, IonTitle } from '@ionic/react';
-import './Home.css';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Carousel from '../components/Carousel';
-import React, { useEffect, useState } from "react";
-import { fetchUsers, User } from "../services/api";
-import { useLocation } from 'react-router-dom';
-
-interface LocationState {
-  userData?: User;
-}
+import { IonContent } from '@ionic/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
+  const history = useHistory();
 
-
-  const [users, setUsers] = useState<User[]>([]);
-  const location = useLocation<LocationState>();
   useEffect(() => {
-    const getUsers = async () => {
-      const usersData = await fetchUsers();
-      setUsers(usersData);
-    };
+    const handleUser = sessionStorage.getItem('user');
+    const user = handleUser ? JSON.parse(handleUser) : null;
 
-    getUsers();
-  }, []);
+    if (!user) {
+      history.push('/login');
+    }
+  }, [history]);
 
-  const user = location.state;
-  console.log(user.userData);
+  const handleLogout = () => {
+    console.log(sessionStorage.getItem('user'));
+    sessionStorage.removeItem('user');
+    console.log(sessionStorage.getItem('user'));
+    history.push('/login');
+  };
+
+  const headerButtons = [
+    { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
+    { label: 'Logout', onClick: handleLogout },
+  ];
 
   return (
-    <IonPage>
-      <IonHeader className='flex justify-between'>
-        <div>
-          <IonTitle>Home</IonTitle>
-          <IonButton routerLink="/welcome">Welcome</IonButton>
-          <IonButton routerLink="/login">login</IonButton>
-          <IonButton routerLink="/signin">signin</IonButton>
-          <IonButton routerLink="/menu-and-nav">menu-and-nav</IonButton>
-        </div>
-        <div className='flex justify-between' key={user.userData?.id}>
-            <div>
-              <strong>ID:</strong> {user.userData?.id} <br/>
-              <strong>Nombre:</strong> {user.userData?.name}<br/>
-              <strong>Apellido:</strong> {user.userData?.surname}
-            </div> 
-            <div>
-              <strong>DNI:</strong> {user.userData?.dni}<br/>
-              <strong>Descripción:</strong> {user.userData?.description}<br/>
-              <strong>Email:</strong> {user.userData?.email}
-            </div>
-        </div>
-      </IonHeader>
-      <IonContent fullscreen>
-      </IonContent>
-      <IonFooter>
-        <IonItem lines='none'>
-          <IonButton>admin</IonButton>
-          <IonButton>mentor</IonButton>
-          <IonButton>mentee</IonButton>
-        </IonItem>
-      </IonFooter>
-    </IonPage>
+    <>
+      <Header buttons={headerButtons} activeSidebar={true}/>
+      <IonContent>
+        <Carousel/>
+      </IonContent>   
+      <Footer/>
+    </>
   );
 };
 
 export default Home;
+

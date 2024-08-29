@@ -1,4 +1,4 @@
-import { IonInput, IonItem, IonLabel, IonButton } from "@ionic/react";
+import { IonInput, IonItem, IonLabel, IonButton, IonCard } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -10,6 +10,7 @@ const Form: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [isFormValid, setIsFormValid] = useState(false);
     const history = useHistory();
+
     useEffect(() => {
         setIsFormValid(username !== '' && password !== '');
     }, [username, password]);
@@ -30,13 +31,9 @@ const Form: React.FC = () => {
             }
 
             const data = await response.json();
-            console.log('Login successful:', data.user);
+            sessionStorage.setItem('user', JSON.stringify(data.user));
             //redirigir al usuario a otra página
-            const userData = data.user
-            history.push({
-                pathname: '/home',
-                state : {userData}
-            });
+            history.push('/home');
         } catch (error) {
             console.error('Error logging in:', error);
             setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
@@ -44,39 +41,42 @@ const Form: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2">
-            <IonItem lines="none" className="ion-padding">
-                <Avatar></Avatar>
-            </IonItem>
-            <IonItem lines="full">
-                <IonInput
-                    labelPlacement="floating"
-                    label="Correo electrónico"
-                    placeholder="example@mail.com"
-                    value={username}
-                    onIonChange={(e) => setUsername(e.detail.value!)} />
-            </IonItem>
-            <IonItem lines="full">
-                <IonInput
-                    labelPlacement="floating"
-                    label="Contraseña"
-                    placeholder="********"
-                    type="password"
-                    value={password}
-                    onIonChange={(e) => setPassword(e.detail.value!)} />
-            </IonItem>
-            <IonItem lines="full" className="ion-padding items-center">
-                <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
-            </IonItem>
-            {error && <IonLabel color="danger">{error}</IonLabel>}
-            <IonLabel>
-                ¿Todavía no tienes cuenta?{' '}
-                <a href="/signin">Regístrate!</a>
-            </IonLabel>
-            <IonLabel>
-                ¿Olvidaste tu contraseña?{' '}
-                <a href="/reset-passwd">Recuperar cuenta.</a>
-            </IonLabel>
+        <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
+            <IonCard className="flex flex-col justify-center items-center ion-padding">
+                <IonItem lines="none"  className="flex item-center">
+                    <Avatar className="ion-margin"></Avatar>
+                </IonItem>
+                <IonItem lines="full">
+                    <IonInput
+                        labelPlacement="floating"
+                        label="Correo electrónico"
+                        placeholder="example@mail.com"
+                        value={username}
+                        onIonChange={(e) => setUsername(e.detail.value!)} />
+                </IonItem>
+                <IonItem lines="full">
+                    <IonInput
+                        labelPlacement="floating"
+                        label="Contraseña"
+                        placeholder="********"
+                        type="password"
+                        value={password}
+                        onIonChange={(e) => setPassword(e.detail.value!)} />
+                </IonItem>
+                <IonItem lines="full" className="items-center">
+                    <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
+                </IonItem>
+                {error && <IonLabel color="danger">{error}</IonLabel>}
+                <IonLabel className="ion-margin">
+                    ¿Todavía no tienes cuenta?{' '}
+                    <a href="/signin">Regístrate!</a>
+                </IonLabel>
+                <IonLabel className="ion-margin">
+                    ¿Olvidaste tu contraseña?{' '}
+                    <a href="/reset-passwd">Recuperar cuenta.</a>
+                </IonLabel>
+            </IonCard>
+
         </form>
     );
 };
