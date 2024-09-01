@@ -1,3 +1,6 @@
+
+//Conecta un usuario a la base de datos
+
 import {IonPage, IonContent} from "@ionic/react";
 import React from 'react';
 import Form from "../components/Form";
@@ -10,6 +13,7 @@ const Login: React.FC = () => {
       ];
     return (
         <IonPage>
+
             <Header buttons={headerButtons} activeSidebar={false} />
             <IonContent >
                 <Form />

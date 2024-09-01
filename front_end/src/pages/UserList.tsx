@@ -32,14 +32,12 @@ const UserList: React.FC = () => {
         // Implementar lógica para agregar un nuevo participante
       };
   return (
-    <IonPage className="h-full flex justify-center ">
        <IonContent>
             <section className="h-full flex flex-col justify-center">
                 <SearchFilters onSearch={handleSearch} onAddParticipant={handleAddParticipant} />
                 <ParticipantTable participants={participants} onEdit={handleEdit} onDelete={handleDelete} />  
             </section>      
        </IonContent>
-    </IonPage> 
   )
 }
 

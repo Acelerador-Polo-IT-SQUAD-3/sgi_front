@@ -16,7 +16,7 @@ const getUserPages = (role: string) => {
 
 const SideMenu: React.FC = () => {
   const location = useLocation();
-  const userRole = 'mentor';
+  const userRole = 'admin';
   const userPages = getUserPages(userRole || 'mentee');
  
   return (
