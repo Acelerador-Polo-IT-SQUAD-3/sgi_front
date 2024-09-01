@@ -9,9 +9,6 @@ import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   const history = useHistory();
-
-
-  const history = useHistory();
   const handleUser = sessionStorage.getItem('user')
   const user = handleUser ? JSON.parse(handleUser) : null;
 

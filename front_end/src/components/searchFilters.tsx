@@ -21,7 +21,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
       <section className="px-10 mb-4">
         <IonTitle className='p-0 mb-4'>Filtros de busqueda</IonTitle>
         <IonList className="bg-transparent flex justify-between">
-          <IonItem className="rounded-md">
+          <IonItem lines='none' className="rounded-md">
             <IonSelect
               aria-label="Rol"
               placeholder="Rol"
@@ -37,7 +37,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
               <IonSelectOption value="bananas">Bananas</IonSelectOption>
             </IonSelect>
           </IonItem>
-          <IonItem className="rounded-md">
+          <IonItem lines='none' className="rounded-md">
             <IonSelect
               aria-label="Curso/Proyecto"
               placeholder="Curso/Proyecto"
@@ -53,7 +53,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
               <IonSelectOption value="bananas">Bananas</IonSelectOption>
             </IonSelect>
           </IonItem>
-          <IonItem className="rounded-md">
+          <IonItem lines='none'  className="rounded-md">
             <IonSelect
               aria-label="Tecnología"
               placeholder="Tecnología"

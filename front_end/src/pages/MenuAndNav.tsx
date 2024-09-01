@@ -6,7 +6,6 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import { useHistory } from 'react-router-dom';
 import MenuDisplay from "../components/MenuDisplay";
-import UserList from "./UserList";
 
 const MenuAndNav: React.FC = () => {
 

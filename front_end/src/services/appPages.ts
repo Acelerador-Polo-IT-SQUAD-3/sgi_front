@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import UserList from '../pages/UserList';
 
 interface AppPage {
     title: string;
     url: string;
-    roles: string[];// Agregamos roles para definir qué rol puede acceder a cada página
-    component : ReactNode; 
+    roles: string[];
+    component: React.FC;
   }
   
   const appPages: AppPage[] = [
@@ -12,15 +12,21 @@ interface AppPage {
       title: 'Manage Users',
       url: '/user/manage-users',
       roles: ['admin'],
-      component: '',
+      component: UserList,
     },
     {
+      title: 'View Participants',
+      url: '/user/view-participants',
+      roles: ['mentor','admin'],
+      component: UserList ,
+
+
+    },
+    /*{
       title: 'Create Work Groups',
       url: '/user/create-groups',
       roles: ['admin'],
       component: '',
-
-
     },
     {
       title: 'View Projects',
@@ -47,14 +53,6 @@ interface AppPage {
 
     },
     {
-      title: 'View Participants',
-      url: '/user/view-participants',
-      roles: ['mentor'],
-      component: '',
-
-
-    },
-    {
       title: 'My Projects',
       url: '/user/my-projects',
       roles: ['mentee'],
@@ -67,7 +65,7 @@ interface AppPage {
       url: '/user/new-projects',
       roles: ['Admin'],
       component: '',
-    }
+    }*/
   ];
   
   export default appPages;
