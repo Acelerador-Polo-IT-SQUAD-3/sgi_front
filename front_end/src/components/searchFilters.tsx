@@ -18,7 +18,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
   };
 
   return (
-      <section className="px-10 mb-4">
+      <section className="px-2 mt-4 md:px-10 mb-4">
         <IonTitle className='p-0 mb-4'>Filtros de busqueda</IonTitle>
         <IonList className="bg-transparent flex justify-between">
           <IonItem lines='none' className="rounded-md">
