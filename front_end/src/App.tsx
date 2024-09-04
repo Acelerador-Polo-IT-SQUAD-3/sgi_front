@@ -53,7 +53,7 @@ const setPage = () => {
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      {/*setPage()     <<<<===================     Cuando se haga el deploy del frontend descomentar esta linea esa linea*/}
+      {setPage()}
       <Route exact path="/home" component={Home} />
       <Route exact path="/welcome" component={Welcome} />
       <Route exact path="/login" component={LogIn} />
