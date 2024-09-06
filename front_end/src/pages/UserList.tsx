@@ -4,12 +4,15 @@ import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
 import EditModal from "../components/EditModal";
 
-interface Participant {
+export interface Participant {
   id: number;
   name: string;
   surname: string;
   email: string;
   company: string;
+  dni?: string;
+  description?: string;
+  password?: string;
 }
 
 const UserList: React.FC = () => {
@@ -109,6 +112,7 @@ const UserList: React.FC = () => {
 }
 
 export default UserList;
+
 
 
 

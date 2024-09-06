@@ -1,13 +1,7 @@
 import React from 'react';
 import { IonButton, IonList, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { Participant } from '../pages/UserList';
 
-export interface Participant {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  company: string;
-}
 
 interface ParticipantTableProps {
   participants: Participant[];
