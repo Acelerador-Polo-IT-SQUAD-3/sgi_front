@@ -1,44 +1,118 @@
-import { IonContent,IonPage} from "@ionic/react"
-import SearchFilters from "../components/searchFilters"
-import { useState } from "react";
+import { IonContent, IonPage } from "@ionic/react";
+import SearchFilters from "../components/searchFilters";
+import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
+import EditModal from "../components/EditModal";
 
-const UserList: React.FC = () => {
-  const [participants, setParticipants] = useState([
-    { name: 'Juan', surname: 'Pérez', email: 'juan@example.com', company: 'company A' },
-    { name: 'María', surname: 'García', email: 'maria@example.com', company: 'company B' },
-    { name: 'Carlos', surname: 'Rodríguez', email: 'carlos@example.com', company: 'company C' },
-    { name: 'Ana', surname: 'López', email: 'ana@example.com', company: 'company D' },
-    ]);
-
-    
-      const handleEdit = (participant: any) => {
-        console.log('Edit participant:', participant);
-        // Implementar lógica de edición
-      };
-    
-      const handleDelete = (participant: any) => {
-        console.log('Delete participant:', participant);
-        setParticipants(participants.filter(p => p !== participant));
-      };
-    
-      const handleSearch = (filters: any) => {
-        console.log('Search filters:', filters);
-        // Implementar lógica de filtrado
-      };
-    
-      const handleAddParticipant = () => {
-        console.log('Add new participant');
-        // Implementar lógica para agregar un nuevo participante
-      };
-  return (
-       <IonContent>
-            <section className="h-full flex flex-col justify-center">
-                <SearchFilters onSearch={handleSearch} onAddParticipant={handleAddParticipant} />
-                <ParticipantTable participants={participants} onEdit={handleEdit} onDelete={handleDelete} />  
-            </section>      
-       </IonContent>
-  )
+export interface Participant {
+  id: number;
+  name: string;
+  surname: string;
+  email: string;
+  company: string;
+  dni?: string;
+  description?: string;
+  password?: string;
 }
 
-export default UserList
+const UserList: React.FC = () => {
+  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/user/');
+        const data = await response.json();
+
+        const updatedParticipants = data.map((user: any, index: number) => ({
+          ...user,
+          company: `Company ${index + 1}`
+        }));
+
+        setParticipants(updatedParticipants);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleEdit = (participant: Participant) => {
+    setEditingParticipant(participant);
+  };
+
+  const handleDelete = async (participant: Participant) => {
+    try {
+      const response = await fetch(`http://localhost:3000/user/${participant.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        setParticipants(participants.filter(p => p.id !== participant.id));
+      } else {
+        console.error('Error deleting participant:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting participant:', error);
+    }
+  };
+
+  const handleSave = async (updatedParticipant: Participant) => {
+    try {
+      const response = await fetch(`http://localhost:3000/user/${updatedParticipant.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedParticipant)
+      });
+
+      if (response.ok) {
+        setParticipants(participants.map(p => p.id === updatedParticipant.id ? updatedParticipant : p));
+      } else {
+        console.error('Error updating participant:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating participant:', error);
+    }
+  };
+
+  const handleSearch = (filters: any) => {
+    console.log('Search filters:', filters);
+    // Implementar lógica de filtrado
+  };
+
+  const handleAddParticipant = () => {
+    console.log('Add new participant');
+    // Implementar lógica para agregar un nuevo participante
+  };
+
+  const handleCloseModal = () => {
+    setEditingParticipant(null);
+  };
+
+  return (
+    <IonContent>
+      <section className="h-full flex flex-col">
+        <SearchFilters onSearch={handleSearch} onAddParticipant={handleAddParticipant} />
+        <ParticipantTable participants={participants} onEdit={handleEdit} onDelete={handleDelete} />
+      </section>
+      {editingParticipant && (
+        <EditModal
+          participant={editingParticipant}
+          isOpen={true}
+          onClose={handleCloseModal}
+          onSave={handleSave}
+        />
+      )}
+    </IonContent>
+  );
+}
+
+export default UserList;
+
+
+
+
