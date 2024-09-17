@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonList, IonSelect, IonSelectOption, IonTitle } from '@ionic/react';
+import { IonItem, IonList, IonSelect, IonSelectOption, IonTitle, IonButton } from '@ionic/react';
 import { Button } from '@mui/material';
 
 interface SearchFiltersProps {
@@ -72,7 +72,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
           <Button variant="contained" onClick={handleSearch}>Buscar</Button>
         </IonList>
       <div className='mt-4'>
-        <Button variant="contained" onClick={onAddParticipant}>Nuevo Participante</Button>
+        <IonButton routerLink='/profile/new-user' onClick={onAddParticipant}>Nuevo Participante</IonButton>
       </div>  
       </section>
   );

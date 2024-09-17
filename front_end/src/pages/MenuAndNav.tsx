@@ -1,6 +1,6 @@
 //Menu dentro del perfil del usuario, contiene un sidemenu
 
-import { IonPage, IonButton, IonHeader, IonTitle, IonContent, IonSplitPane, IonRouterOutlet, IonItem } from "@ionic/react";
+import { IonButton, IonHeader, IonTitle, IonContent, IonSplitPane, IonRouterOutlet, IonItem, IonPage } from "@ionic/react";
 import SideMenu from "../components/SideMenu";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
@@ -32,9 +32,9 @@ const MenuAndNav: React.FC = () => {
                         <SideMenu />
                         <IonRouterOutlet id="main">
                             <Route path="/" exact={true}>
-                                <Redirect to="/folder/Inbox" />
+                                <Redirect to="/profile" />
                             </Route>
-                            <Route path="/user/:name" exact={true}>
+                            <Route path="/profile/:name" exact={true}>
                                 <MenuDisplay />
                             </Route>
 

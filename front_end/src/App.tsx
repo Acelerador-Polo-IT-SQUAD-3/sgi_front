@@ -6,7 +6,6 @@ import LogIn from './pages/LogIn';
 import MenuAndNav from './pages/MenuAndNav';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
-import UserList from './pages/UserList';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -42,18 +41,18 @@ setupIonicReact();
 const setPage = () => {
   const handleUser = sessionStorage.getItem('user');
   return handleUser
-        ? <Route path="/">
-            <Redirect to="/home" />
-          </Route>
-        : <Route path="/">
-            <Redirect to="/welcome" />
-          </Route>;
+    ? <Route path="/">
+      <Redirect to="/home" />
+    </Route>
+    : <Route path="/">
+      <Redirect to="/welcome" />
+    </Route>;
 }
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      {/*setPage()     <<<<===================     Cuando se haga el deploy del frontend descomentar esta linea esa linea*/}
+      {setPage()}
       <Route exact path="/home" component={Home} />
       <Route exact path="/welcome" component={Welcome} />
       <Route exact path="/login" component={LogIn} />
