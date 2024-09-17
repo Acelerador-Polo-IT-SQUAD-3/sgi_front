@@ -12,32 +12,29 @@ export interface Participant {
   company: string;
   dni?: string;
   description?: string;
-  password?: string;
+  // password?: string;
 }
 
 const UserList: React.FC = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
+  const [filters, setFilters] = useState<{ role_id?: string; program_id?: string; technology_id?: string }>({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/user/');
+        const queryParams = new URLSearchParams(filters).toString();
+        const response = await fetch(`http://localhost:3000/user/?${queryParams}`);
         const data = await response.json();
 
-        const updatedParticipants = data.map((user: any, index: number) => ({
-          ...user,
-          company: `Company ${index + 1}`
-        }));
-
-        setParticipants(updatedParticipants);
+        setParticipants(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [filters]);
 
   const handleEdit = (participant: Participant) => {
     setEditingParticipant(participant);
@@ -45,8 +42,8 @@ const UserList: React.FC = () => {
 
   const handleDelete = async (participant: Participant) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/${participant.id}`, {
-        method: 'DELETE'
+      const response = await fetch(`http://localhost:3000/user/del/${participant.id}`, {
+        method: 'PATCH'
       });
 
       if (response.ok) {
@@ -79,9 +76,8 @@ const UserList: React.FC = () => {
     }
   };
 
-  const handleSearch = (filters: any) => {
-    console.log('Search filters:', filters);
-    // Implementar lógica de filtrado
+  const handleSearch = (filters: { role_id?: string; program_id?: string; technology_id?: string }) => {
+    setFilters(filters);
   };
 
   const handleAddParticipant = () => {
@@ -112,6 +108,7 @@ const UserList: React.FC = () => {
 }
 
 export default UserList;
+
 
 
 

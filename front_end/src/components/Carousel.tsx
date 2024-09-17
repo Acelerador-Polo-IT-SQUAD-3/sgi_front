@@ -17,7 +17,7 @@ export const Carousel = () => {
     ];
 
     return (
-        <section className='h-[100%] flex justify-center items-center'>
+        <section className='h-[80%] flex justify-center items-center '>
             <Swiper
             modules={[Pagination,Navigation,Scrollbar,A11y,Autoplay]}
             slidesPerView={1}
@@ -25,7 +25,7 @@ export const Carousel = () => {
             autoplay
             navigation={true}
             loop={true}
-            className=' md:h-[95%] md:w-[55%]'
+            className=' md:h-[75.5%] md:w-[100%]'
         >
             
             {slides.map((slide, index) => (

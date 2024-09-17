@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonButton, IonHeader, IonTitle } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonTitle } from '@ionic/react';
 import Sidebar from './Sidebar';
 
 interface HeaderButton {
@@ -19,9 +19,10 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
       {activeSidebar ? (
         <>
           <Sidebar />
-          <div className='flex justify-end items-end h-12 pr-2'>
+          <div className='flex justify-end items-center h-16 pr-8'>
             {buttons.map((button, index) => (
               <IonButton
+                className='!text-white'
                 key={index}
                 onClick={button.onClick}
                 routerLink={button.routerLink}
@@ -32,11 +33,12 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
           </div>
         </>
       ) : (
-        <IonHeader className='flex justify-end items-end h-12 pr-2'>
+        <IonHeader className='flex justify-end items-center h-16 pr-8'>
           <IonTitle>Polo IT</IonTitle>
           <div>
             {buttons.map((button, index) => (
               <IonButton
+                className='!text-white'
                 key={index}
                 onClick={button.onClick}
                 routerLink={button.routerLink}
