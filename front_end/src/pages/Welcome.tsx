@@ -11,12 +11,28 @@ const Welcome: React.FC = () => {
     { label: 'Registrarse', routerLink: '/signin'},
   ];
   return (
-    <IonPage>
+    <IonPage color="tertiary">
       <Header buttons={headerButtons} activeSidebar={false}/>
-      <IonContent className="absolute top-0 left-0" fullscreen >
-        <Carousel />
-      </IonContent>
-      <Footer />
+        <IonContent className="absolute top-0 left-0 " fullscreen >
+          <Carousel /> 
+          <section className="p-10 bg-gray-300">
+            <div className="flex flex-col md:flex-row justify-around gap-8 md:gap-2 text-black">
+              <div className="md:w-64 h-80 bg-white rounded-md">
+                <p className="text-center">Ingresá a tu perfil</p>
+              </div>
+              <div className="md:w-64 h-80 bg-white rounded-md">
+                <p className="text-center">Cursos</p>
+              </div>
+              <div  className="md:w-64 h-80 bg-white rounded-md">
+                <p className="text-center">Lorem</p>
+              </div>
+              <div  className="md:w-64 h-80 bg-white rounded-md">
+                <p className="text-center">Lorem</p>
+              </div>
+            </div>
+          </section>
+        </IonContent>
+        <Footer />        
     </IonPage >
   );
 };

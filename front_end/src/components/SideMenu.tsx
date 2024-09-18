@@ -21,14 +21,14 @@ const SideMenu: React.FC = () => {
  
   return (
     <IonMenu contentId="main" type="overlay">
-      <IonList id="inbox-list" className='h-full'>
-        <IonListHeader>Bienvenido</IonListHeader>
+      <IonList id="inbox-list" className='h-full bg-gray-200'>
         <IonNote>{/*Nombre del usuario*/}</IonNote>
         {userPages.map((appPage, index) => (
           <IonMenuToggle key={index} autoHide={false}>
             <IonItem 
               className={location.pathname === appPage.url ? 'selected' : ''} 
               routerLink={appPage.url} 
+              color={'transparent'}
               routerDirection="none" 
               lines="none" 
               detail={false}

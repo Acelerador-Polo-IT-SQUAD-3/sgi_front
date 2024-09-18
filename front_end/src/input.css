@@ -7,4 +7,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
+.toolbar-background{
+    background: white !important;
+}

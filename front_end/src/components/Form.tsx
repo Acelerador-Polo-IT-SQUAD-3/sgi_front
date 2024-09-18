@@ -1,4 +1,4 @@
-import { IonInput, IonItem, IonLabel, IonButton, IonCard } from "@ionic/react";
+import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonTitle, IonRouterLink } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -42,40 +42,44 @@ const Form: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
-            <IonCard className="flex flex-col justify-center items-center ion-padding">
-                <IonItem lines="none"  className="flex item-center">
+            <div className="flex flex-col justify-center items-center ion-padding bg-gray-200 rounded-md">
+                <IonItem lines="none"  className="flex item-center"color={"transparent"}>
                     <Avatar className="ion-margin"></Avatar>
                 </IonItem>
-                <IonItem lines="full">
+                <IonItem lines="full"color={"transparent"}>
                     <IonInput
                         labelPlacement="floating"
                         label="Correo electrónico"
                         placeholder="example@mail.com"
                         value={username}
+                        required
+                        minlength={4}
                         onIonChange={(e) => setUsername(e.detail.value!)} />
                 </IonItem>
-                <IonItem lines="full">
+                <IonItem lines="full"color={"transparent"} className="!border-none !border-b-0">
                     <IonInput
                         labelPlacement="floating"
                         label="Contraseña"
                         placeholder="********"
                         type="password"
                         value={password}
+                        required
+                        minlength={4}
                         onIonChange={(e) => setPassword(e.detail.value!)} />
                 </IonItem>
-                <IonItem lines="full" className="items-center">
+                <IonItem lines="full" className="items-center"color={"transparent"} >
                     <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
                 </IonItem>
                 {error && <IonLabel color="danger">{error}</IonLabel>}
                 <IonLabel className="ion-margin">
                     ¿Todavía no tienes cuenta?{' '}
-                    <a href="/signin">Regístrate!</a>
+                    <IonRouterLink routerLink="/signin">Regístrate!</IonRouterLink>
                 </IonLabel>
                 <IonLabel className="ion-margin">
                     ¿Olvidaste tu contraseña?{' '}
-                    <a href="/reset-passwd">Recuperar cuenta.</a>
+                    <IonRouterLink routerLink="/reset-passwd">Recuperar cuenta.</IonRouterLink>
                 </IonLabel>
-            </IonCard>
+            </div>
 
         </form>
     );

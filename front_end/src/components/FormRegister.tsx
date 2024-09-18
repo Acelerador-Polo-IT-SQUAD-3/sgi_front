@@ -1,4 +1,4 @@
-import { IonInput, IonItem, IonLabel, IonButton  } from '@ionic/react';
+import { IonInput, IonItem, IonLabel, IonButton, IonRouterLink  } from '@ionic/react';
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
@@ -37,11 +37,11 @@ function FormRegister() {
     }
     return (
         <section className='flex flex-col justify-center items-center h-[100%]'>
-            <div className='bg-slate-800 rounded-md p-10'>
-                <h1 className='text-4xl mb-8'>Sign In</h1>
+            <div className='bg-gray-200 rounded-md p-10'>
+                <h1 className='text-3xl mb-8'>Crea tu Cuenta</h1>
                 <form onSubmit={handleSubmit} className=""  >
                     <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>              
-                        <IonItem lines="full" className='rounded-md'>
+                        <IonItem lines="full" className='rounded-md'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="Nombre"
@@ -51,7 +51,7 @@ function FormRegister() {
                                 minlength={3}
                                 onIonChange={(e) => setName(e.detail.value!)} />
                         </IonItem>
-                        <IonItem lines="full"className='rounded-md'>
+                        <IonItem lines="full"className='rounded-md'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="Apellido"
@@ -62,7 +62,7 @@ function FormRegister() {
                                 minlength={3}
                                 onIonChange={(e) => setLastName(e.detail.value!)} />
                         </IonItem>
-                        <IonItem lines="full" className='rounded-md'>
+                        <IonItem lines="full" className='rounded-md'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="DNI"
@@ -72,7 +72,7 @@ function FormRegister() {
                                 minlength={7}
                                 onIonChange={(e) => setDni(e.detail.value!)} />
                         </IonItem>
-                        <IonItem lines="full" className='rounded-md'>
+                        <IonItem lines="full" className='rounded-md'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="Descripción"
@@ -82,7 +82,7 @@ function FormRegister() {
                                 minlength={3}
                                 onIonChange={(e) => setDescription(e.detail.value!)} />
                         </IonItem>
-                        <IonItem lines="full"className='rounded-md border-1 border-black'>
+                        <IonItem lines="full"className='rounded-md border-1 border-black'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="Correo electrónico"
@@ -92,7 +92,7 @@ function FormRegister() {
                                 required
                                 onIonChange={(e) => setMail(e.detail.value!)} />
                         </IonItem>
-                        <IonItem lines="full"className='rounded-md'>
+                        <IonItem lines="full"className='rounded-md'color={"transparent"}>
                             <IonInput
                                 labelPlacement="floating"
                                 label="Contraseña"
@@ -108,7 +108,7 @@ function FormRegister() {
                         <IonButton className='w-40 text-white font-medium' type="submit">Login</IonButton>
                         <IonLabel>
                             ¿Ya tienes cuenta?{' '}
-                            <a href="/login">Iniciá Sesión!</a>
+                            <IonRouterLink routerLink="/login">Iniciá Sesión!</IonRouterLink>
                         </IonLabel>
                     </div>            
                 </form> 
