@@ -34,12 +34,11 @@ const SideMenu: React.FC = () => {
 
   const fetchMenus = async () => {
     try {
-      const response = await fetch('http://localhost:3000/menus', {
-        method: 'POST',  // Método POST para enviar el role_id
+      const response = await fetch(`http://localhost:3000/menus/${userRole}`, {
+        method: 'GET',  // Método POST para enviar el role_id
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userRole })  // Enviamos el role_id en el body
       });
 
       if (!response.ok) {
@@ -63,7 +62,6 @@ const SideMenu: React.FC = () => {
     fetchMenus();
   }, []);
 
-  console.log('los menues son: ' + menus);
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
