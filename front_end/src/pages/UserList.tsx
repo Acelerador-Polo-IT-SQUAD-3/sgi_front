@@ -23,16 +23,21 @@ const UserList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const queryParams = new URLSearchParams(filters).toString();
+        // Filtrar los parámetros undefined
+        const filteredParams = Object.fromEntries(
+          Object.entries(filters).filter(([key, value]) => value !== undefined)
+        );
+  
+        const queryParams = new URLSearchParams(filteredParams).toString();
         const response = await fetch(`http://localhost:3000/user/?${queryParams}`);
         const data = await response.json();
-
+  
         setParticipants(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData();
   }, [filters]);
 
