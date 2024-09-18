@@ -17,9 +17,15 @@ const MenuDisplay: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
-        <Component/>
-      </IonContent>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>{page.title}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <Component /> {/*<--Cualquier componente creado para este funcionamiento debe estar encerrado en un <IonContent className='ion-padding' ></IonContent> */}
     </IonPage>
   );
 };
