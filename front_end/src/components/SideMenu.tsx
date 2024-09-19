@@ -76,6 +76,7 @@ const SideMenu: React.FC = () => {
                 routerDirection="none"
                 lines="none"
                 detail={false}
+                color={"transparent"}
               >
                 <IonLabel>{appPage.title}</IonLabel>
               </IonItem>

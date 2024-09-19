@@ -79,7 +79,7 @@ const FormNewUser: React.FC = () => {
     return (
         <IonContent>
             <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center">
-                <IonItem lines="none">
+                <IonItem lines="none"color={"dark"}>
                     <IonGrid >
                         <IonRow>
                             <IonCol>
