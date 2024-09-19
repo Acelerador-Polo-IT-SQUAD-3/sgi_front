@@ -1,10 +1,10 @@
-import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonTitle, IonRouterLink } from "@ionic/react";
+import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent, IonRouterLink } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-const Form: React.FC = () => {
+const FormLogin: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -32,6 +32,7 @@ const Form: React.FC = () => {
 
             const data = await response.json();
             sessionStorage.setItem('user', JSON.stringify(data.user));
+            console.log(sessionStorage.getItem('user'));
             //redirigir al usuario a otra página
             history.push('/home');
         } catch (error) {
@@ -82,8 +83,9 @@ const Form: React.FC = () => {
             </div>
 
         </form>
+
     );
 };
 
-export default Form;
+export default FormLogin;
 

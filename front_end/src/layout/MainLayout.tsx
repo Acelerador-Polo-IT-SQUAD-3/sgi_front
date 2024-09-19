@@ -1,6 +1,5 @@
 import React from 'react';
-import { IonPage, IonContent } from '@ionic/react';
-import Sidebar from '../components/Sidebar';
+import { IonPage } from '@ionic/react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 

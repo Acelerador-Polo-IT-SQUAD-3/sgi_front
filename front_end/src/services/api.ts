@@ -10,7 +10,7 @@ export interface User {
 
 export const fetchUsers = async (): Promise<User[]> => {
     try {
-        const response = await fetch('http://localhost:3000/user');
+        const response = await fetch('http://localhost:3000/user/');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

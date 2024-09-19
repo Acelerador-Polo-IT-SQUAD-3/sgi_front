@@ -30,7 +30,8 @@ const Home: React.FC = () => {
     { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
     { label: 'Logout', onClick: handleLogout },
   ];
-
+  const userRole = sessionStorage.getItem('rol_id');
+  console.log(userRole);
   return (
     <>
       <Header buttons={headerButtons} activeSidebar={true}/>
