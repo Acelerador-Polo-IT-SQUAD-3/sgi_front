@@ -3,7 +3,6 @@ import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
 const FormLogin: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -32,7 +31,6 @@ const FormLogin: React.FC = () => {
 
             const data = await response.json();
             sessionStorage.setItem('user', JSON.stringify(data.user));
-            console.log(sessionStorage.getItem('user'));
             //redirigir al usuario a otra página
             history.push('/home');
         } catch (error) {
@@ -44,10 +42,10 @@ const FormLogin: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
             <div className="flex flex-col justify-center items-center ion-padding bg-gray-200 rounded-md">
-                <IonItem lines="none"  className="flex item-center"color={"transparent"}>
+                <IonItem lines="none" className="flex item-center" color={"transparent"}>
                     <Avatar className="ion-margin"></Avatar>
                 </IonItem>
-                <IonItem lines="full"color={"transparent"}>
+                <IonItem lines="full" color={"transparent"}>
                     <IonInput
                         labelPlacement="floating"
                         label="Correo electrónico"
@@ -57,7 +55,7 @@ const FormLogin: React.FC = () => {
                         minlength={4}
                         onIonChange={(e) => setUsername(e.detail.value!)} />
                 </IonItem>
-                <IonItem lines="full"color={"transparent"} className="!border-none !border-b-0">
+                <IonItem lines="full" color={"transparent"} className="!border-none !border-b-0">
                     <IonInput
                         labelPlacement="floating"
                         label="Contraseña"
@@ -68,7 +66,7 @@ const FormLogin: React.FC = () => {
                         minlength={4}
                         onIonChange={(e) => setPassword(e.detail.value!)} />
                 </IonItem>
-                <IonItem lines="full" className="items-center"color={"transparent"} >
+                <IonItem lines="full" className="items-center" color={"transparent"}>
                     <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
                 </IonItem>
                 {error && <IonLabel color="danger">{error}</IonLabel>}
@@ -81,9 +79,7 @@ const FormLogin: React.FC = () => {
                     <IonRouterLink routerLink="/reset-passwd">Recuperar cuenta.</IonRouterLink>
                 </IonLabel>
             </div>
-
         </form>
-
     );
 };
 

@@ -16,3 +16,6 @@
 .toolbar-background{
     background: #dddddd !important;
 }
+.alert-radio-label.sc-ion-alert-md{
+    color: black !important;
+}
