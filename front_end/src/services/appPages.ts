@@ -1,4 +1,5 @@
 import FormNewUser from '../components/FormNewUser';
+import TeamList from '../pages/TeamList';
 import UserList from '../pages/UserList';
 
 //Consulta a la base de datos para recibir un array de menus segun el rol del usuario.
@@ -30,6 +31,13 @@ const appPages: AppPage[] = [
     url:  '/profile/view-participants',
     description: '',
     component: UserList,
+  },
+  {
+    id: 2,
+    title: 'Asignación de equipos',
+    url:  '/profile/teams',
+    description: '',
+    component: TeamList,
   },
   /*
   {
