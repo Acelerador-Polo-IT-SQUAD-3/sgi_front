@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonToast } from "@ionic/react";
 import SearchFilters from "../components/searchFilters";
 import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
@@ -19,6 +19,7 @@ const UserList: React.FC = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
   const [filters, setFilters] = useState<{ role_id?: string; program_id?: string; technology_id?: string }>({});
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +74,7 @@ const UserList: React.FC = () => {
 
       if (response.ok) {
         setParticipants(participants.map(p => p.id === updatedParticipant.id ? updatedParticipant : p));
+        setIsOpen(true);
       } else {
         console.error('Error updating participant:', response.statusText);
       }
@@ -108,6 +110,14 @@ const UserList: React.FC = () => {
           onSave={handleSave}
         />
       )}
+      <IonToast
+          isOpen={isOpen}
+          message="Se ha modificado el participante correctamente"
+          onDidDismiss={() => setIsOpen(false)}
+          duration={3000}
+          color={"light"}
+          className='text-center'
+      ></IonToast>
     </IonContent>
   );
 }
