@@ -10,7 +10,8 @@ export interface User {
 
 export const fetchUsers = async (): Promise<User[]> => {
     try {
-        const response = await fetch('http://localhost:3000/user/');
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/user/`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

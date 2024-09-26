@@ -20,6 +20,7 @@ const UserList: React.FC = () => {
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
   const [filters, setFilters] = useState<{ role_id?: string; program_id?: string; technology_id?: string }>({});
   const [isOpen, setIsOpen] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +31,7 @@ const UserList: React.FC = () => {
         );
   
         const queryParams = new URLSearchParams(filteredParams).toString();
-        const response = await fetch(`http://localhost:3000/user/?${queryParams}`);
+        const response = await fetch(`${apiUrl}/user/?${queryParams}`);
         const data = await response.json();
   
         setParticipants(data);
@@ -48,7 +49,7 @@ const UserList: React.FC = () => {
 
   const handleDelete = async (participant: Participant) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/del/${participant.id}`, {
+      const response = await fetch(`${apiUrl}/user/del/${participant.id}`, {
         method: 'PATCH'
       });
 
@@ -64,7 +65,7 @@ const UserList: React.FC = () => {
 
   const handleSave = async (updatedParticipant: Participant) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/${updatedParticipant.id}`, {
+      const response = await fetch(`${apiUrl}/user/${updatedParticipant.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'

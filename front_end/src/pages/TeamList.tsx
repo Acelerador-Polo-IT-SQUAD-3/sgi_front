@@ -47,7 +47,8 @@ const TeamList: React.FC = () => {
     }
 
     try {
-      const response = await fetch('URL_DEL_BACKEND', {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/teams/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

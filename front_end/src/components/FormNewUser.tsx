@@ -19,11 +19,12 @@ const FormNewUser: React.FC = () => {
     const [rolId, setRolId] = useState('');
     const [roles, setRoles] = useState<Role[]>([]);
     const history = useHistory();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:3000/auth', {
+            const response = await fetch(`${apiUrl}/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ const FormNewUser: React.FC = () => {
     const fetchRoles = async () => {
         try {
             // Realizamos la solicitud GET
-            const response = await fetch('http://localhost:3000/roles', {
+            const response = await fetch(`${apiUrl}/roles`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
