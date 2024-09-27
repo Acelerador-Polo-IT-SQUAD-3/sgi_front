@@ -1,65 +1,73 @@
-import {
-  IonButton,
-  IonCol,
-  IonGrid,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonRow,
-  IonSelect,
-  IonSelectOption,
-  IonTitle,
-} from "@ionic/react";
+import {IonButton, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
 import React, { useState } from "react";
 import { Team } from "../pages/TeamList";
 
 interface TeamFilterProps {
   teams: Team[];
   onAddTeam: (team: Team) => void;
-  onSubmit: () => void;
+  onSubmit: (data: any) => void;
   onRemoveTeam: (id: number) => void;
 }
+const technologyMap: { [key: string]: number } = {
+  "Java": 1,
+  "UX/UI": 2,
+  "Node.js": 3
+};
 
 const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit }) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
   const [technology, setTechnology] = useState<string | undefined>(undefined);
-  const [maxTeams, setMaxTeams] = useState<string>("");
+  const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
   const [personCount, setPersonCount] = useState<string>("");
+  const [mentorTechnology, setMentorTechnology] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const handleApply = () => {
     if (technology && personCount) {
-      const isTechnologyExists = teams.some(team => team.name === technology);
+      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology);
       if (isTechnologyExists) {
         setError("La tecnología ya existe en la lista.");
         return;
       }
       const newTeam: Team = {
         id: teams.length + 1,
-        name: technology,
+        teamTechnologies: technology,
         cantPersonas: personCount,
+        mentorTechnologies: mentorTechnology.join(',')
       };
-      onAddTeam(newTeam);     
+      onAddTeam(newTeam);
       setTechnology(undefined);
       setPersonCount("");
       setError(null);
     }
   };
+
   const handleSubmit = () => {
-    if(program === undefined){
+    if (program === undefined) {
       return setError("Por favor, selecciona un programa.");
     }
-    if(maxTeams === ""){
-      return setError("Por favor, selecciona un maximo de equipos.");
+    if (maxTeams === undefined) {
+      return setError("Por favor, completa la cantidad máxima de equipos.");
     }
-    onSubmit();
+  
+    const data = {
+      id: Number(program),
+      cant_max_equipos: maxTeams,
+      conocimientos_por_equipo: {
+        ids_tecnologias: teams.map(team => technologyMap[team.teamTechnologies]),
+        cantidad_requerida: teams.map(team => Number(team.cantPersonas)),
+      },
+      conocimientos_por_mentor: mentorTechnology.map(tech => Number(tech))
+    };
+  
+    onSubmit(data);
     setError(null);
-  }
+  };
+  
 
   return (
     <section className="px-2 mt-4 md:px-10 mb-4">
-      <IonTitle className="p-0 mb-2">Filtros de busqueda</IonTitle>
+      <IonTitle className="p-0 mb-2">Filtros de búsqueda</IonTitle>
       <IonList className="bg-transparent flex justify-between items-center">
         <IonItem lines="none" className="rounded-md ml-1" color={"dark"}>
           <IonSelect
@@ -80,20 +88,27 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           </IonLabel>
           <IonInput
             value={maxTeams}
-            onIonChange={(e) => setMaxTeams(e.detail.value!)}
+            onIonChange={(e) => {
+              const value = e.detail.value;
+              if (value !== undefined && !isNaN(Number(value))) {
+                setMaxTeams(Number(value));
+              } else {
+                setMaxTeams(undefined);
+              }
+            }}
             className="bg-slate-100 rounded-md"
           />
         </IonItem>
       </IonList>
-        {error && (
-          <div className="text-center">
-            <IonLabel color="danger">{error}</IonLabel>            
-          </div>
-          )}      
+      {error && (
+        <div className="text-center">
+          <IonLabel color="danger">{error}</IonLabel>
+        </div>
+      )}
       <IonList className="bg-transparent">
         <IonGrid>
           <IonRow className="border rounded-sm border-gray-400">
-            <IonCol>Configuración</IonCol>
+            <IonCol>Configuración de Graduados</IonCol>
           </IonRow>
           <IonRow className="border rounded-sm border-gray-400">
             <IonCol className="flex items-center gap-4">
@@ -125,7 +140,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           {teams.map((team, index) => (
             <IonRow key={index} className="border rounded-sm border-gray-400">
               <IonCol>
-                <p>{team.name}</p>
+                <p>{team.teamTechnologies}</p>
               </IonCol>
               <IonCol className="flex justify-around">
                 <p>{team.cantPersonas}</p>
@@ -137,14 +152,33 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           ))}
         </IonGrid>
       </IonList>
+      <IonList className="bg-transparent">
+        <IonGrid>
+          <IonRow className="border rounded-sm border-gray-400">
+            <IonCol>Configuración de Mentores</IonCol>
+          </IonRow>
+          <IonRow className="border rounded-sm border-gray-400">
+            <IonCol>
+              <IonSelect
+                aria-label="Tecnologías de Mentores"
+                placeholder="Selecciona las tecnologías de mentores"
+                value={mentorTechnology}
+                onIonChange={(e) => setMentorTechnology(e.detail.value)}
+                multiple={true}
+              >
+                <IonSelectOption value="1">Java</IonSelectOption>
+                <IonSelectOption value="2">UX/UI</IonSelectOption>
+                <IonSelectOption value="3">Node.js</IonSelectOption>
+              </IonSelect>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonList>
       <div className="flex justify-end">
-        <IonButton color={'success'} onClick={handleSubmit}>Enviar</IonButton>        
+        <IonButton color={'success'} onClick={handleSubmit}>Enviar</IonButton>
       </div>
-
     </section>
   );
 };
 
 export default TeamFilter;
-
-

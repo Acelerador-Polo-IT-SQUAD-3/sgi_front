@@ -4,23 +4,13 @@ import { IonContent, IonButton, IonAlert, IonToast } from '@ionic/react'
 
 export interface Team {
   id: number
-  name: string
+  teamTechnologies: string
   cantPersonas: string
+  mentorTechnologies: string
 }
 
 const TeamList: React.FC = () => {
-  const [teams, setTeams] = useState<Team[]>([
-    {
-      id: 1,
-      name: "Java",
-      cantPersonas: "2",
-    },
-    {
-      id: 2,
-      name: "UX/UI",
-      cantPersonas: "5",
-    }
-  ])
+  const [teams, setTeams] = useState<Team[]>([])
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSubmit, setIsOpenSubmit] = useState(false);
 
@@ -33,19 +23,7 @@ const TeamList: React.FC = () => {
     setIsOpen(true);
   };
 
-  const handleSubmit = async () => {
-    if (teams.length === 0) {
-      alert('Debes agregar al menos una tecnología.');
-      return;
-    }
-
-    for (const team of teams) {
-      if (!team.name || !team.cantPersonas) {
-        alert('Debes completar todos los campos.');
-        return;
-      }
-    }
-
+  const handleSubmit = async (data: any) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/teams/`, {
@@ -53,8 +31,9 @@ const TeamList: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(teams),
+        body: JSON.stringify(data),
       });
+      console.log(JSON.stringify(data))
 
       if (response.ok) {
         console.log('Datos enviados correctamente');
@@ -65,6 +44,9 @@ const TeamList: React.FC = () => {
       }
     } catch (error) {
       console.error('Error al enviar los datos:', error);
+    }
+    finally{
+      console.log(JSON.stringify(data))
     }
   };
 
@@ -94,4 +76,3 @@ const TeamList: React.FC = () => {
 }
 
 export default TeamList;
-
