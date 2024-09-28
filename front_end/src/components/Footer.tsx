@@ -5,7 +5,9 @@ function Footer() {
   return (
     <IonFooter className="w-full bg-[#FFF4EA] py-4">
       <div className="w-full flex justify-between items-center px-4">
-        {/* Contenedor del texto */}
+
+
+
         <div className="ml-8 flex-grow text-left font-roboto text-sm lg:text-base font-semibold text-black-700">
           2024&nbsp;
           <a href="https://www.poloitbuenosaires.com" className="text-[#0E4EAD] hover:underline">
@@ -14,7 +16,7 @@ function Footer() {
           &nbsp;. @Todos los derechos reservados
         </div>
 
-        {/* Contenedor de los íconos */}
+
         <div className="flex items-center space-x-8 mr-12">
           <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
             <FaFacebookF className="text-black hover:text-[#0E4EAD] text-xl lg:text-2xl" />

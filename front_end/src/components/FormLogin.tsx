@@ -1,4 +1,4 @@
-import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent } from "@ionic/react";
+import { IonInput, IonItem, IonLabel } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -32,8 +32,9 @@ const FormLogin: React.FC = () => {
 
             const data = await response.json();
             sessionStorage.setItem('user', JSON.stringify(data.user));
-            console.log(sessionStorage.getItem('user'));
+
             //redirigir al usuario a otra página
+            
             history.push('/home');
         } catch (error) {
             console.error('Error logging in:', error);
@@ -42,48 +43,64 @@ const FormLogin: React.FC = () => {
     };
 
     return (
-        <IonContent >
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
-                <IonCard className="flex flex-col justify-center items-center ion-padding">
-                    <IonItem lines="none" className="flex item-center">
-                        <Avatar className="ion-margin"></Avatar>
-                    </IonItem>
-                    <IonItem lines="full">
-                        <IonInput
-                            labelPlacement="floating"
-                            label="Correo electrónico"
-                            placeholder="example@mail.com"
-                            value={username}
-                            onIonChange={(e) => setUsername(e.detail.value!)} />
-                    </IonItem>
-                    <IonItem lines="full">
-                        <IonInput
-                            labelPlacement="floating"
-                            label="Contraseña"
-                            placeholder="********"
-                            type="password"
-                            value={password}
-                            onIonChange={(e) => setPassword(e.detail.value!)} />
-                    </IonItem>
-                    <IonItem lines="full" className="items-center">
-                        <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
-                    </IonItem>
-                    {error && <IonLabel color="danger">{error}</IonLabel>}
-                    <IonLabel className="ion-margin">
-                        ¿Todavía no tienes cuenta?{' '}
-                        <a href="/signin">Regístrate!</a>
-                    </IonLabel>
-                    <IonLabel className="ion-margin">
-                        ¿Olvidaste tu contraseña?{' '}
-                        <a href="/reset-passwd">Recuperar cuenta.</a>
-                    </IonLabel>
-                </IonCard>
+        <section className='flex flex-col justify-center items-center h-screen bg-gray-50 relative'>
+            {/*  <IonContent className="relative flex justify-center items-center min-h-screen bg-gray-50"> */}
+            {/* Círculos de fondo */}
 
-            </form>
-        </IonContent>
+            <div className="circle1 bg-[#6FC3DF] opacity-20 absolute rounded-full w-[300px] h-[300px] top-[-50px] left-[-150px]"></div>
+            <div className="circle2 bg-[#D19DB2] opacity-20 absolute rounded-full w-[450px] h-[450px] bottom-[-200px] right-[-100px]"></div>
+            <div className="circle3 bg-[#A8D1F0] opacity-20 absolute rounded-full w-[350px] h-[350px] top-[200px] left-1/2 transform -translate-x-1/2"></div>
+            <div className="circle4 bg-[#EBB3B6] opacity-20 absolute rounded-full w-[500px] h-[500px] bottom-[-250px] left-[-250px]"></div>
 
+            {/*  <form onSubmit={handleSubmit} className="z-10 w-full max-w-md">
+                <IonCard className="flex flex-col items-center p-8 bg-[#D1E6F8] rounded-xl shadow-md"> */}
+
+            <div className='bg-[#D1E6F8] rounded-xl p-8 shadow-md w-full max-w-md z-10'>
+                <h1 className='text-4xl font-bold mb-6 text-center text-gray-800'>Iniciar Sesión</h1>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className='space-y-4'>
+
+                        <IonItem lines="full">
+                            <IonInput
+                                labelPlacement="floating"
+                                label="Correo electrónico"
+                                placeholder="example@mail.com"
+                                value={username}
+                                onIonChange={(e) => setUsername(e.detail.value!)} />
+                        </IonItem>
+
+                        <IonItem lines="full">
+                            <IonInput
+                                labelPlacement="floating"
+                                label="Contraseña"
+                                placeholder="********"
+                                type="password"
+                                value={password}
+                                onIonChange={(e) => setPassword(e.detail.value!)} />
+                        </IonItem>
+                    </div>
+                    <div className='flex flex-col items-center'>
+                        <button
+                            className="w-full bg-[#E65C4F] text-black font-bold rounded-lg py-3"
+                            type="submit"
+                        >
+                            Iniciar Sesión
+                        </button>
+
+                        {error && <IonLabel color="danger" className="mt-2">{error}</IonLabel>}
+
+                        <IonLabel className="mt-4 text-sm">
+                            ¿Todavía no tienes cuenta? <a href="/signin" className="text-black font-semibold hover:underline">Regístrate!</a>
+                        </IonLabel>
+                        <IonLabel className="mt-2 text-sm">
+                            ¿Olvidaste tu contraseña? <a href="/reset-passwd" className="text-black font-semibold hover:underline">Recuperar cuenta.</a>
+                        </IonLabel>
+
+                    </div>
+                </form >
+            </div >
+        </section >
     );
 };
 
 export default FormLogin;
-
