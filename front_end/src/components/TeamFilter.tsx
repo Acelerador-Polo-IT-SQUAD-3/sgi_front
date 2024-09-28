@@ -63,7 +63,6 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
     onSubmit(data);
     setError(null);
   };
-  
 
   return (
     <section className="px-2 mt-4 md:px-10 mb-4">

@@ -24,16 +24,26 @@ const TeamList: React.FC = () => {
   };
 
   const handleSubmit = async (data: any) => {
-    try {
-      const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/teams/`, {
+    if (teams.length === 0) {
+      alert('Debes agregar al menos una tecnología.');
+      return;
+    }
+
+    for (const team of teams) {
+      if (!team.name || !team.cantPersonas) {
+        alert('Debes completar todos los campos.');
+        return;
+      }
+    }
+        try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/teams/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-      console.log(JSON.stringify(data))
 
       if (response.ok) {
         console.log('Datos enviados correctamente');
