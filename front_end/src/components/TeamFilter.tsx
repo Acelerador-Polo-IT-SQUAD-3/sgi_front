@@ -32,7 +32,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       const newTeam: Team = {
         id: teams.length + 1,
         teamTechnologies: technology,
-        cantPersonas: personCount,
+        reqQuantity: personCount,
         mentorTechnologies: mentorTechnology.join(',')
       };
       onAddTeam(newTeam);
@@ -55,7 +55,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       cant_max_equipos: maxTeams,
       conocimientos_por_equipo: {
         ids_tecnologias: teams.map(team => technologyMap[team.teamTechnologies]),
-        cantidad_requerida: teams.map(team => Number(team.cantPersonas)),
+        cantidad_requerida: teams.map(team => Number(team.reqQuantity)),
       },
       conocimientos_por_mentor: mentorTechnology.map(tech => Number(tech))
     };
@@ -142,7 +142,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 <p>{team.teamTechnologies}</p>
               </IonCol>
               <IonCol className="flex justify-around">
-                <p>{team.cantPersonas}</p>
+                <p>{team.reqQuantity}</p>
                 <IonButton color={"light"} className="w-16 md:w-20 h-10 self-end" onClick={() => onRemoveTeam(team.id)}>
                   Eliminar
                 </IonButton>
