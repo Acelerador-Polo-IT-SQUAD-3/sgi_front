@@ -34,7 +34,8 @@ const SideMenu: React.FC = () => {
 
   const fetchMenus = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/menus/${userRole}`, {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/menus/${userRole}`, {
         method: 'GET',  // Método POST para enviar el role_id
         headers: {
           'Content-Type': 'application/json'
