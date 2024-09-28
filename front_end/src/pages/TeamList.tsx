@@ -5,7 +5,7 @@ import { IonContent, IonButton, IonAlert, IonToast } from '@ionic/react'
 export interface Team {
   id: number
   teamTechnologies: string
-  cantPersonas: string
+  reqQuantity: string
   mentorTechnologies: string
 }
 
@@ -30,7 +30,7 @@ const TeamList: React.FC = () => {
     }
 
     for (const team of teams) {
-      if (!team.name || !team.cantPersonas) {
+      if (!team.teamTechnologies || !team.reqQuantity) {
         alert('Debes completar todos los campos.');
         return;
       }
