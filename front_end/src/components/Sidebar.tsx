@@ -12,20 +12,22 @@ function Sidebar() {
   return (
     <>
       <IonMenu contentId="main-content">
-        <IonHeader >
+        <IonHeader>
           <IonToolbar color="tertiary">
             <IonTitle>Menu Content</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent class="ion-padding">
-          <IonButton className="w-full" routerLink="#">Configuración</IonButton>
+        <IonContent className="ion-padding">
+          <IonButton className="w-full" routerLink="#">
+            Configuración
+          </IonButton>
         </IonContent>
       </IonMenu>
       <div className="ion-page " id="main-content">
         <IonHeader className="pl-2">
           <IonToolbar className="">
             <IonButton slot="start" className="h-4">
-              <IonMenuButton ></IonMenuButton>
+              <IonMenuButton></IonMenuButton>
             </IonButton>
             <IonTitle></IonTitle>
           </IonToolbar>
