@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import TeamFilter from '../components/TeamFilter'
-import { IonContent, IonButton, IonAlert, IonToast } from '@ionic/react'
+import { IonContent, IonToast } from '@ionic/react'
 
 export interface Team {
   id: number
   teamTechnologies: string
-  reqQuantity: string
+  reqQuantity: number
   mentorTechnologies: string
 }
 
@@ -35,9 +35,10 @@ const TeamList: React.FC = () => {
         return;
       }
     }
-        try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await fetch(`${apiUrl}/teams/`, {
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/user/get/user/tech`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,23 +48,25 @@ const TeamList: React.FC = () => {
 
       if (response.ok) {
         console.log('Datos enviados correctamente');
-        setTeams([]);
         setIsOpenSubmit(true);
+        clearTeams()
       } else {
         console.error('Error al enviar los datos');
       }
     } catch (error) {
       console.error('Error al enviar los datos:', error);
-    }
-    finally{
-      console.log(JSON.stringify(data))
+    } finally {
+      console.log(JSON.stringify(data));
     }
   };
+  const clearTeams=()=>{
+    setTeams([]);
+  }
 
   return (
     <IonContent>
       <section className="h-full flex flex-col">
-        <TeamFilter teams={teams} onAddTeam={handleAddTeam} onRemoveTeam={handleRemoveTeam} onSubmit={handleSubmit} />
+        <TeamFilter teams={teams} onAddTeam={handleAddTeam} onRemoveTeam={handleRemoveTeam} onSubmit={handleSubmit} clearTeams={clearTeams}/>
         <IonToast
           isOpen={isOpen}
           message="Se ha eliminado correctamente"

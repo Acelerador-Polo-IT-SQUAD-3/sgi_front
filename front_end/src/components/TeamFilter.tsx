@@ -7,6 +7,8 @@ interface TeamFilterProps {
   onAddTeam: (team: Team) => void;
   onSubmit: (data: any) => void;
   onRemoveTeam: (id: number) => void;
+  clearTeams: () => void;
+
 }
 const technologyMap: { [key: string]: number } = {
   "Java": 1,
@@ -14,11 +16,11 @@ const technologyMap: { [key: string]: number } = {
   "Node.js": 3
 };
 
-const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit }) => {
+const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit,clearTeams }) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
   const [technology, setTechnology] = useState<string | undefined>(undefined);
   const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
-  const [personCount, setPersonCount] = useState<string>("");
+  const [personCount, setPersonCount] = useState<number | undefined>(undefined);
   const [mentorTechnology, setMentorTechnology] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +39,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       };
       onAddTeam(newTeam);
       setTechnology(undefined);
-      setPersonCount("");
+      setPersonCount(undefined);
       setError(null);
     }
   };
@@ -49,7 +51,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
     if (maxTeams === undefined) {
       return setError("Por favor, completa la cantidad máxima de equipos.");
     }
-  
+
     const data = {
       id: Number(program),
       cant_max_equipos: maxTeams,
@@ -59,8 +61,18 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       },
       conocimientos_por_mentor: mentorTechnology.map(tech => Number(tech))
     };
-  
+
     onSubmit(data);
+    setError(null);
+  };
+
+  const handleClear = () => {
+    clearTeams()
+    setProgram(undefined);
+    setTechnology(undefined);
+    setMaxTeams(undefined);
+    setPersonCount(undefined);
+    setMentorTechnology([]);
     setError(null);
   };
 
@@ -128,7 +140,14 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
               <IonLabel position="fixed"> Cantidad de personas </IonLabel>
               <IonInput
                 value={personCount}
-                onIonChange={(e) => setPersonCount(e.detail.value!)}
+                onIonChange={(e) => {
+                  const value = e.detail.value;
+                  if (value !== undefined && !isNaN(Number(value))) {
+                    setPersonCount(Number(value));
+                  } else {
+                    setPersonCount(undefined);
+                  }
+                }}
                 className="bg-slate-100 rounded-md h-10"
               />
               <IonButton color={"light"} className="w-16 md:w-20 h-10" onClick={handleApply}>
@@ -173,7 +192,8 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           </IonRow>
         </IonGrid>
       </IonList>
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <IonButton onClick={handleClear}>Limpiar campos</IonButton>
         <IonButton color={'success'} onClick={handleSubmit}>Enviar</IonButton>
       </div>
     </section>
