@@ -17,7 +17,7 @@ function Sidebar() {
             <IonTitle>Menu Content</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent class="ion-padding">
+        <IonContent className="ion-padding">
           <IonButton className="w-full" routerLink="#">Configuración</IonButton>
         </IonContent>
       </IonMenu>
