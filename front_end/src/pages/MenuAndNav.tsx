@@ -12,13 +12,9 @@ const MenuAndNav: React.FC = () => {
 
     const history = useHistory();
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        history.push('/login');
-    };
     const headerButtons = [
         { label: 'Inicio', routerLink: '/home' },
-        { label: 'Cerrar Sesión', onClick: handleLogout},
+        { label: 'Cerrar Sesión', onClick: ()=>history.push('/logout') },
       ];
 
     return (
