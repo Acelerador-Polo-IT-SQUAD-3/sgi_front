@@ -20,14 +20,14 @@ interface AppPage {
 const appPages: AppPage[] = [
   {
     id: 0,
-    title: 'New User',
+    title: 'Nuevo Usuario',
     url: '/profile/new-user',
     description: '',
     component: FormNewUser,
   },
   {
     id: 1,
-    title: 'Participants',
+    title: 'Participantes',
     url:  '/profile/view-participants',
     description: '',
     component: UserList,

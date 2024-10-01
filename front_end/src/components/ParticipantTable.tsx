@@ -21,8 +21,6 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
           text: 'No',
           role: 'cancel',
           handler: () => {
-            console.log('Alert canceled');
-            setIsOpen(true)
           },
         },
         {
@@ -30,6 +28,7 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
           role: 'confirm',
           handler: () => {
             onDelete(participant);
+            setIsOpen(true)
           },
         },
       ],
