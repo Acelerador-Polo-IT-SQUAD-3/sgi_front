@@ -15,7 +15,8 @@ function FormRegister() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { // {React.FormEvent<HTMLFormElement}  Indica el tipo de parametro para event.
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/auth/', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/auth/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

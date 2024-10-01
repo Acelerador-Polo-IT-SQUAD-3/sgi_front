@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonToast } from "@ionic/react";
 import SearchFilters from "../components/searchFilters";
 import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
@@ -19,20 +19,27 @@ const UserList: React.FC = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
   const [filters, setFilters] = useState<{ role_id?: string; program_id?: string; technology_id?: string }>({});
+  const [isOpen, setIsOpen] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const queryParams = new URLSearchParams(filters).toString();
-        const response = await fetch(`http://localhost:3000/user/?${queryParams}`);
+        // Filtrar los parámetros undefined
+        const filteredParams = Object.fromEntries(
+          Object.entries(filters).filter(([key, value]) => value !== undefined)
+        );
+  
+        const queryParams = new URLSearchParams(filteredParams).toString();
+        const response = await fetch(`${apiUrl}/user/?${queryParams}`);
         const data = await response.json();
-
+  
         setParticipants(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData();
   }, [filters]);
 
@@ -42,7 +49,7 @@ const UserList: React.FC = () => {
 
   const handleDelete = async (participant: Participant) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/del/${participant.id}`, {
+      const response = await fetch(`${apiUrl}/user/del/${participant.id}`, {
         method: 'PATCH'
       });
 
@@ -58,7 +65,7 @@ const UserList: React.FC = () => {
 
   const handleSave = async (updatedParticipant: Participant) => {
     try {
-      const response = await fetch(`http://localhost:3000/user/${updatedParticipant.id}`, {
+      const response = await fetch(`${apiUrl}/user/${updatedParticipant.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -68,6 +75,7 @@ const UserList: React.FC = () => {
 
       if (response.ok) {
         setParticipants(participants.map(p => p.id === updatedParticipant.id ? updatedParticipant : p));
+        setIsOpen(true);
       } else {
         console.error('Error updating participant:', response.statusText);
       }
@@ -103,6 +111,14 @@ const UserList: React.FC = () => {
           onSave={handleSave}
         />
       )}
+      <IonToast
+          isOpen={isOpen}
+          message="Se ha modificado el participante correctamente"
+          onDidDismiss={() => setIsOpen(false)}
+          duration={3000}
+          color={"light"}
+          className='text-center'
+      ></IonToast>
     </IonContent>
   );
 }

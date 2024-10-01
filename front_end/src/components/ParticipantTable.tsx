@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonButton, IonList, IonGrid, IonRow, IonCol } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonButton, IonList, IonGrid, IonRow, IonCol, IonAlert, useIonAlert, IonToast } from '@ionic/react';
 import { Participant } from '../pages/UserList';
 
 
@@ -10,6 +10,33 @@ interface ParticipantTableProps {
 }
 
 const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdit, onDelete }) => {
+  const [presentAlert] = useIonAlert();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleDelete = (participant: Participant) => {
+    presentAlert({
+      header: '¿Estas seguro que quieres eliminar a este usuario?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+            setIsOpen(true)
+          },
+        },
+        {
+          text: 'Si',
+          role: 'confirm',
+          handler: () => {
+            onDelete(participant);
+          },
+        },
+      ],
+      onDidDismiss: ({ detail }) => console.log(`Dismissed with role: ${detail.role}`),
+    });
+  };
+
   return (
     <IonList className='md:px-10 bg-transparent'>
       <IonGrid>
@@ -28,11 +55,19 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
             <IonCol className='w-1 text-center'>{participant.company}</IonCol>
             <IonCol className='w-1 text-center'>
               <IonButton className='w-16 md:w-20' onClick={() => onEdit(participant)}>Editar</IonButton>
-              <IonButton className='w-16 md:w-20' color="danger" onClick={() => onDelete(participant)}>Eliminar</IonButton>
+              <IonButton className='w-16 md:w-20' color="danger" onClick={() => handleDelete(participant)}>Eliminar</IonButton>
             </IonCol>
           </IonRow>
         ))}
       </IonGrid>
+      <IonToast
+          isOpen={isOpen}
+          message="Se ha eliminado el usuario correctamente"
+          onDidDismiss={() => setIsOpen(false)}
+          duration={3000}
+          color={"light"}
+          className='text-center'
+      ></IonToast>
     </IonList>
   );
 };

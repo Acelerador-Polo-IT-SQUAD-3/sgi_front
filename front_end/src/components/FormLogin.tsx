@@ -1,8 +1,7 @@
-import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent } from "@ionic/react";
+import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent, IonRouterLink } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
 
 const FormLogin: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -18,7 +17,8 @@ const FormLogin: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -32,7 +32,6 @@ const FormLogin: React.FC = () => {
 
             const data = await response.json();
             sessionStorage.setItem('user', JSON.stringify(data.user));
-            console.log(sessionStorage.getItem('user'));
             //redirigir al usuario a otra página
             history.push('/home');
         } catch (error) {
@@ -42,46 +41,46 @@ const FormLogin: React.FC = () => {
     };
 
     return (
-        <IonContent >
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
-                <IonCard className="flex flex-col justify-center items-center ion-padding">
-                    <IonItem lines="none" className="flex item-center">
-                        <Avatar className="ion-margin"></Avatar>
-                    </IonItem>
-                    <IonItem lines="full">
-                        <IonInput
-                            labelPlacement="floating"
-                            label="Correo electrónico"
-                            placeholder="example@mail.com"
-                            value={username}
-                            onIonChange={(e) => setUsername(e.detail.value!)} />
-                    </IonItem>
-                    <IonItem lines="full">
-                        <IonInput
-                            labelPlacement="floating"
-                            label="Contraseña"
-                            placeholder="********"
-                            type="password"
-                            value={password}
-                            onIonChange={(e) => setPassword(e.detail.value!)} />
-                    </IonItem>
-                    <IonItem lines="full" className="items-center">
-                        <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
-                    </IonItem>
-                    {error && <IonLabel color="danger">{error}</IonLabel>}
-                    <IonLabel className="ion-margin">
-                        ¿Todavía no tienes cuenta?{' '}
-                        <a href="/signin">Regístrate!</a>
-                    </IonLabel>
-                    <IonLabel className="ion-margin">
-                        ¿Olvidaste tu contraseña?{' '}
-                        <a href="/reset-passwd">Recuperar cuenta.</a>
-                    </IonLabel>
-                </IonCard>
-
-            </form>
-        </IonContent>
-
+        <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full" >
+            <div className="flex flex-col justify-center items-center ion-padding bg-gray-200 rounded-md">
+                <IonItem lines="none" className="flex item-center" color={"transparent"}>
+                    <Avatar className="ion-margin"></Avatar>
+                </IonItem>
+                <IonItem lines="full" color={"transparent"}>
+                    <IonInput
+                        labelPlacement="floating"
+                        label="Correo electrónico"
+                        placeholder="example@mail.com"
+                        value={username}
+                        required
+                        minlength={4}
+                        onIonChange={(e) => setUsername(e.detail.value!)} />
+                </IonItem>
+                <IonItem lines="full" color={"transparent"} className="!border-none !border-b-0">
+                    <IonInput
+                        labelPlacement="floating"
+                        label="Contraseña"
+                        placeholder="********"
+                        type="password"
+                        value={password}
+                        required
+                        minlength={4}
+                        onIonChange={(e) => setPassword(e.detail.value!)} />
+                </IonItem>
+                <IonItem lines="full" className="items-center" color={"transparent"}>
+                    <IonButton type="submit" disabled={!isFormValid}>Login</IonButton>
+                </IonItem>
+                {error && <IonLabel color="danger">{error}</IonLabel>}
+                <IonLabel className="ion-margin">
+                    ¿Todavía no tienes cuenta?{' '}
+                    <IonRouterLink routerLink="/signin">Regístrate!</IonRouterLink>
+                </IonLabel>
+                <IonLabel className="ion-margin">
+                    ¿Olvidaste tu contraseña?{' '}
+                    <IonRouterLink routerLink="/reset-passwd">Recuperar cuenta.</IonRouterLink>
+                </IonLabel>
+            </div>
+        </form>
     );
 };
 

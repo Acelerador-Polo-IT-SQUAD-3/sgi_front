@@ -10,3 +10,12 @@
 .toolbar-background{
     background: white !important;
 }
+#inbox-list{
+    background: #faf8f8 !important;
+}
+.toolbar-background{
+    background: #dddddd !important;
+}
+.alert-radio-label.sc-ion-alert-md{
+    color: black !important;
+}

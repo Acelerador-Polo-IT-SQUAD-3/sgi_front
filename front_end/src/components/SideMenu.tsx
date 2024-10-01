@@ -33,15 +33,12 @@ const SideMenu: React.FC = () => {
   const userData = user ? JSON.parse(user) : null;
   const userRole = getRole(user);
   const [menus, setMenus] = useState<Menu[]>([]);
-
-  const getUserPages = () => {
-    return menus.map((menu) => menu.id);
-  };
-
+  
   const fetchMenus = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/menus/${userRole}`, {
-        method: "GET", // Método POST para enviar el role_id
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/menus/${userRole}`, {
+        method: 'GET',  // Método POST para enviar el role_id
         headers: {
           "Content-Type": "application/json",
         },
@@ -64,8 +61,7 @@ const SideMenu: React.FC = () => {
       fetchMenus();
     }
   }, [userRole]);
-
-  console.log(getUserPages())
+  
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
@@ -80,6 +76,7 @@ const SideMenu: React.FC = () => {
                 routerDirection="none"
                 lines="none"
                 detail={false}
+                color={"transparent"}
               >
                 <IonLabel>{menu.name}</IonLabel>
               </IonItem>
