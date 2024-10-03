@@ -12,6 +12,7 @@ import UserList from '../pages/UserList';
 //
 
 interface AppPage {
+
   title: string;
   url: string;
   component: React.FC;
@@ -30,10 +31,12 @@ const appPages: AppPage[] = [
   {
     id: 1,
     title: 'Participantes',
+
     url:  '/profile/view-participants',
     description: '',
     component: UserList,
   },
+
   {
     title: 'Asignación de equipos',
     url:  '/profile/teams',

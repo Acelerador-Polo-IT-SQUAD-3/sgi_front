@@ -1,6 +1,8 @@
 //Menu dentro del perfil del usuario, contiene un sidemenu
 
-import { IonContent, IonSplitPane, IonRouterOutlet, IonPage } from "@ionic/react";
+
+import { IonButton, IonHeader, IonTitle, IonContent, IonSplitPane, IonRouterOutlet, IonItem, IonPage } from "@ionic/react";
+
 import SideMenu from "../components/SideMenu";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
@@ -12,14 +14,22 @@ const MenuAndNav: React.FC = () => {
 
     const history = useHistory();
 
-    const headerButtons = [
-        { label: 'Inicio', routerLink: '/home' },
-        { label: 'Cerrar Sesión', onClick: ()=>history.push('/logout') },
-      ];
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('user');
+        history.push('/login');
+    };
+
 
     return (
         <IonPage>
-            <Header buttons={headerButtons} activeSidebar={false}/>
+            <IonHeader>
+                <IonItem lines="none" className="flex items-stretch">
+                    <IonTitle>Profile</IonTitle>
+                    <IonButton routerLink="/home">Home</IonButton>
+                    <IonButton className='justify-end' onClick={handleLogout}>Log Out</IonButton>
+                </IonItem>
+            </IonHeader>
             <IonContent>
                 <IonReactRouter>
                     <IonSplitPane contentId="main">

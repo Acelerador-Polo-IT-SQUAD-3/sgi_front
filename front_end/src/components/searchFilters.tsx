@@ -1,13 +1,16 @@
+
 import React, { useState } from 'react';
 import { IonItem, IonList, IonSelect, IonSelectOption, IonTitle, IonButton } from '@ionic/react';
 import { Button } from '@mui/material';
 
 interface SearchFiltersProps {
+
   onSearch: (filters: { role_id?: string; program_id?: string; team_id?: string; technology_id?: string }) => void;
   onAddParticipant: () => void;
 }
 
 const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipant }) => {
+
   const [roleId, setRoleId] = useState<string | undefined>(undefined);
   const [programId, setProgramId] = useState<string | undefined>(undefined);
   const [technologyId, setTechnologyId] = useState<string | undefined>(undefined);
@@ -22,6 +25,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
     };
     onSearch(filters);
   };
+
 
   const handleClearFilters = () => {
     setRoleId(undefined);
@@ -98,8 +102,3 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
 };
 
 export default SearchFilters;
-
-
-
-
-

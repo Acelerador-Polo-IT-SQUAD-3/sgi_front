@@ -19,6 +19,7 @@ const FormNewUser: React.FC = () => {
     const [rolId, setRolId] = useState('');
     const [roles, setRoles] = useState<Role[]>([]);
     const history = useHistory();
+
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { IonButton, IonList, IonGrid, IonRow, IonCol, IonAlert, useIonAlert, IonToast } from '@ionic/react';
 import { Participant } from '../pages/UserList';
@@ -10,6 +11,7 @@ interface ParticipantTableProps {
 }
 
 const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdit, onDelete }) => {
+
   const [presentAlert] = useIonAlert();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -55,10 +57,12 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
             <IonCol className='w-1 text-center'>
               <IonButton className='w-16 md:w-20' onClick={() => onEdit(participant)}>Editar</IonButton>
               <IonButton className='w-16 md:w-20' color="danger" onClick={() => handleDelete(participant)}>Eliminar</IonButton>
+
             </IonCol>
           </IonRow>
         ))}
       </IonGrid>
+
       <IonToast
           isOpen={isOpen}
           message="Se ha eliminado el usuario correctamente"

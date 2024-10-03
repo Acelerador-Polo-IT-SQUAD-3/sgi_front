@@ -1,6 +1,7 @@
 
 //Conecta un usuario a la base de datos
 
+
 import { IonPage, IonContent } from "@ionic/react";
 import React from 'react';
 import FormLogin from "../components/FormLogin";
@@ -16,7 +17,7 @@ const Login: React.FC = () => {
 
             <Header buttons={headerButtons} activeSidebar={false} />
             <FormLogin />
-           
+
         </IonPage>
 
     );

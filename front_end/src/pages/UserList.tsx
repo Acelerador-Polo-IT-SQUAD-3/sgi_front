@@ -1,3 +1,4 @@
+
 import { IonContent, IonPage, IonToast } from "@ionic/react";
 import SearchFilters from "../components/searchFilters";
 import { useState, useEffect } from "react";
@@ -87,10 +88,12 @@ const UserList: React.FC = () => {
 
   const handleSearch = (filters: { role_id?: string; program_id?: string; team_id?: string; technology_id?: string }) => {
     setFilters(filters);
+
   };
 
   const handleAddParticipant = () => {
     console.log('Add new participant');
+
     // Implementar lógica para agregar un nuevo participante
   };
 

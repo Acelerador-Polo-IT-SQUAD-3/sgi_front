@@ -10,6 +10,7 @@ export interface User {
 
 export const fetchUsers = async (): Promise<User[]> => {
     try {
+
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await fetch(`${apiUrl}/user/`);
         if (!response.ok) {
