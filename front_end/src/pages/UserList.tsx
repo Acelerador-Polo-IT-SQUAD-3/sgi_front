@@ -1,5 +1,5 @@
 
-import { IonContent, IonPage, IonToast } from "@ionic/react";
+import { IonContent, IonToast } from "@ionic/react";
 import SearchFilters from "../components/searchFilters";
 import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
@@ -29,17 +29,17 @@ const UserList: React.FC = () => {
         const filteredParams = Object.fromEntries(
           Object.entries(filters).filter(([key, value]) => value !== undefined)
         );
-  
+
         const queryParams = new URLSearchParams(filteredParams).toString();
         const response = await fetch(`${apiUrl}/user/?${queryParams}`);
         const data = await response.json();
-  
+
         setParticipants(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchData();
   }, [filters]);
 
@@ -116,12 +116,12 @@ const UserList: React.FC = () => {
         />
       )}
       <IonToast
-          isOpen={isOpen}
-          message="Se ha modificado el participante correctamente"
-          onDidDismiss={() => setIsOpen(false)}
-          duration={3000}
-          color={"light"}
-          className='text-center'
+        isOpen={isOpen}
+        message="Se ha modificado el participante correctamente"
+        onDidDismiss={() => setIsOpen(false)}
+        duration={3000}
+        color={"light"}
+        className='text-center'
       ></IonToast>
     </IonContent>
   );
