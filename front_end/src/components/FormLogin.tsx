@@ -1,8 +1,8 @@
-import { IonInput, IonItem, IonLabel } from "@ionic/react";
+
+import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent, IonRouterLink } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
 
 const FormLogin: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -18,7 +18,8 @@ const FormLogin: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,8 +34,6 @@ const FormLogin: React.FC = () => {
             const data = await response.json();
             sessionStorage.setItem('user', JSON.stringify(data.user));
 
-            //redirigir al usuario a otra página
-            
             history.push('/home');
         } catch (error) {
             console.error('Error logging in:', error);

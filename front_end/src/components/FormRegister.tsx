@@ -35,6 +35,7 @@ function FormRegister() {
 
                         <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
                             <IonLabel position="stacked" className='text-gray-600'>Nombre</IonLabel>
+
                             <IonInput
                                 placeholder="Ingresa tu nombre completo"
                                 value={name}
@@ -47,6 +48,7 @@ function FormRegister() {
 
                         <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
                             <IonLabel position="stacked" className='text-gray-600'>Correo electrónico</IonLabel>
+
                             <IonInput
                                 type="email"
                                 placeholder="nombre@correoelectronico.com"
@@ -55,29 +57,8 @@ function FormRegister() {
                                 onIonChange={(e) => setMail(e.detail.value!)} />
                         </IonItem>
 
-                        {/*                         <IonItem lines="full">
-                            <IonInput
-                                labelPlacement="floating"
-                                label="Correo electrónico"
-                                placeholder="example@mail.com"
-                                value={setName}
-                                onIonChange={(e) => setUsername(e.detail.value!)} />
-                        </IonItem> */}
 
-                        {/* Campo de contraseña */}
-
-                        {/*                         <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
-                            <IonLabel position="stacked" className='text-gray-600'>Contraseña</IonLabel>
-                            <IonInput
-                                type="password"
-                                placeholder="Introduce tu contraseña"
-                                value={password}
-                                required
-                                minlength={8}
-                                maxlength={12}
-                                onIonChange={(e) => setPassword(e.detail.value!)} />
-                        </IonItem> */}
-
+                        {
 
                         <IonItem lines="full">
                             <IonInput
@@ -87,6 +68,7 @@ function FormRegister() {
                                 type="password"
                                 value={password}
                                 onIonChange={(e) => setPassword(e.detail.value!)} />
+
                         </IonItem>
 
                         <p className='text-xs text-gray-500'>(Entre 8 y 12 caracteres)</p>
@@ -107,6 +89,7 @@ function FormRegister() {
                         <IonLabel className='text-sm text-gray-600 mt-4'>
                             ¿Ya tienes una cuenta?{' '}
                             <a href="/login" className="text-black font-semibold hover:underline">Inicia sesión</a>
+
                         </IonLabel>
                     </div>
                 </form>

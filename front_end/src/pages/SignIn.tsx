@@ -3,11 +3,14 @@
 import { IonPage, IonContent } from "@ionic/react";
 
 import FormRegister from "../components/FormRegister";
-/* import Header from "../components/Header"; */
+
+import Header from "../components/Header";
+
 
 const Register: React.FC = () => {
     const headerButtons = [
         { label: 'Inicio', routerLink: '/welcome' },
+
         { label: 'Iniciar Sesión', routerLink: '/login' },
     ];
     return (

@@ -1,5 +1,6 @@
 //Pagina que muestra informacion a traves de fotos, contiene los vectores que enrutan hacia register y login
 
+
 import { IonPage, IonContent } from "@ionic/react";
 import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
@@ -7,6 +8,7 @@ import Header from "../components/Header";
 
 const Welcome: React.FC = () => {
   const headerButtons = [
+
     { label: "Crear cuenta", routerLink: "/signin" },
     { label: "Iniciar Sesión", routerLink: "/login" },
   ];
@@ -77,6 +79,7 @@ const Welcome: React.FC = () => {
       </IonContent>
       <Footer />
     </IonPage>
+
   );
 };
 

@@ -1,43 +1,48 @@
-//Dentro del perfil, una vez que el usuario haya logeado
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Carousel from "../components/Carousel";
-import { IonContent } from "@ionic/react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { IonLoading } from '@ionic/react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import HomeRoleView from '../components/HomeRoleView';
 
 const Home: React.FC = () => {
   const history = useHistory();
-  const handleUser = sessionStorage.getItem("user");
-  const user = handleUser ? JSON.parse(handleUser) : null;
+  const [role, setRole] = useState<any>(null);
 
-  if (!user) {
-    history.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    const handleUser = sessionStorage.getItem('user');
+    if (handleUser) {
+      const parsedUser = JSON.parse(handleUser);
+      setRole(parsedUser.role_id);
+    } else {
+      history.push('/login');
+    }
+  }, [history]);
 
   const handleLogout = () => {
-    console.log(sessionStorage.getItem("user"));
-    sessionStorage.removeItem("user");
-    console.log(sessionStorage.getItem("user"));
-    history.push("/login");
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('rol_id');
+    history.push('/login');
   };
 
   const headerButtons = [
-    { label: "Profile", onClick: () => history.push("/menu-and-nav") },
-    { label: "Logout", onClick: handleLogout },
+    { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
+    { label: 'Logout', onClick: handleLogout },
   ];
-  const userRole = sessionStorage.getItem("rol_id");
-  console.log(userRole);
+
+  if (!role) {
+    return <IonLoading trigger="open-loading" message="Loading..." duration={3000} spinner="circles" />;
+  }
+
   return (
     <>
-      <Header buttons={headerButtons} activeSidebar={true} />
-      <IonContent>
-        <Carousel />
-      </IonContent>
-      <Footer />
+      <Header buttons={headerButtons} activeSidebar={true}/>
+        <HomeRoleView role={role}/>
+      <Footer/>
     </>
   );
 };
 
 export default Home;
+
