@@ -1,6 +1,5 @@
 
 import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent, IonRouterLink } from "@ionic/react";
-import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ const FormLogin: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const apiUrl = import.meta.env.VITE_API_URL;
+            const apiUrl = import.meta.env.VITE_API_URL; //chequear URL//
             const response = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {
@@ -28,7 +27,8 @@ const FormLogin: React.FC = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error en la respuesta de la red');
             }
 
             const data = await response.json();
@@ -43,16 +43,14 @@ const FormLogin: React.FC = () => {
 
     return (
         <section className='flex flex-col justify-center items-center h-screen bg-gray-50 relative'>
-            {/*  <IonContent className="relative flex justify-center items-center min-h-screen bg-gray-50"> */}
-            {/* Círculos de fondo */}
+
 
             <div className="circle1 bg-[#6FC3DF] opacity-20 absolute rounded-full w-[300px] h-[300px] top-[-50px] left-[-150px]"></div>
             <div className="circle2 bg-[#D19DB2] opacity-20 absolute rounded-full w-[450px] h-[450px] bottom-[-200px] right-[-100px]"></div>
             <div className="circle3 bg-[#A8D1F0] opacity-20 absolute rounded-full w-[350px] h-[350px] top-[200px] left-1/2 transform -translate-x-1/2"></div>
             <div className="circle4 bg-[#EBB3B6] opacity-20 absolute rounded-full w-[500px] h-[500px] bottom-[-250px] left-[-250px]"></div>
 
-            {/*  <form onSubmit={handleSubmit} className="z-10 w-full max-w-md">
-                <IonCard className="flex flex-col items-center p-8 bg-[#D1E6F8] rounded-xl shadow-md"> */}
+
 
             <div className='bg-[#D1E6F8] rounded-xl p-8 shadow-md w-full max-w-md z-10'>
                 <h1 className='text-4xl font-bold mb-6 text-center text-gray-800'>Iniciar Sesión</h1>
