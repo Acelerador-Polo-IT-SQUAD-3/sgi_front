@@ -11,10 +11,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import imagen1 from '../dummy-images/Imagen1.png'
 
 export const Carousel = () => {
     const slides = [
-        { src: "https://drive.google.com/file/d/1erCS01FIgOmNxSLwO6_HqB7LCVdTBtD_/view?usp=sharing", alt: "Slide 1" },
+        { src: imagen1, alt: "Slide 1" },
         { src: "../src/dummy-images/imagen2.jpg", alt: "Slide 2" },
         { src: "../src/dummy-images/imagen3.jpg", alt: "Slide 3" },
         { src: "../src/dummy-images/imagen4.jpg", alt: "Slide 4" },
