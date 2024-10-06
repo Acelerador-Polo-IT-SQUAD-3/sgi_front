@@ -14,10 +14,10 @@ import "swiper/css/scrollbar";
 
 export const Carousel = () => {
     const slides = [
-        { src: "../../public/img/imagen1.png", alt: "Slide 1" },
-        { src: "src/dummy-images/imagen2.jpg", alt: "Slide 2" },
-        { src: "src/dummy-images/imagen3.jpg", alt: "Slide 3" },
-        { src: "src/dummy-images/imagen4.jpg", alt: "Slide 4" },
+        { src: "../src/dummy-images/imagen1.png", alt: "Slide 1" },
+        { src: "../src/dummy-images/imagen2.jpg", alt: "Slide 2" },
+        { src: "../src/dummy-images/imagen3.jpg", alt: "Slide 3" },
+        { src: "../src/dummy-images/imagen4.jpg", alt: "Slide 4" },
     ];
 
     return (
