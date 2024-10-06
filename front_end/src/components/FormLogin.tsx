@@ -1,4 +1,3 @@
-
 import { IonInput, IonItem, IonLabel, IonButton, IonCard, IonContent, IonRouterLink } from "@ionic/react";
 import { Avatar } from "@mui/material";
 import { useState, useEffect } from 'react';

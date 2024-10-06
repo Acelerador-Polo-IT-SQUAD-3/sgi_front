@@ -27,8 +27,8 @@ const Home: React.FC = () => {
   };
 
   const headerButtons = [
-    { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
-    { label: 'Logout', onClick: handleLogout },
+    { label: "Profile", onClick: () => history.push("/menu-and-nav") },
+    { label: "Logout", onClick: handleLogout },
   ];
 
   if (!role) {
@@ -45,4 +45,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
