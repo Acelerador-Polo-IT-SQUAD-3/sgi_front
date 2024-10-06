@@ -1,6 +1,7 @@
-import React from "react";
-import { IonButton, IonHeader, IonTitle } from "@ionic/react";
-import Sidebar from "./Sidebar";
+
+import React from 'react';
+import { IonButton, IonContent, IonHeader, IonTitle } from '@ionic/react';
+import Sidebar from './Sidebar';
 import Logo from "../dummy-images/polo-it.png";
 
 interface HeaderButton {
@@ -20,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
       {activeSidebar ? (
         <>
           <Sidebar />
+
           <div className="flex justify-end items-end h-12 pr-2">
             {buttons.map((button, index) => (
               <IonButton
@@ -53,6 +55,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
           </div>
         </>
       ) : (
+
         <IonHeader className="flex justify-between items-center h-78 pr-2 bg-[#326789]">
           <IonTitle className="flex items-center ml-14">
             <img
@@ -84,6 +87,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
                   text-center
               "
                 fill="clear"
+
               >
                 {button.label}
               </IonButton>

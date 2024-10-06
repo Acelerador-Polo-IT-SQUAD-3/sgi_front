@@ -1,15 +1,19 @@
 //Menu dentro del perfil del usuario, contiene un sidemenu
 
+
 import { IonButton, IonHeader, IonTitle, IonContent, IonSplitPane, IonRouterOutlet, IonItem, IonPage } from "@ionic/react";
+
 import SideMenu from "../components/SideMenu";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import { useHistory } from 'react-router-dom';
 import MenuDisplay from "../components/MenuDisplay";
+import Header from "../components/Header";
 
 const MenuAndNav: React.FC = () => {
 
     const history = useHistory();
+
 
     const handleLogout = () => {
         sessionStorage.removeItem('user');
