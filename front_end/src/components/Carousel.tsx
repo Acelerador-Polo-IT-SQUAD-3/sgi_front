@@ -11,14 +11,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import imagen1 from '../dummy-images/Imagen1.png'
+import slide1 from '../../public/imgs/slide_1.jpg'
+import slide2 from '../../public/imgs/slide_2.jpg'
+import slide3 from '../../public/imgs/slide_3.jpg'
+import slide4 from '../../public/imgs/slide_4.jpg'
 
 export const Carousel = () => {
     const slides = [
-        { src: imagen1, alt: "Slide 1" },
-        { src: "../src/dummy-images/imagen2.jpg", alt: "Slide 2" },
-        { src: "../src/dummy-images/imagen3.jpg", alt: "Slide 3" },
-        { src: "../src/dummy-images/imagen4.jpg", alt: "Slide 4" },
+        { src: slide1, alt: "Slide 1" },
+        { src: slide2, alt: "Slide 2" },
+        { src: slide3, alt: "Slide 3" },
+        { src: slide4, alt: "Slide 4" },
     ];
 
     return (
