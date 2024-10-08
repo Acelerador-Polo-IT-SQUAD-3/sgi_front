@@ -14,10 +14,9 @@ interface HeaderButton {
 interface HeaderProps {
   buttons: HeaderButton[];
   activeSidebar: boolean;
-  role: number
 }
 
-const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar, role }) => {
+const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
   return (
     <>
       {activeSidebar ? (

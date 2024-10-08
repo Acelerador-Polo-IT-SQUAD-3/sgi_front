@@ -37,7 +37,7 @@ const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
 
   return (
     <>
-      <Header buttons={headerButtons} activeSidebar={true} role={role} />
+      <Header buttons={headerButtons} activeSidebar={true} />
       {childComponent?
         React.createElement(childComponent) :
         <HomeRoleView role={role} />
