@@ -3,9 +3,7 @@ import Config from "../components/Config";
 import FormNewUser from "../components/FormNewUser";
 import Programs from "../components/Programs";
 import UserList from "../pages/UserList";
-import FormNewUser from '../components/FormNewUser';
 import TeamList from '../pages/TeamList';
-import UserList from '../pages/UserList';
 
 //Consulta a la base de datos para recibir un array de menus segun el rol del usuario.
 //Con el array debe asignar un componente a cada menu
@@ -22,18 +20,14 @@ interface AppPage {
 // desde un boton o algo por el estilo desde el MenuDisplay
 const appPages: AppPage[] = [
   {
-    id: 0,
-    title: 'Nuevo Usuario',
-    url: '/profile/new-user',
-    description: '',
+
+    title: "Nuevo Usuario",
+    url: "/profile/new-user",
     component: FormNewUser,
   },
   {
-    id: 1,
-    title: 'Participantes',
-
-    url:  '/profile/view-participants',
-    description: '',
+    title: "Participantes",
+    url: "/profile/view-participants",
     component: UserList,
   },
 

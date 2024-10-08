@@ -1,6 +1,7 @@
 import {IonButton, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Team } from "../pages/TeamList";
+import { Program, Technology } from "../util/types"
 
 interface TeamFilterProps {
   teams: Team[];
@@ -10,23 +11,21 @@ interface TeamFilterProps {
   clearTeams: () => void;
 
 }
-const technologyMap: { [key: string]: number } = {
-  "Java": 1,
-  "UX/UI": 2,
-  "Node.js": 3
-};
 
 const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit,clearTeams }) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
-  const [technology, setTechnology] = useState<string | undefined>(undefined);
+  const [technology, setTechnology] = useState<Technology | undefined>(undefined);
   const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
   const [personCount, setPersonCount] = useState<number | undefined>(undefined);
   const [mentorTechnology, setMentorTechnology] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleApply = () => {
     if (technology && personCount) {
-      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology);
+      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology.id);
       if (isTechnologyExists) {
         setError("La tecnología ya existe en la lista.");
         return;
@@ -56,7 +55,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       id: Number(program),
       cant_max_equipos: maxTeams,
       conocimientos_por_equipo: {
-        ids_tecnologias: teams.map(team => technologyMap[team.teamTechnologies]),
+        ids_tecnologias: teams.map(team => team.teamTechnologies?.id),
         cantidad_requerida: teams.map(team => Number(team.reqQuantity)),
       },
       conocimientos_por_mentor: mentorTechnology.map(tech => Number(tech))
@@ -65,6 +64,29 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
     onSubmit(data);
     setError(null);
   };
+
+  const fetchSelect = async (setArray: any, serviceName: string) => {
+    try {
+      const response = await fetch(`${apiUrl}/${serviceName}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Error al obtener los roles');
+      }
+      const data = await response.json();
+      setArray(data);
+    }
+    catch (error) {
+      console.error('Error fetching roles:', error);
+    }
+  }
+  useEffect(() => {
+    fetchSelect(setPrograms, 'prog');
+    fetchSelect(setTechnologies, 'tech');
+  },[]);
 
   const handleClear = () => {
     clearTeams()
@@ -87,10 +109,15 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
             value={program}
             onIonChange={(e) => setProgram(e.detail.value)}
             className="w-32"
+            
           >
-            <IonSelectOption value="1">Programa 1</IonSelectOption>
-            <IonSelectOption value="2">Programa 2</IonSelectOption>
-            <IonSelectOption value="3">Programa 3</IonSelectOption>
+            {programs.map((value) => {
+              return (
+                  <IonSelectOption key={value.id} value={value.id}>
+                      {value.name} - {value.description}
+                  </IonSelectOption>
+              );
+            })}
           </IonSelect>
         </IonItem>
         <IonItem lines="none" className="rounded-md" color={"transparent"}>
@@ -129,11 +156,17 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 placeholder="Tecnologías"
                 className="w-28"
                 value={technology}
-                onIonChange={(e) => setTechnology(e.detail.value)}
+                onIonChange={(e) => {
+                  setTechnology(technologies.find(tech => tech.id === e.detail.value))
+                }}
               >
-                <IonSelectOption value="Java">Java</IonSelectOption>
-                <IonSelectOption value="UX/UI">UX/UI</IonSelectOption>
-                <IonSelectOption value="Node.js">Node.js</IonSelectOption>
+                {technologies.map((value) => {
+                  return (
+                    <IonSelectOption key={value.id} value={value.id}>
+                        {value.name}
+                    </IonSelectOption>
+                  );
+                })}
               </IonSelect>
             </IonCol>
             <IonCol className="flex items-center gap-2">
@@ -158,7 +191,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           {teams.map((team, index) => (
             <IonRow key={index} className="border rounded-sm border-gray-400">
               <IonCol>
-                <p>{team.teamTechnologies}</p>
+                <p>{team.teamTechnologies?.name}</p>
               </IonCol>
               <IonCol className="flex justify-around">
                 <p>{team.reqQuantity}</p>
@@ -175,7 +208,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           <IonRow className="border rounded-sm border-gray-400">
             <IonCol>Configuración de Mentores</IonCol>
           </IonRow>
-          <IonRow className="border rounded-sm border-gray-400">
+          <IonRow className="border rounded-md border-gray-400">
             <IonCol>
               <IonSelect
                 aria-label="Tecnologías de Mentores"
@@ -184,9 +217,13 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 onIonChange={(e) => setMentorTechnology(e.detail.value)}
                 multiple={true}
               >
-                <IonSelectOption value="1">Java</IonSelectOption>
-                <IonSelectOption value="2">UX/UI</IonSelectOption>
-                <IonSelectOption value="3">Node.js</IonSelectOption>
+                {technologies.map((value) => {
+                  return (
+                    <IonSelectOption key={value.id} value={value.id}>
+                        {value.name}
+                    </IonSelectOption>
+                  );
+                })}
               </IonSelect>
             </IonCol>
           </IonRow>

@@ -3,11 +3,7 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, IonSelect, IonTextarea, IonSelectOption } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-
-type Role = {
-    id: number;
-    name: string;
-  };
+import { Role } from "../util/types"
 
 const FormNewUser: React.FC = () => {
     const [name, setName] = useState('');

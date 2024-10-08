@@ -10,13 +10,7 @@ import {
 } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-
-type Menu = {
-  id: number;
-  name: string;
-  path: string;
-};
-
+import { Menu } from "../util/types"
 
 const getRole = (user: string | null) => {
   if (user) {
