@@ -13,3 +13,9 @@ export type Technology = {
     id: number;
     name: string;
 };
+
+export type Menu = {
+    id: number;
+    name: string;
+    path: string;
+  };

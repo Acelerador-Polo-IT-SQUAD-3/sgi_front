@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar, role }) => {
     <>
       {activeSidebar ? (
         <>
-          <Sidebar role={role} />
+          <Sidebar/>
 
           <div className="flex justify-end items-end h-12 pr-2">
             {buttons.map((button, index) => (
