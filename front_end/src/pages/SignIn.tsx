@@ -6,6 +6,8 @@ import FormRegister from "../components/FormRegister";
 
 import Header from "../components/Header";
 
+const role = "usuario";
+
 
 const Register: React.FC = () => {
     const headerButtons = [
@@ -15,7 +17,7 @@ const Register: React.FC = () => {
     ];
     return (
         <IonPage>
-            {/*             <Header buttons={headerButtons} activeSidebar={false} /> */}
+            <Header buttons={headerButtons} activeSidebar={false} role={role} />
             <IonContent>
                 <FormRegister />
             </IonContent>
