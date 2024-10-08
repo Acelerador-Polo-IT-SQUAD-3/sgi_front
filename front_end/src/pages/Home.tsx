@@ -37,9 +37,9 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header buttons={headerButtons} activeSidebar={true}/>
-        <HomeRoleView role={role}/>
-      <Footer/>
+      <Header buttons={headerButtons} activeSidebar={true} role={role} />
+      <HomeRoleView role={role} />
+      <Footer />
     </>
   );
 };

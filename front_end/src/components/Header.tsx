@@ -4,6 +4,7 @@ import { IonButton, IonContent, IonHeader, IonTitle } from '@ionic/react';
 import Sidebar from './Sidebar';
 import Logo from "../dummy-images/polo-it.png";
 
+
 interface HeaderButton {
   label: string;
   onClick?: () => void; // Hacer que onClick sea opcional
@@ -13,14 +14,15 @@ interface HeaderButton {
 interface HeaderProps {
   buttons: HeaderButton[];
   activeSidebar: boolean;
+  role: number
 }
 
-const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
+const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar, role }) => {
   return (
     <>
       {activeSidebar ? (
         <>
-          <Sidebar />
+          <Sidebar role={role} />
 
           <div className="flex justify-end items-end h-12 pr-2">
             {buttons.map((button, index) => (
