@@ -18,7 +18,7 @@ const MenuDisplay: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={"dark"}>
+        <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>

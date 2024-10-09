@@ -70,8 +70,14 @@ const TeamList: React.FC = () => {
 
   return (
     <IonContent>
-      <section className="h-full flex flex-col">
-        <TeamFilter teams={teams} onAddTeam={handleAddTeam} onRemoveTeam={handleRemoveTeam} onSubmit={handleSubmit} clearTeams={clearTeams}/>
+      <section className="h-full flex flex-col py-16 px-16">
+        <TeamFilter 
+          teams={teams} 
+          onAddTeam={handleAddTeam} 
+          onRemoveTeam={handleRemoveTeam} 
+          onSubmit={handleSubmit} 
+          clearTeams={clearTeams}
+        />
         <IonToast
           isOpen={toastMessage!==undefined}
           message={toastMessage}
