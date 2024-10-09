@@ -14,7 +14,7 @@ import {
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
-import { IonReactRouter } from "@ionic/react-router";
+import desktopIcon from '../../src/dummy-images/desktop-icon.png'
 
 const Sidebar: React.FC= () => {
   const location = useLocation();
@@ -71,7 +71,7 @@ const Sidebar: React.FC= () => {
               <IonToolbar>
                 <IonTitle className="bg-white text-black">
                   <div className="flex items-center">
-                    <img src="src/dummy-images/desktop-icon.png" alt="icono desktop" className="w-4 h-4 mr-2" />
+                    <img src={desktopIcon} alt="icono desktop" className="w-4 h-4 mr-2" />
                     <span className="font-poppins text-sm font-semibold leading-5 text-left">
                       Mis tareas
                     </span>
