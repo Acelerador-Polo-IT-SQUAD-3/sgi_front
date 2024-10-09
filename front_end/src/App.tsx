@@ -32,7 +32,7 @@ import '@ionic/react/css/display.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-import '@ionic/react/css/palettes/dark.system.css';
+//import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './input.css'
@@ -53,7 +53,7 @@ const setPage = () => {
 }
 
 const App: React.FC = () => (
-  <IonApp>
+  <IonApp className="font-poppins">
     <IonReactRouter>
       {setPage()}
       <Route exact path="/home" component={Home} />

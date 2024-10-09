@@ -1,7 +1,8 @@
-import {IonButton, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
+import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import { Team } from "../pages/TeamList";
 import { Program, Technology } from "../util/types"
+import { BsTrash3Fill } from "react-icons/bs";
 
 interface TeamFilterProps {
   teams: Team[];
@@ -99,139 +100,166 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
   };
 
   return (
-    <section className="px-2 mt-4 md:px-10 mb-4">
-      <IonTitle className="p-0 mb-2">Filtros de búsqueda</IonTitle>
-      <IonList className="bg-transparent flex justify-between items-center">
-        <IonItem lines="none" className="rounded-md ml-1" color={"dark"}>
-          <IonSelect
-            aria-label="Programas"
-            placeholder="Programas"
-            value={program}
-            onIonChange={(e) => setProgram(e.detail.value)}
-            className="w-32"
-            
-          >
-            {programs.map((value) => {
-              return (
-                  <IonSelectOption key={value.id} value={value.id}>
-                      {value.name} - {value.description}
-                  </IonSelectOption>
-              );
-            })}
-          </IonSelect>
-        </IonItem>
-        <IonItem lines="none" className="rounded-md" color={"transparent"}>
-          <IonLabel position="fixed" className="">
-            Cantidad max. equipos
-          </IonLabel>
-          <IonInput
-            value={maxTeams}
-            onIonChange={(e) => {
-              const value = e.detail.value;
-              if (value !== undefined && !isNaN(Number(value))) {
-                setMaxTeams(Number(value));
-              } else {
-                setMaxTeams(undefined);
-              }
-            }}
-            className="bg-slate-100 rounded-md"
-          />
-        </IonItem>
+    <section className="px-2 mt-4 md:px-10 mb-4 ">
+      <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">Asignación de equipos</IonTitle>
+      <IonList className="flex justify-between items-center">
+        <IonGrid>
+          <IonRow>
+            <IonCol> 
+              <IonSelect
+                interface="popover"
+                aria-label="Programa"
+                placeholder="Programa"
+                value={program}
+                onIonChange={(e) => setProgram(e.detail.value)}
+                className="rounded-md bg-white"
+              >
+                {programs.map((value) => {
+                  return (
+                      <IonSelectOption key={value.id} value={value.id}>
+                          {value.name} - {value.description}
+                      </IonSelectOption>
+                  );
+                })}
+              </IonSelect>
+            </IonCol>
+            <IonCol>
+              <IonSelect
+                interface="popover"
+                aria-label="Áreas de conocimiento del mentor"
+                placeholder="Áreas de conocimiento del mentor"
+                value={mentorTechnology}
+                onIonChange={(e) => setMentorTechnology(e.detail.value)}
+                multiple={true}
+                className="rounded-md bg-white"
+              >
+                {technologies.map((value) => {
+                  return (
+                    <IonSelectOption key={value.id} value={value.id}>
+                        {value.name}
+                    </IonSelectOption>
+                  );
+                })}
+              </IonSelect>
+            </IonCol>
+            <IonCol>
+              <IonInput
+                type="number"
+                min={1}
+                max={200}
+                aria-label="Cantidad max. de equipos"
+                label="Cantidad max. de equipos"
+                value={maxTeams}
+                onIonChange={(e) => {
+                  const value = e.detail.value;
+                  if (value !== undefined && !isNaN(Number(value))) {
+                    setMaxTeams(Number(value));
+                  } else {
+                    setMaxTeams(undefined);
+                  }
+                }}
+                className="rounded-md bg-white"
+              />
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonList>
       {error && (
         <div className="text-center">
           <IonLabel color="danger">{error}</IonLabel>
         </div>
       )}
-      <IonList className="bg-transparent">
-        <IonGrid>
-          <IonRow className="border rounded-sm border-gray-400">
-            <IonCol>Configuración de Graduados</IonCol>
-          </IonRow>
-          <IonRow className="border rounded-sm border-gray-400">
-            <IonCol className="flex items-center gap-4">
-              Área de conocimiento
-              <IonSelect
-                aria-label="Tecnologías"
-                placeholder="Tecnologías"
-                className="w-28"
-                value={technology}
-                onIonChange={(e) => {
-                  setTechnology(technologies.find(tech => tech.id === e.detail.value))
-                }}
-              >
-                {technologies.map((value) => {
-                  return (
-                    <IonSelectOption key={value.id} value={value.id}>
-                        {value.name}
-                    </IonSelectOption>
-                  );
-                })}
-              </IonSelect>
-            </IonCol>
-            <IonCol className="flex items-center gap-2">
-              <IonLabel position="fixed"> Cantidad de personas </IonLabel>
-              <IonInput
-                value={personCount}
-                onIonChange={(e) => {
-                  const value = e.detail.value;
-                  if (value !== undefined && !isNaN(Number(value))) {
-                    setPersonCount(Number(value));
-                  } else {
-                    setPersonCount(undefined);
-                  }
-                }}
-                className="bg-slate-100 rounded-md h-10"
-              />
-              <IonButton color={"light"} className="w-16 md:w-20 h-10" onClick={handleApply}>
-                Agregar
-              </IonButton>
-            </IonCol>
-          </IonRow>
-          {teams.map((team, index) => (
-            <IonRow key={index} className="border rounded-sm border-gray-400">
-              <IonCol>
-                <p>{team.teamTechnologies?.name}</p>
-              </IonCol>
-              <IonCol className="flex justify-around">
-                <p>{team.reqQuantity}</p>
-                <IonButton color={"light"} className="w-16 md:w-20 h-10 self-end" onClick={() => onRemoveTeam(team.id)}>
-                  Eliminar
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          ))}
-        </IonGrid>
-      </IonList>
-      <IonList className="bg-transparent">
-        <IonGrid>
-          <IonRow className="border rounded-sm border-gray-400">
-            <IonCol>Configuración de Mentores</IonCol>
-          </IonRow>
-          <IonRow className="border rounded-md border-gray-400">
-            <IonCol>
-              <IonSelect
-                aria-label="Tecnologías de Mentores"
-                placeholder="Selecciona las tecnologías de mentores"
-                value={mentorTechnology}
-                onIonChange={(e) => setMentorTechnology(e.detail.value)}
-                multiple={true}
-              >
-                {technologies.map((value) => {
-                  return (
-                    <IonSelectOption key={value.id} value={value.id}>
-                        {value.name}
-                    </IonSelectOption>
-                  );
-                })}
-              </IonSelect>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonList>
-      <div className="flex justify-between">
-        <IonButton onClick={handleClear}>Limpiar campos</IonButton>
-        <IonButton color={'success'} onClick={handleSubmit}>Enviar</IonButton>
+      <IonTitle className="p-0 mb-2 font-poppins text-[14px]">Configuración</IonTitle>
+      <IonCard className="bg-white py-8 px-8">
+        <IonCardContent className="bg-transparent">
+          <IonList className="bg-transparent">
+            <IonGrid>
+              <IonRow>
+                <IonCol className="flex items-center gap-2 py-2">
+                  <IonSelect
+                    interface="popover"
+                    aria-label="Área de conocimiento"
+                    placeholder="Área de conocimiento"
+                    value={technology}
+                    onIonChange={(e) => {
+                      setTechnology(technologies.find(tech => tech.id === e.detail.value))
+                    }}
+                    className="bg-white"
+                  >
+                    {technologies.map((value) => {
+                      return (
+                        <IonSelectOption key={value.id} value={value.id}>
+                            {value.name}
+                        </IonSelectOption>
+                      );
+                    })}
+                  </IonSelect>
+                </IonCol>
+                <IonCol className="flex items-center gap-2">
+                  <IonInput
+                    type="number"
+                    min={1}
+                    max={200}
+                    aria-label="Cantidad de personas"
+                    label="Cantidad de personas"
+                    value={personCount}
+                    onIonChange={(e) => {
+                      const value = e.detail.value;
+                      if (value !== undefined && !isNaN(Number(value))) {
+                        setPersonCount(Number(value));
+                      } else {
+                        setPersonCount(undefined);
+                      }
+                    }}
+                    className="rounded-md h-10 bg-transparent"
+                  />
+                </IonCol>
+                <IonCol className="flex justify-around">
+                  <button 
+                    style={{ width: '105px', height: '40px' }}
+                    className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+                    onClick={handleApply}
+                  >
+                    Agregar 
+                  </button>
+                </IonCol>
+              </IonRow>
+              {teams.map((team, index) => (
+                <IonRow key={index} className="py-4">
+                  <IonCol>
+                    <p>{team.teamTechnologies?.name}</p>
+                  </IonCol>
+                  <IonCol className="flex justify-around">
+                    <p>{team.reqQuantity}</p>
+                  </IonCol>
+                  <IonCol className="flex justify-around">
+                    <BsTrash3Fill 
+                      style={{ color: '#D8434380' }} 
+                      className="hover:text-[#D8434380] text-xl lg:text-2xl"
+                      onClick={() => onRemoveTeam(team.id)}
+                    />
+                  </IonCol>
+                </IonRow>
+              ))}
+            </IonGrid>
+          </IonList>
+        </IonCardContent>
+      </IonCard>
+      <div className="flex justify-between py-8">
+        <button 
+          style={{ width: '105px', height: '40px' }}
+          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+          onClick={handleClear}
+        >
+          Limpiar
+        </button>
+        <button 
+          style={{ width: '105px', height: '40px' }}
+          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+          onClick={handleSubmit}
+        >
+          Asignar
+        </button>
       </div>
     </section>
   );
