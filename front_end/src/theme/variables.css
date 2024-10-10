@@ -5,3 +5,12 @@ http://ionicframework.com/docs/theming/ */
     --ion-text-color: #000000 !important;
     --ion-background-color: #fdfeff !important;
   }
+
+  .page-background {
+    background-color: #fff4ea; 
+  }
+
+  .custom-input {
+    height: 30px; 
+    font-size: 14px; 
+  }

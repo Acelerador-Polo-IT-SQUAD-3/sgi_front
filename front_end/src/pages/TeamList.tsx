@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import TeamFilter from '../components/TeamFilter'
 import { IonContent, IonToast } from '@ionic/react'
+import '../theme/variables.css'
 
 export interface Team {
   id: number
@@ -69,8 +70,8 @@ const TeamList: React.FC = () => {
   }
 
   return (
-    <IonContent>
-      <section className="h-full flex flex-col py-16 px-16">
+    <IonContent class="page-background">
+      <section className="h-full flex flex-col py-16 px-16 page-background">
         <TeamFilter 
           teams={teams} 
           onAddTeam={handleAddTeam} 
