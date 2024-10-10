@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomeRoleView from '../components/HomeRoleView';
 
-const Home: React.FC = () => {
+const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
   const history = useHistory();
   const [role, setRole] = useState<any>(null);
 
@@ -27,8 +27,8 @@ const Home: React.FC = () => {
   };
 
   const headerButtons = [
-    { label: 'Profile', onClick: () => history.push('/menu-and-nav') },
-    { label: 'Logout', onClick: handleLogout },
+    //{ label: "Profile", onClick: () => history.push("/menu-and-nav") },
+    { label: "Logout", onClick: handleLogout },
   ];
 
   if (!role) {
@@ -37,12 +37,15 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header buttons={headerButtons} activeSidebar={true}/>
-        <HomeRoleView role={role}/>
-      <Footer/>
+      <Header buttons={headerButtons} activeSidebar={true} />
+      {childComponent?
+        React.createElement(childComponent) :
+        <HomeRoleView role={role} />
+      }
+      
+      <Footer />
     </>
   );
 };
 
 export default Home;
-

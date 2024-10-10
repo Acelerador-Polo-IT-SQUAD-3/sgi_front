@@ -21,18 +21,14 @@ interface AppPage {
 // desde un boton o algo por el estilo desde el MenuDisplay
 const appPages: AppPage[] = [
   {
-    id: 0,
-    title: 'Nuevo Usuario',
-    url: '/profile/new-user',
-    description: '',
+
+    title: "Nuevo Usuario",
+    url: "/profile/new-user",
     component: FormNewUser,
   },
   {
-    id: 1,
-    title: 'Participantes',
-
-    url:  '/profile/view-participants',
-    description: '',
+    title: "Participantes",
+    url: "/profile/view-participants",
     component: UserList,
   },
 

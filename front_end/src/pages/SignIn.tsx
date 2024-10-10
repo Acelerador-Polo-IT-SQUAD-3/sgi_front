@@ -7,6 +7,7 @@ import FormRegister from "../components/FormRegister";
 import Header from "../components/Header";
 
 
+
 const Register: React.FC = () => {
     const headerButtons = [
         { label: 'Inicio', routerLink: '/welcome' },
@@ -15,7 +16,7 @@ const Register: React.FC = () => {
     ];
     return (
         <IonPage>
-            {/*             <Header buttons={headerButtons} activeSidebar={false} /> */}
+            <Header buttons={headerButtons} activeSidebar={false} />
             <IonContent>
                 <FormRegister />
             </IonContent>

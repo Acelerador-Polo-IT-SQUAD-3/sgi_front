@@ -5,6 +5,10 @@ import { IonPage, IonContent } from "@ionic/react";
 import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import card1 from '../../public/imgs/card1.jpg'
+import card2 from '../../public/imgs/card2.jpg'
+import card3 from '../../public/imgs/card3.jpg'
+import card4 from '../../public/imgs/card4.jpg'
 
 const Welcome: React.FC = () => {
   const headerButtons = [
@@ -18,28 +22,28 @@ const Welcome: React.FC = () => {
       title: "CURSOS",
       description: "Desbloquea tu potencial con nuestros cursos",
       informacion: "Conoce la gran variedad de opciones IT que tenemos para ofrecerte",
-      image: "src/dummy-images/card1.jpg",
+      image: card1,
       alt: "Cursos",
     },
     {
       title: "EVENTOS",
       description: "Súmate a nuestras charlas y eventos gratuitos",
       informacion: "Capacítate para el futuro con nuestros profesionales",
-      image: "src/dummy-images/card2.jpg",
+      image: card2,
       alt: "Eventos",
     },
     {
       title: "BOOTCAMPS",
       description: "Amplía tu camino con un bootcamp intensivo",
       informacion: "Prepárate para un cambio profesional  con nuestros bootcamps",
-      image: "src/dummy-images/card3.jpg",
+      image: card3,
       alt: "Bootcamps",
     },
     {
       title: "EMPLEO",
       description: "Descubre ofertas de empleo que te inspiren",
       informacion: "Encuentra las mejores oportunidades en nuestra bolsa de trabajo",
-      image: "src/dummy-images/card4.jpg",
+      image: card4,
       alt: "Empleo",
     },
   ];
