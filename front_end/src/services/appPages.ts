@@ -3,9 +3,8 @@ import Config from "../components/Config";
 import FormNewUser from "../components/FormNewUser";
 import Programs from "../components/Programs";
 import UserList from "../pages/UserList";
-import FormNewUser from '../components/FormNewUser';
 import TeamList from '../pages/TeamList';
-import UserList from '../pages/UserList';
+import FormComunication from "../components/FormComunication";
 
 //Consulta a la base de datos para recibir un array de menus segun el rol del usuario.
 //Con el array debe asignar un componente a cada menu
@@ -41,6 +40,11 @@ const appPages: AppPage[] = [
     title: 'Asignación de equipos',
     url:  '/profile/teams',
     component: TeamList,
+  },
+  {
+    title: 'Comunicación',
+    url:  '/profile/comunication',
+    component: FormComunication,
   },
   {
     title: "Configuration",
