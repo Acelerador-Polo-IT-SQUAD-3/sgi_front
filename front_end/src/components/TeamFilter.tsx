@@ -100,77 +100,82 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
   };
 
   return (
-    <section className="px-2 mt-4 md:px-10 mb-4 ">
+    <section className="px-2">
       <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">Asignación de equipos</IonTitle>
-      <IonList className="flex justify-between items-center">
-        <IonGrid>
-          <IonRow>
-            <IonCol> 
-              <IonSelect
-                interface="popover"
-                aria-label="Programa"
-                placeholder="Programa"
-                value={program}
-                onIonChange={(e) => setProgram(e.detail.value)}
-                className="rounded-md bg-white"
-              >
-                {programs.map((value) => {
-                  return (
-                      <IonSelectOption key={value.id} value={value.id}>
-                          {value.name} - {value.description}
-                      </IonSelectOption>
-                  );
-                })}
-              </IonSelect>
-            </IonCol>
-            <IonCol>
-              <IonSelect
-                interface="popover"
-                aria-label="Áreas de conocimiento del mentor"
-                placeholder="Áreas de conocimiento del mentor"
-                value={mentorTechnology}
-                onIonChange={(e) => setMentorTechnology(e.detail.value)}
-                multiple={true}
-                className="rounded-md bg-white"
-              >
-                {technologies.map((value) => {
-                  return (
+      <IonGrid>
+        <IonRow>
+          <IonCol> 
+            <IonSelect
+              interface="popover"
+              aria-label="Programa"
+              placeholder="Programa"
+              fill="outline"
+              label-placement="floating"
+              value={program}
+              onIonChange={(e) => setProgram(e.detail.value)}
+              className="rounded-md bg-white custom-input "
+            >
+              {programs.map((value) => {
+                return (
                     <IonSelectOption key={value.id} value={value.id}>
-                        {value.name}
+                        {value.name} - {value.description}
                     </IonSelectOption>
-                  );
-                })}
-              </IonSelect>
-            </IonCol>
-            <IonCol>
-              <IonInput
-                type="number"
-                min={1}
-                max={200}
-                aria-label="Cantidad max. de equipos"
-                label="Cantidad max. de equipos"
-                value={maxTeams}
-                onIonChange={(e) => {
-                  const value = e.detail.value;
-                  if (value !== undefined && !isNaN(Number(value))) {
-                    setMaxTeams(Number(value));
-                  } else {
-                    setMaxTeams(undefined);
-                  }
-                }}
-                className="rounded-md bg-white"
-              />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonList>
+                );
+              })}
+            </IonSelect>
+          </IonCol>
+          <IonCol>
+            <IonSelect
+              interface="popover"
+              aria-label="Áreas de conocimiento del mentor"
+              placeholder="Áreas de conocimiento del mentor"
+              label-placement="floating"
+              fill="outline"
+              value={mentorTechnology}
+              onIonChange={(e) => setMentorTechnology(e.detail.value)}
+              multiple={true}
+              className="rounded-md bg-white"
+            >
+              {technologies.map((value) => {
+                return (
+                  <IonSelectOption key={value.id} value={value.id}>
+                      {value.name}
+                  </IonSelectOption>
+                );
+              })}
+            </IonSelect>
+          </IonCol>
+          <IonCol>
+            <IonInput
+              type="number"
+              min={1}
+              max={200}
+              labelPlacement="floating"
+              fill="outline"
+              aria-label="Cantidad max. de equipos"
+              label="Cantidad max. de equipos"
+              value={maxTeams}
+              onIonChange={(e) => {
+                const value = e.detail.value;
+                if (value !== undefined && !isNaN(Number(value))) {
+                  setMaxTeams(Number(value));
+                } else {
+                  setMaxTeams(undefined);
+                }
+              }}
+              className="rounded-md bg-white"
+            />
+          </IonCol>
+        </IonRow>
+      </IonGrid>
       {error && (
         <div className="text-center">
           <IonLabel color="danger">{error}</IonLabel>
         </div>
       )}
+      <br/>
       <IonTitle className="p-0 mb-2 font-poppins text-[14px]">Configuración</IonTitle>
-      <IonCard className="bg-white py-8 px-8">
+      <IonCard className="bg-white py-8">
         <IonCardContent className="bg-transparent">
           <IonList className="bg-transparent">
             <IonGrid>
@@ -180,6 +185,8 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                     interface="popover"
                     aria-label="Área de conocimiento"
                     placeholder="Área de conocimiento"
+                    label-placement="floating"
+                    fill="outline"
                     value={technology}
                     onIonChange={(e) => {
                       setTechnology(technologies.find(tech => tech.id === e.detail.value))
@@ -200,6 +207,8 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                     type="number"
                     min={1}
                     max={200}
+                    labelPlacement="floating"
+                    fill="outline"
                     aria-label="Cantidad de personas"
                     label="Cantidad de personas"
                     value={personCount}
@@ -217,7 +226,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 <IonCol className="flex justify-around">
                   <button 
                     style={{ width: '105px', height: '40px' }}
-                    className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+                    className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
                     onClick={handleApply}
                   >
                     Agregar 
@@ -248,14 +257,14 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       <div className="flex justify-between py-8">
         <button 
           style={{ width: '105px', height: '40px' }}
-          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
           onClick={handleClear}
         >
           Limpiar
         </button>
         <button 
           style={{ width: '105px', height: '40px' }}
-          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1 px-5"
+          className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
           onClick={handleSubmit}
         >
           Asignar
