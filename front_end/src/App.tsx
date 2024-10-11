@@ -62,7 +62,7 @@ const App: React.FC = () => (
       <Route exact path="/login" component={LogIn} />
       <Route exact path="/signin" component={SignIn} />
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
-      <Route exact path="/comunication" component={Comunication} />
+      <Route exact path="/profile/comunication" render={(props) => <Home {...props} childComponent={Comunication} />} />
       <Route exact path="/profile/view-participants" render={(props) => <Home {...props} childComponent={UserList} />} />
       <Route exact path="/profile/teams" render={(props) => <Home {...props} childComponent={TeamList} />} />   
     </IonReactRouter>

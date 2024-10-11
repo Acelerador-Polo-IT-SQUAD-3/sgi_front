@@ -70,7 +70,7 @@ const TeamList: React.FC = () => {
   }
 
   return (
-    <IonContent class="page-background">
+    <IonContent className="page-background">
       <section className="h-full flex flex-col py-16 px-16 page-background">
         <TeamFilter 
           teams={teams} 
