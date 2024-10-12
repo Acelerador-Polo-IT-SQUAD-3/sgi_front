@@ -1,4 +1,4 @@
-import { IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea } from '@ionic/react';
+import { IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea, useIonToast } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 
 interface FormComunicationProps {
@@ -14,10 +14,17 @@ function FormComunication({ data }: FormComunicationProps) {
     const [affair, setAffair] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [present] = useIonToast();
+
+    const clearForm = () => {
+        setAffair('');
+        setMessage('');
+        setSelectedOptions([]);
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const userData = {
+        const messageData = {
             affair,
             message,
             selectedOptions,
@@ -25,40 +32,54 @@ function FormComunication({ data }: FormComunicationProps) {
 
         try {
             const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
-            const userId = storedUser?.id;
+            const fromReception = storedUser?.email;
             const apiUrl = import.meta.env.VITE_API_URL;
 
-            const response = await fetch(`${apiUrl}/auth/`, {
+            const response = await fetch(`${apiUrl}/teams/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...userData, userId }), // Agrega userId al body
+                body: JSON.stringify({ ...messageData, fromReception }),
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Error en el registro');
+                throw new Error(errorData.message || 'Error en el envío del correoo');
             }
 
             const responseData = await response.json();
-            console.log('Registro exitoso:', responseData);
+            console.log('Envío exitoso:', responseData);
+            present({
+                message: 'Email enviado correctamente',
+                duration: 2000,
+                color: 'success',
+            });
+            clearForm()
         } catch (error) {
-            console.error('Error al registrarse:', error);
+            console.error('El error en el envío del correo:', error);
+            present({
+                message: 'Error al enviar el email. Intenta de nuevo.',
+                duration: 2000,
+                color: 'danger',
+            });
         }
     };
 
     return (
         <section className='w-full px-10 bg-gray-50'>
-            <h3 className='text-4xl font-bold mb-6 text-center text-gray-800'>Comunicación</h3>
+            <h6 className='text-2xl font-bold mb-6 text-left text-gray-800'>Comunicación</h6>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className='flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4'>
-                    <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg flex-grow w-[250px]'>
+                    <IonItem lines="none" className='bg-white border border-gray-200 rounded-lg flex-grow w-[250px]'>
                         <IonLabel position="stacked" className='text-gray-600'>Selecciona los Email's</IonLabel>
                         <IonSelect
                             multiple={true}
                             value={selectedOptions}
                             onIonChange={(e: CustomEvent) => setSelectedOptions(e.detail.value)}
+                            interface="popover"
+                            labelPlacement="stacked"
+                            placeholder="Seleccione receptores"               
                         >
                             {data ? (
                                 data.map(user => (
@@ -72,27 +93,23 @@ function FormComunication({ data }: FormComunicationProps) {
                         </IonSelect>
                     </IonItem>
 
-                    <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg flex-grow w-[250px]'>
+                    <IonItem lines="none" className='bg-white border border-gray-200 rounded-lg flex-grow w-[250px]'>
                         <IonLabel position="stacked" className='text-gray-600'>Asunto</IonLabel>
                         <IonInput
                             placeholder="Ingresa el asunto"
                             value={affair}
-                            required
                             minlength={3}
                             onIonChange={(e: CustomEvent) => setAffair(e.detail.value!)}
                         />
                     </IonItem>
                 </div>
 
-                <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
-                    <IonLabel position="stacked" className='text-gray-600'>Mensaje</IonLabel>
+                <IonItem lines="none" className='bg-white border border-gray-200 rounded-lg'>
+                    <IonLabel position="stacked" className='text-gray-600 mb-2'>Mensaje</IonLabel>
                     <IonTextarea
-                        className="h-40"
-                        placeholder="Escriba el cuerpo del mensaje"
                         value={message}
-                        required
                         onIonChange={(e: CustomEvent) => setMessage(e.detail.value!)}
-                        onFocus={(e) => e.currentTarget.scrollTop = e.currentTarget.scrollHeight} 
+                        placeholder="Ingrese su mensaje..."
                     />
                 </IonItem>
 
@@ -105,8 +122,9 @@ function FormComunication({ data }: FormComunicationProps) {
                     </button>
 
                     <button
-                        className="bg-[#E65C4F] text-black font-bold rounded-lg px-4 py-2"
+                        className="bg-white border border-red-500 text-[#E65C4F] font-bold rounded-lg px-4 py-2"
                         type="button"
+                        onClick={clearForm} 
                     >
                         Cancelar
                     </button>

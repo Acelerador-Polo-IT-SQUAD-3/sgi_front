@@ -31,7 +31,6 @@ const FormLogin: React.FC = () => {
             }
 
             const data = await response.json();
-            console.log('Del usuario se guarda: ' + JSON.stringify(data));
             sessionStorage.setItem('user', JSON.stringify(data.user));
 
             history.push('/home');
