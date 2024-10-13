@@ -4,6 +4,7 @@ import FormNewUser from "../components/FormNewUser";
 import Programs from "../components/Programs";
 import UserList from "../pages/UserList";
 import TeamList from '../pages/TeamList';
+import Comunication from "../pages/Comunication";
 
 //Consulta a la base de datos para recibir un array de menus segun el rol del usuario.
 //Con el array debe asignar un componente a cada menu
@@ -24,6 +25,11 @@ const appPages: AppPage[] = [
     title: "Nuevo Usuario",
     url: "/profile/new-user",
     component: FormNewUser,
+  },
+  {
+    title: "Comunicación",
+    url:  "/profile/comunication",
+    component: Comunication,
   },
   {
     title: "Participantes",

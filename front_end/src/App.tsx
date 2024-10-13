@@ -6,6 +6,10 @@ import LogIn from './pages/LogIn';
 import MenuAndNav from './pages/MenuAndNav';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
+import Comunication from './pages/Comunication';
+import UserList from "./pages/UserList";
+import TeamList from './pages/TeamList';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -29,7 +33,7 @@ import '@ionic/react/css/display.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-import '@ionic/react/css/palettes/dark.system.css';
+//import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './input.css'
@@ -50,7 +54,7 @@ const setPage = () => {
 }
 
 const App: React.FC = () => (
-  <IonApp>
+  <IonApp className="font-poppins">
     <IonReactRouter>
       {setPage()}
       <Route exact path="/home" component={Home} />
@@ -58,6 +62,9 @@ const App: React.FC = () => (
       <Route exact path="/login" component={LogIn} />
       <Route exact path="/signin" component={SignIn} />
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
+      <Route exact path="/profile/comunication" render={(props) => <Home {...props} childComponent={Comunication} />} />
+      <Route exact path="/profile/view-participants" render={(props) => <Home {...props} childComponent={UserList} />} />
+      <Route exact path="/profile/teams" render={(props) => <Home {...props} childComponent={TeamList} />} />   
     </IonReactRouter>
   </IonApp>
 );

@@ -6,11 +6,37 @@ function FormRegister() {
     const [mail, setMail] = useState<string>('');  // Define el tipo de estado
     const [password, setPassword] = useState<string>(''); // Define el tipo de estado
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(`Name: ${name}`);
-        console.log(`Mail: ${mail}`);
-        console.log(`Password: ${password}`);
+        const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+        
+            const userData = {
+                name,
+                mail,
+                password,
+            };
+        
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL;
+                const response = await fetch(`${apiUrl}/auth/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData),
+            });
+        
+                if (!response.ok) {
+                    const errorData = await response.json(); // Captura el cuerpo de la respuesta
+            console.log(errorData.message || 'Error en el registrooo');
+                    throw new Error('Error en el registro');
+                }
+        
+                const data = await response.json();
+                console.log('Registro exitoso:', data);
+            } catch (error) {
+                console.error('Error al registrarse:', error);
+            }
+        
     };
 
     return (
