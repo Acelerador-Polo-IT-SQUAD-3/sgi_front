@@ -12,7 +12,7 @@
     "lint": "eslint",
     "start": "npm-run-all --parallel server client",
     "server": "node server.js",
-    "proxy": "http://localhost:8100",
+    "proxy": "http://localhost:3000",
     "client": "ionic serve",
     "build:css": "npx postcss input.css -o output.css"
   },

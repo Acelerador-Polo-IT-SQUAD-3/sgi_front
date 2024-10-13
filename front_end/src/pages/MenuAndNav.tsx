@@ -8,7 +8,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import { useHistory } from 'react-router-dom';
 import MenuDisplay from "../components/MenuDisplay";
-import Header from "../components/Header";
+
 
 const MenuAndNav: React.FC = () => {
 
@@ -23,7 +23,7 @@ const MenuAndNav: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
+            <IonHeader className="flex justify-between items-center h-78 pr-2 bg-[#326789]">
                 <IonItem lines="none" className="flex items-stretch">
                     <IonTitle>Profile</IonTitle>
                     <IonButton routerLink="/home">Home</IonButton>

@@ -2,6 +2,6 @@
 http://ionicframework.com/docs/theming/ */
 
 :root {
-    --ion-text-color: #000000 !important;
-    --ion-background-color: #fdfeff !important;
-  }
+  --ion-text-color: #000000 !important;
+  --ion-background-color: #fdfeff !important;
+}

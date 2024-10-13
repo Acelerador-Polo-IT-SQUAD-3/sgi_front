@@ -21,9 +21,9 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
     <>
       {activeSidebar ? (
         <>
-          <Sidebar/>
+          <Sidebar />
 
-          <div className="flex justify-end items-end h-12 pr-2">
+          <div className="flex justify-end items-end h-12 pr-2 bg-[#326789] ">
             {buttons.map((button, index) => (
               <IonButton
                 key={index}
