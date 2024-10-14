@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
 
   const getRole = (user: string | null) => {
     if (user) {
-      let u = JSON.parse(user);
+      const u = JSON.parse(user);
       return u.role_id;
     }
     return null;
@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/menus/${userRole}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     setUserRole(getRole(user));
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (userRole) {
@@ -63,15 +63,27 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-
-      <IonMenu contentId="main-content" style={{ height: '100%' }}>
+      {/* Barra superior con botón de menú */}
+      <IonToolbar className="bg-transparente flex justify-between items-center">
+        <IonButton slot="start" className="bg-[#326789] rounded-md p-2 h-10 w-10 flex items-center justify-center">
+          <IonMenuButton className="text-white text-3xl" />
+        </IonButton>
+        <div id="main-content"></div>
+      </IonToolbar>
+      {/* Menú lateral */}
+      <IonMenu contentId="main-content" style={{ height: "100%" }}>
         <IonContent>
           <IonList id="inbox-list" className="h-full">
-            <IonHeader>
+            {/* Encabezado del menú */}
+            <IonHeader className="bg-[#326789]">
               <IonToolbar>
                 <IonTitle className="bg-white text-black">
                   <div className="flex items-center">
-                    <img src="src/dummy-images/desktop-icon.png" alt="icono desktop" className="w-4 h-4 mr-2" />
+                    <img
+                      src="src/dummy-images/desktop-icon.png"
+                      alt="icono desktop"
+                      className="w-4 h-4 mr-2"
+                    />
                     <span className="font-poppins text-sm font-semibold leading-5 text-left">
                       Mis tareas
                     </span>
@@ -79,15 +91,17 @@ const Sidebar: React.FC = () => {
                 </IonTitle>
               </IonToolbar>
             </IonHeader>
+
+            {/* Menú de opciones dinámico */}
             {menus.map((menu, index) => (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
-                  className={location.pathname === menu.path ? "selected" : ""}
+                  className={location.pathname === menu.path ? "selected bg-gray-200" : ""}
                   routerLink={menu.path}
                   routerDirection="forward"
                   lines="none"
                   detail={false}
-                  color={"transparent"}
+                  color="transparent"
                 >
                   <IonLabel>{menu.name}</IonLabel>
                 </IonItem>
@@ -96,26 +110,6 @@ const Sidebar: React.FC = () => {
           </IonList>
         </IonContent>
       </IonMenu>
-
-
-      <IonHeader className="bg-[#326789]">
-        <IonToolbar>
-          <IonButton
-            slot="start"
-            className="bg-[#326789] rounded-md p-2 h-10 w-10 flex items-center justify-center"
-          >
-            <IonMenuButton className="text-white text-3xl" />
-          </IonButton>
-          <IonTitle className="text-white ml-4">
-
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
-
-      <div id="main-content" >
-
-      </div>
     </>
   );
 };
