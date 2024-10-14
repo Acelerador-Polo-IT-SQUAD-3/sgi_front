@@ -188,9 +188,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                     label-placement="floating"
                     fill="outline"
                     value={technology}
-                    onIonChange={(e) => {
-                      setTechnology(technologies.find(tech => tech.id === e.detail.value))
-                    }}
+                    onIonChange={(e) => setTechnology(e.detail.value)}
                     className="bg-white"
                   >
                     {technologies.map((value) => {
