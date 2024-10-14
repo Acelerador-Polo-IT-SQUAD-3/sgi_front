@@ -9,6 +9,8 @@ import SignIn from './pages/SignIn';
 import Comunication from './pages/Comunication';
 import UserList from "./pages/UserList";
 import TeamList from './pages/TeamList';
+import FormNewUser from "./components/FormNewUser";
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -64,7 +66,8 @@ const App: React.FC = () => (
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
       <Route exact path="/profile/comunication" render={(props) => <Home {...props} childComponent={Comunication} />} />
       <Route exact path="/profile/view-participants" render={(props) => <Home {...props} childComponent={UserList} />} />
-      <Route exact path="/profile/teams" render={(props) => <Home {...props} childComponent={TeamList} />} />   
+      <Route exact path="/profile/teams" render={(props) => <Home {...props} childComponent={TeamList} />} /> 
+      <Route exact path="/profile/new-user" render={(props) => <Home {...props} childComponent={FormNewUser} />} /> 
     </IonReactRouter>
   </IonApp>
 );
