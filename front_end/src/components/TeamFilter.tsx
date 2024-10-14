@@ -15,7 +15,7 @@ interface TeamFilterProps {
 
 const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit,clearTeams }) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
-  const [technology, setTechnology] = useState<Technology | undefined>(undefined);
+  const [technology, setTechnology] = useState<number | undefined>(undefined);
   const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
   const [personCount, setPersonCount] = useState<number | undefined>(undefined);
   const [mentorTechnology, setMentorTechnology] = useState<string[]>([]);
@@ -26,14 +26,14 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
 
   const handleApply = () => {
     if (technology && personCount) {
-      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology.id);
+      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology);
       if (isTechnologyExists) {
         setError("La tecnología ya existe en la lista.");
         return;
       }
       const newTeam: Team = {
         id: teams.length + 1,
-        teamTechnologies: technology,
+        teamTechnologies: technologies.find(tech => tech.id === technology),
         reqQuantity: personCount,
         mentorTechnologies: mentorTechnology.join(',')
       };
