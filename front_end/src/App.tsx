@@ -8,7 +8,9 @@ import Welcome from "./pages/Welcome";
 import SignIn from "./pages/SignIn";
 import Comunication from "./pages/Comunication";
 import UserList from "./pages/UserList";
-import TeamList from "./pages/TeamList";
+import TeamList from './pages/TeamList';
+import FormNewUser from "./components/FormNewUser";
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
