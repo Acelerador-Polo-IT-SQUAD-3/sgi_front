@@ -10,11 +10,15 @@ import {
   IonLabel,
   IonList,
   IonMenuToggle,
+  IonIcon,
+  IonButtons
 } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
 import desktopIcon from '../../src/dummy-images/desktop-icon.png'
+import Logo from "../dummy-images/polo-it.png";
+import { close } from 'ionicons/icons';
 
 const Sidebar: React.FC= () => {
   const location = useLocation();
@@ -62,14 +66,18 @@ const Sidebar: React.FC= () => {
     }
   }, [userRole]);
 
+  const closeMenu = () => {
+    document.querySelector('ion-menu')?.close();
+  };
+
   return (
     <>
       <IonMenu contentId="main-content" style={{ height: '40%' }}>
         <IonContent>
           <IonList id="inbox-list" className="h-full">
-            <IonHeader className="!bg-white">
+            <IonHeader>
               <IonToolbar>
-                <IonTitle className="bg-white text-black">
+                <IonTitle className="text-black">
                   <div className="flex items-center">
                     <img src={desktopIcon} alt="icono desktop" className="w-4 h-4 mr-2" />
                     <span className="font-poppins text-sm font-semibold leading-5 text-left">
@@ -77,6 +85,11 @@ const Sidebar: React.FC= () => {
                     </span>
                   </div>
                 </IonTitle>
+                <IonButtons slot="end">
+                  <IonButton onClick={closeMenu} fill="clear">
+                    <IonIcon icon={close} />
+                  </IonButton>
+                </IonButtons>
               </IonToolbar>
             </IonHeader>
             {menus.map((menu, index) => (
@@ -98,12 +111,18 @@ const Sidebar: React.FC= () => {
       </IonMenu>
 
       <div className="ion-page " id="main-content">
-        <IonHeader>
+        <IonHeader style={{ backgroundColor: '#326789' }}>
           <IonToolbar>
-            <IonButton slot="start" className="h-4 ml-2">
+            <IonButton slot="start" className="h-4 ml-2" fill="clear">
               <IonMenuButton></IonMenuButton>
             </IonButton>
-            <IonTitle></IonTitle>
+            {/*<IonTitle className="flex items-center ml-14">
+              <img
+                src={Logo}
+                alt="PoloIT"
+                style={{ height: "40px", width: "auto" }}
+              />
+            </IonTitle>*/}
           </IonToolbar>
         </IonHeader>
       </div>
