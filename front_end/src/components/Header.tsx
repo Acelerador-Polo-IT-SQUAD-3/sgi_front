@@ -8,7 +8,7 @@ interface HeaderButton {
   label: string;
   onClick?: () => void; // Hacer que onClick sea opcional
   routerLink?: string; // Hacer que routerLink sea opcional
-  icon:string;
+  icon?:string;
 }
 
 interface HeaderProps {

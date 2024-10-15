@@ -6,6 +6,7 @@ import Header from '../components/Header';
 interface HeaderButton {
   label: string;
   onClick: () => void;
+  icon?:string;
 }
 
 interface MainLayoutProps {
