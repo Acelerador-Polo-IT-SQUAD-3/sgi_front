@@ -1,11 +1,22 @@
-
-import React, { useEffect, useState } from 'react';
-import { IonItem, IonList, IonSelect, IonSelectOption, IonTitle, IonButton } from '@ionic/react';
-import { Button } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import {
+  IonItem,
+  IonList,
+  IonSelect,
+  IonSelectOption,
+  IonTitle,
+  IonButton,
+} from "@ionic/react";
+import { Button } from "@mui/material";
+import { light } from "@mui/material/styles/createPalette";
 
 interface SearchFiltersProps {
-
-  onSearch: (filters: { role_id?: string; program_id?: string; team_id?: string; technology_id?: string }) => void;
+  onSearch: (filters: {
+    role_id?: string;
+    program_id?: string;
+    team_id?: string;
+    technology_id?: string;
+  }) => void;
   onAddParticipant: () => void;
 }
 
@@ -28,13 +39,26 @@ interface Technology {
   id: string;
   name: string;
 }
+const getRole = (user: string | null) => {
+  if (user) {
+    let u = JSON.parse(user); // Convierte el string de sessionStorage a objeto
+    return u.role_id; // Devuelve el rol_id
+  }
+  return null;
+};
 
-const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipant }) => {
-
+const SearchFilters: React.FC<SearchFiltersProps> = ({
+  onSearch,
+  onAddParticipant,
+}) => {
   const [roleId, setRoleId] = useState<string | undefined>(undefined);
   const [programId, setProgramId] = useState<string | undefined>(undefined);
-  const [technologyId, setTechnologyId] = useState<string | undefined>(undefined);
+  const [technologyId, setTechnologyId] = useState<string | undefined>(
+    undefined
+  );
   const [teamId, setTeamId] = useState<string | undefined>(undefined);
+  const user = sessionStorage.getItem("user");
+  const userRole = getRole(user);
 
   // Estado para almacenar roles, programas, equipos, y tecnologías
   const [roles, setRoles] = useState<Role[]>([]);
@@ -42,51 +66,48 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onSearch, onAddParticipan
   const [teams, setTeams] = useState<Team[]>([]);
   const [technologies, setTechnologies] = useState<Technology[]>([]);
 
-  
-
   const fetchRoles = async () => {
     try {
-      const response = await fetch('http://localhost:3000/roles/'); 
+      const response = await fetch("http://localhost:3000/roles/");
       const data = await response.json();
-      setRoles(data); 
+      setRoles(data);
     } catch (error) {
-      console.error('Error al obtener los roles:', error);
+      console.error("Error al obtener los roles:", error);
     }
   };
 
-// Función para obtener programas
-const fetchPrograms = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/prog/');
-    const data = await response.json();
-    setPrograms(data);
-  } catch (error) {
-    console.error('Error al obtener los programas:', error);
-  }
-};
+  // Función para obtener programas
+  const fetchPrograms = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/prog/");
+      const data = await response.json();
+      setPrograms(data);
+    } catch (error) {
+      console.error("Error al obtener los programas:", error);
+    }
+  };
 
-// Función para obtener equipos
-const fetchTeams = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/team/');
-    const data = await response.json();
-    setTeams(data);
-  } catch (error) {
-    console.error('Error al obtener los equipos:', error);
-  }
-};
+  // Función para obtener equipos
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/team/");
+      const data = await response.json();
+      setTeams(data);
+    } catch (error) {
+      console.error("Error al obtener los equipos:", error);
+    }
+  };
 
-// Función para obtener tecnologías
-const fetchTechnologies = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/tech/');
-    const data = await response.json();
-    setTechnologies(data);
-  } catch (error) {
-    console.error('Error al obtener las tecnologías:', error);
-  }
-};
-
+  // Función para obtener tecnologías
+  const fetchTechnologies = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/tech/");
+      const data = await response.json();
+      setTechnologies(data);
+    } catch (error) {
+      console.error("Error al obtener las tecnologías:", error);
+    }
+  };
 
   useEffect(() => {
     // Llamadas a las funciones para obtener todos los datos cuando el componente se monta
@@ -106,7 +127,6 @@ const fetchTechnologies = async () => {
     onSearch(filters);
   };
 
-
   const handleClearFilters = () => {
     setRoleId(undefined);
     setProgramId(undefined);
@@ -117,12 +137,12 @@ const fetchTechnologies = async () => {
 
   return (
     <section className="px-2 mt-4 md:px-10 mb-4">
-      <IonTitle className='p-0 mb-4'>Filtros de búsqueda</IonTitle>
+      <IonTitle className="p-0 mb-4">Filtros de búsqueda</IonTitle>
       <IonList className="bg-transparent flex justify-between">
-
         {/* Select para Roles */}
-        <IonItem lines='none' className="rounded-md" color={'dark'}>
+        <IonItem lines="none" className="rounded-md" color={"light"}>
           <IonSelect
+            interface="popover"
             aria-label="Rol"
             placeholder="Rol"
             value={roleId}
@@ -138,8 +158,9 @@ const fetchTechnologies = async () => {
         </IonItem>
 
         {/* Select para Programas */}
-        <IonItem lines='none' className="rounded-md" color={'dark'}>
+        <IonItem lines="none" className="rounded-md" color={"light"}>
           <IonSelect
+            interface="popover"
             aria-label="Curso/Proyecto"
             placeholder="Curso/Proyecto"
             value={programId}
@@ -155,8 +176,9 @@ const fetchTechnologies = async () => {
         </IonItem>
 
         {/* Select para Equipos */}
-        <IonItem lines='none' className="rounded-md" color={'dark'}>
+        <IonItem lines="none" className="rounded-md" color={"light"}>
           <IonSelect
+            interface="popover"
             aria-label="Equipo"
             placeholder="Equipo"
             value={teamId}
@@ -172,9 +194,10 @@ const fetchTechnologies = async () => {
         </IonItem>
 
         {/* Select para Tecnologías */}
-        <IonItem lines='none' className="rounded-md" color={'dark'}>
+        <IonItem lines="none" className="rounded-md" color={"light"}>
           <IonSelect
-            aria-label="Tecnología"
+            interface="popover"
+             aria-label="Tecnología"
             placeholder="Tecnología"
             value={technologyId}
             onIonChange={(e) => setTechnologyId(e.detail.value)}
@@ -188,11 +211,17 @@ const fetchTechnologies = async () => {
           </IonSelect>
         </IonItem>
 
-        <Button variant="contained" onClick={handleSearch}>Buscar</Button>
+        <Button variant="contained" onClick={handleSearch}>
+          Buscar
+        </Button>
       </IonList>
 
-      <div className='mt-4 flex justify-between'>
-        <IonButton routerLink='/profile/new-user' onClick={onAddParticipant}>Nuevo Participante</IonButton>
+      <div className="mt-4 flex justify-between">
+        {userRole === 3 && (
+          <IonButton routerLink="/profile/new-user" onClick={onAddParticipant}>
+            Nuevo Participante
+          </IonButton>
+        )}
         <IonButton onClick={handleClearFilters}>Limpiar filtros</IonButton>
       </div>
     </section>
