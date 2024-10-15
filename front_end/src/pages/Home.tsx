@@ -5,6 +5,7 @@ import { IonLoading } from '@ionic/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomeRoleView from '../components/HomeRoleView';
+import { chatbubbles, logOut } from 'ionicons/icons';
 
 const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
   const history = useHistory();
@@ -26,9 +27,14 @@ const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
     history.push('/login');
   };
 
+  const handleComunicacion = () => {
+    history.push('/profile/comunication');
+  };
+
   const headerButtons = [
     //{ label: "Profile", onClick: () => history.push("/menu-and-nav") },
-    { label: "Logout", onClick: handleLogout },
+    { label: "Comunicación", onClick: handleComunicacion, icon:'chatbubbles' },
+    { label: "Logout", onClick: handleLogout, icon:'log-out' },
   ];
 
   if (!role) {

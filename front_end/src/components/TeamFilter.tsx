@@ -1,7 +1,19 @@
-import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
+import {
+  IonCard,
+  IonCardContent,
+  IonCol,
+  IonGrid,
+  IonInput,
+  IonLabel,
+  IonList,
+  IonRow,
+  IonSelect,
+  IonSelectOption,
+  IonTitle,
+} from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import { Team } from "../pages/TeamList";
-import { Program, Technology } from "../util/types"
+import { Program, Technology } from "../util/types";
 import { BsTrash3Fill } from "react-icons/bs";
 
 interface TeamFilterProps {
@@ -10,10 +22,15 @@ interface TeamFilterProps {
   onSubmit: (data: any) => void;
   onRemoveTeam: (id: number) => void;
   clearTeams: () => void;
-
 }
 
-const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit,clearTeams }) => {
+const TeamFilter: React.FC<TeamFilterProps> = ({
+  teams,
+  onAddTeam,
+  onRemoveTeam,
+  onSubmit,
+  clearTeams,
+}) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
   const [technology, setTechnology] = useState<number | undefined>(undefined);
   const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
@@ -26,16 +43,18 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
 
   const handleApply = () => {
     if (technology && personCount) {
-      const isTechnologyExists = teams.some(team => team.teamTechnologies === technology);
+      const isTechnologyExists = teams.some(
+        (team) => team.teamTechnologies === technology
+      );
       if (isTechnologyExists) {
         setError("La tecnología ya existe en la lista.");
         return;
       }
       const newTeam: Team = {
         id: teams.length + 1,
-        teamTechnologies: technologies.find(tech => tech.id === technology),
+        teamTechnologies: technologies.find((tech) => tech.id === technology),
         reqQuantity: personCount,
-        mentorTechnologies: mentorTechnology.join(',')
+        mentorTechnologies: mentorTechnology.join(","),
       };
       onAddTeam(newTeam);
       setTechnology(undefined);
@@ -56,10 +75,10 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
       id: Number(program),
       cant_max_equipos: maxTeams,
       conocimientos_por_equipo: {
-        ids_tecnologias: teams.map(team => team.teamTechnologies?.id),
-        cantidad_requerida: teams.map(team => Number(team.reqQuantity)),
+        ids_tecnologias: teams.map((team) => team.teamTechnologies?.id),
+        cantidad_requerida: teams.map((team) => Number(team.reqQuantity)),
       },
-      conocimientos_por_mentor: mentorTechnology.map(tech => Number(tech))
+      conocimientos_por_mentor: mentorTechnology.map((tech) => Number(tech)),
     };
 
     onSubmit(data);
@@ -69,28 +88,27 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
   const fetchSelect = async (setArray: any, serviceName: string) => {
     try {
       const response = await fetch(`${apiUrl}/${serviceName}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
       if (!response.ok) {
-        throw new Error('Error al obtener los roles');
+        throw new Error("Error al obtener los roles");
       }
       const data = await response.json();
       setArray(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
     }
-    catch (error) {
-      console.error('Error fetching roles:', error);
-    }
-  }
+  };
   useEffect(() => {
-    fetchSelect(setPrograms, 'prog');
-    fetchSelect(setTechnologies, 'tech');
-  },[]);
+    fetchSelect(setPrograms, "prog");
+    fetchSelect(setTechnologies, "tech");
+  }, []);
 
   const handleClear = () => {
-    clearTeams()
+    clearTeams();
     setProgram(undefined);
     setTechnology(undefined);
     setMaxTeams(undefined);
@@ -101,10 +119,12 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
 
   return (
     <section className="px-2">
-      <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">Asignación de equipos</IonTitle>
+      <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">
+        Asignación de equipos
+      </IonTitle>
       <IonGrid>
         <IonRow>
-          <IonCol> 
+          <IonCol>
             <IonSelect
               interface="popover"
               aria-label="Programa"
@@ -117,9 +137,9 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
             >
               {programs.map((value) => {
                 return (
-                    <IonSelectOption key={value.id} value={value.id}>
-                        {value.name} - {value.description}
-                    </IonSelectOption>
+                  <IonSelectOption key={value.id} value={value.id}>
+                    {value.name} - {value.description}
+                  </IonSelectOption>
                 );
               })}
             </IonSelect>
@@ -139,7 +159,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
               {technologies.map((value) => {
                 return (
                   <IonSelectOption key={value.id} value={value.id}>
-                      {value.name}
+                    {value.name}
                   </IonSelectOption>
                 );
               })}
@@ -173,8 +193,10 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
           <IonLabel color="danger">{error}</IonLabel>
         </div>
       )}
-      <br/>
-      <IonTitle className="p-0 mb-2 font-poppins text-[14px]">Configuración</IonTitle>
+      <br />
+      <IonTitle className="p-0 mb-2 font-poppins text-[14px]">
+        Configuración
+      </IonTitle>
       <IonCard className="bg-white py-8">
         <IonCardContent className="bg-transparent">
           <IonList className="bg-transparent">
@@ -194,7 +216,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                     {technologies.map((value) => {
                       return (
                         <IonSelectOption key={value.id} value={value.id}>
-                            {value.name}
+                          {value.name}
                         </IonSelectOption>
                       );
                     })}
@@ -222,12 +244,12 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                   />
                 </IonCol>
                 <IonCol className="flex justify-around">
-                  <button 
-                    style={{ width: '105px', height: '40px' }}
+                  <button
+                    style={{ width: "105px", height: "40px" }}
                     className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
                     onClick={handleApply}
                   >
-                    Agregar 
+                    Agregar
                   </button>
                 </IonCol>
               </IonRow>
@@ -240,8 +262,8 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                     <p>{team.reqQuantity}</p>
                   </IonCol>
                   <IonCol className="flex justify-around">
-                    <BsTrash3Fill 
-                      style={{ color: '#D8434380' }} 
+                    <BsTrash3Fill
+                      style={{ color: "#D8434380" }}
                       className="hover:text-[#D8434380] text-xl lg:text-2xl"
                       onClick={() => onRemoveTeam(team.id)}
                     />
@@ -253,15 +275,15 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
         </IonCardContent>
       </IonCard>
       <div className="flex justify-between py-8">
-        <button 
-          style={{ width: '105px', height: '40px' }}
+        <button
+          style={{ width: "105px", height: "40px" }}
           className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
           onClick={handleClear}
         >
           Limpiar
         </button>
-        <button 
-          style={{ width: '105px', height: '40px' }}
+        <button
+          style={{ width: "105px", height: "40px" }}
           className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
           onClick={handleSubmit}
         >
