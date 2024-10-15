@@ -40,7 +40,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./input.css";
 import "./theme/variables.css";
-import FormNewUser from "./components/FormNewUser";
+
 
 setupIonicReact();
 

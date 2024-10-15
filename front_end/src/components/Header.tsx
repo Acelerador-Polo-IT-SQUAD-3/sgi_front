@@ -20,21 +20,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
   return (
     <>
       {activeSidebar ? (
-        <>
-          <Sidebar/>
-          <div className="flex justify-end items-center h-12 pr-2">
-            {buttons.map((button, index) => (
-              <IonButton
-                key={index}
-                onClick={button.onClick}
-                routerLink={button.routerLink}
-                fill="clear"
-              >
-                <IonIcon icon={button.icon==='log-out'? logOut : chatbubbles} size="large" />
-              </IonButton>
-            ))}
-          </div>
-        </>
+          <Sidebar buttons={buttons}/>
       ) : (
         <IonHeader className="flex justify-between items-center h-78 pr-2 bg-[#326789]">
           <IonTitle className="flex items-center ml-14">

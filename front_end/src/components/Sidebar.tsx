@@ -19,8 +19,12 @@ import { Menu } from "../util/types"
 import desktopIcon from '../../src/dummy-images/desktop-icon.png'
 import Logo from "../dummy-images/polo-it.png";
 import { close } from 'ionicons/icons';
+import { chatbubbles, logOut } from 'ionicons/icons';
 
-const Sidebar: React.FC= () => {
+interface HeaderProps {
+  buttons: any[];
+}
+const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
   const location = useLocation();
   const user = sessionStorage.getItem("user");
   const userData = user ? JSON.parse(user) : null;
@@ -110,20 +114,31 @@ const Sidebar: React.FC= () => {
         </IonContent>
       </IonMenu>
 
-      <div className="ion-page " id="main-content">
+      <div id="main-content">
         <IonHeader style={{ backgroundColor: '#326789' }}>
-          <IonToolbar>
+          <div className="flex items-end space-x-6">
             <IonButton slot="start" className="h-4 ml-2" fill="clear">
-              <IonMenuButton></IonMenuButton>
+              <IonMenuButton style={{ color: 'white' }}></IonMenuButton>
             </IonButton>
-            {/*<IonTitle className="flex items-center ml-14">
+            <IonTitle className="ml-14">
               <img
                 src={Logo}
                 alt="PoloIT"
                 style={{ height: "40px", width: "auto" }}
               />
-            </IonTitle>*/}
-          </IonToolbar>
+            </IonTitle>          
+            {buttons.map((button, index) => (
+              <IonButton
+                slot="end"
+                key={index}
+                onClick={button.onClick}
+                routerLink={button.routerLink}
+                fill="clear"
+              >
+                <IonIcon icon={button.icon==='log-out'? logOut : chatbubbles} size="large" style={{ color: 'white' }}/>
+              </IonButton>
+            ))}
+          </div>          
         </IonHeader>
       </div>
 
