@@ -117,10 +117,10 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
       <div id="main-content">
         <IonHeader style={{ backgroundColor: '#326789' }}>
           <div className="flex items-end space-x-6">
-            <IonButton slot="start" className="h-4 ml-2" fill="clear">
+            <IonButton slot="start" className="h-4" fill="clear" style={{ marginBottom: '10px' }}>
               <IonMenuButton style={{ color: 'white' }}></IonMenuButton>
             </IonButton>
-            <IonTitle className="ml-14">
+            <IonTitle className="ml-14" style={{ marginBottom: '8px' }}>
               <img
                 src={Logo}
                 alt="PoloIT"
