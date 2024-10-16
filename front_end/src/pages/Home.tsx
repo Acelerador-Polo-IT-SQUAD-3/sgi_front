@@ -10,12 +10,28 @@ import { chatbubbles, logOut } from 'ionicons/icons';
 const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
   const history = useHistory();
   const [role, setRole] = useState<any>(null);
+  const [headerButtons, setHeaderButtons] = useState<any>(null);
 
-  useEffect(() => {
+  const getRol = () => {
     const handleUser = sessionStorage.getItem('user');
     if (handleUser) {
       const parsedUser = JSON.parse(handleUser);
-      setRole(parsedUser.role_id);
+      return parsedUser.role_id;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const rolId = getRol();
+    if (rolId) {
+      setRole(rolId);
+      setHeaderButtons(
+        [
+          //{ label: "Profile", onClick: () => history.push("/menu-and-nav") },
+          ...(rolId !== 3 ? [{ label: "Comunicación", onClick: handleComunicacion, icon: 'chatbubbles' }] : []),
+          { label: "Logout", onClick: handleLogout, icon:'log-out' },
+        ]
+      )
     } else {
       history.push('/login');
     }
@@ -30,12 +46,6 @@ const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
   const handleComunicacion = () => {
     history.push('/profile/comunication');
   };
-
-  const headerButtons = [
-    //{ label: "Profile", onClick: () => history.push("/menu-and-nav") },
-    { label: "Comunicación", onClick: handleComunicacion, icon:'chatbubbles' },
-    { label: "Logout", onClick: handleLogout, icon:'log-out' },
-  ];
 
   if (!role) {
     return <IonLoading trigger="open-loading" message="Loading..." duration={3000} spinner="circles" />;

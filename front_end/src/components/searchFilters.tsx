@@ -65,10 +65,11 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   const [programs, setPrograms] = useState<Program[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch("http://localhost:3000/roles/");
+      const response = await fetch(`${apiUrl}/roles/`);
       const data = await response.json();
       setRoles(data);
     } catch (error) {
@@ -79,7 +80,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   // Función para obtener programas
   const fetchPrograms = async () => {
     try {
-      const response = await fetch("http://localhost:3000/prog/");
+      const response = await fetch(`${apiUrl}/prog/`);
       const data = await response.json();
       setPrograms(data);
     } catch (error) {
@@ -90,7 +91,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   // Función para obtener equipos
   const fetchTeams = async () => {
     try {
-      const response = await fetch("http://localhost:3000/team/");
+      const response = await fetch(`${apiUrl}/teams/`);
       const data = await response.json();
       setTeams(data);
     } catch (error) {
@@ -101,7 +102,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   // Función para obtener tecnologías
   const fetchTechnologies = async () => {
     try {
-      const response = await fetch("http://localhost:3000/tech/");
+      const response = await fetch(`${apiUrl}/tech/`);
       const data = await response.json();
       setTechnologies(data);
     } catch (error) {
