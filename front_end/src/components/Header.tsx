@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
           <Sidebar buttons={buttons}/>
       ) : (
         <IonHeader className="flex justify-between items-center h-78 pr-2 bg-[#326789]">
-          <IonTitle className="flex items-center ml-14">
+          <IonTitle className="flex items-center ml-14" style={{ marginLeft: '108px' }}>
             <img
               src={Logo}
               alt="PoloIT"
