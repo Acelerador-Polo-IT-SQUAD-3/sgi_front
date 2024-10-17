@@ -36,7 +36,7 @@ export const Carousel = () => {
                 className="w-full h-full"
             >
                 {slides.map((slide, index) => (
-                    <SwiperSlide key={index} className="flex justify-center items-center">
+                    <SwiperSlide key={index} className="flex justify-center">
                         <img
                             src={slide.src}
                             alt={slide.alt}

@@ -1,7 +1,22 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
 
-/* :root {
-    --ion-text-color: #000000 !important;
-    --ion-background-color: #fdfeff !important;
-  } */
+:root {
+  --ion-text-color: #000000 !important;
+  --ion-background-color: #fdfeff !important;
+}
+
+.page-background {
+  background-color: #fff4ea;
+}
+
+.custom-input {
+  height: 30px;
+  font-size: 14px;
+}
+
+.custom-note {
+  font-size: 11px;
+  color: #777472;
+  margin-left: 20px;
+}

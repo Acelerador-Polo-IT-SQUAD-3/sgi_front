@@ -62,7 +62,7 @@ const FormLogin: React.FC = () => {
                                 label="Correo electrónico"
                                 placeholder="example@mail.com"
                                 value={username}
-                                onIonChange={(e) => setUsername(e.detail.value!)} />
+                                onIonChange={(e: CustomEvent) => setUsername(e.detail.value!)} />
                         </IonItem>
 
                         <IonItem lines="full">
@@ -72,7 +72,7 @@ const FormLogin: React.FC = () => {
                                 placeholder="********"
                                 type="password"
                                 value={password}
-                                onIonChange={(e) => setPassword(e.detail.value!)} />
+                                onIonChange={(e: CustomEvent) => setPassword(e.detail.value!)} />
                         </IonItem>
                     </div>
                     <div className='flex flex-col items-center'>

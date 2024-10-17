@@ -10,14 +10,23 @@ import {
   IonLabel,
   IonList,
   IonMenuToggle,
+  IonIcon,
+  IonButtons,
+  IonNote
 } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
-import { IonReactRouter } from "@ionic/react-router";
+import desktopIcon from '../../public/imgs/desktop-icon.png'
+import Logo from "../../public/imgs/polo-it.png";
+import { close } from 'ionicons/icons';
+import { chatbubbles, logOut } from 'ionicons/icons';
+import "../theme/variables.css";
 
-
-const Sidebar: React.FC = () => {
+interface HeaderProps {
+  buttons: any[];
+}
+const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
   const location = useLocation();
   const user = sessionStorage.getItem("user");
   const userData = user ? JSON.parse(user) : null;
@@ -63,21 +72,31 @@ const Sidebar: React.FC = () => {
     }
   }, [userRole]);
 
+  const closeMenu = () => {
+    document.querySelector('ion-menu')?.close();
+  };
+
   return (
     <>
       <IonMenu contentId="main-content" style={{ height: '40%' }}>
         <IonContent>
           <IonList id="inbox-list" className="h-full">
-            <IonHeader className="!bg-black">
-              <IonToolbar className="sidebar-toolbar">
-                <IonTitle className="bg-white text-black">
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle className="text-black">
                   <div className="flex items-center">
-                    <img src="src/dummy-images/desktop-icon.png" alt="icono desktop" className="w-4 h-4 mr-2" />
+                    <img src={desktopIcon} alt="icono desktop" className="w-4 h-4 mr-2" />
                     <span className="font-poppins text-sm font-semibold leading-5 text-left">
                       Mis tareas
                     </span>
                   </div>
                 </IonTitle>
+                <IonButtons slot="end">
+                  <IonButton onClick={closeMenu} fill="clear">
+                    <IonIcon icon={close} />
+                  </IonButton>
+                </IonButtons>
+                <IonNote className="custom-note"> {userData ? userData.name + " " + userData.surname + " (" +userData.role_name + ")": ""}</IonNote>
               </IonToolbar>
             </IonHeader>
             {menus.map((menu, index) => (
@@ -98,16 +117,31 @@ const Sidebar: React.FC = () => {
         </IonContent>
       </IonMenu>
 
-      <div className="ion-page " id="main-content">
-        <IonHeader>
-          <IonToolbar>
-
-            <IonButton slot="start" className="h-4 ml-2" style={{ '--background': '#326789' }}>
-              <IonMenuButton></IonMenuButton>
+      <div id="main-content">
+        <IonHeader style={{ backgroundColor: '#326789' }}>
+          <div className="flex items-end space-x-6">
+            <IonButton slot="start" className="h-4" fill="clear" style={{ marginBottom: '10px' }}>
+              <IonMenuButton style={{ color: 'white' }}></IonMenuButton>
             </IonButton>
-
-            <IonTitle></IonTitle>
-          </IonToolbar>
+            <IonTitle className="ml-14" style={{ marginBottom: '8px' }}>
+              <img
+                src={Logo}
+                alt="PoloIT"
+                style={{ height: "40px", width: "auto" }}
+              />
+            </IonTitle>          
+            {buttons.map((button, index) => (
+              <IonButton
+                slot="end"
+                key={index}
+                onClick={button.onClick}
+                routerLink={button.routerLink}
+                fill="clear"
+              >
+                <IonIcon icon={button.icon==='log-out'? logOut : chatbubbles} size="large" style={{ color: 'white' }}/>
+              </IonButton>
+            ))}
+          </div>          
         </IonHeader>
       </div>
 

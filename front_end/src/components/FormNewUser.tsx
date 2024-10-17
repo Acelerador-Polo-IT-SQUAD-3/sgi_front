@@ -76,8 +76,8 @@ const FormNewUser: React.FC = () => {
     //const { name, surname, dni, description, email, password, role_id } = req.body;
     return (
         <IonContent>
-            <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center bg-[#FFF4EA]">
-                <IonItem lines="none" color={"dark"}>
+            <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center">
+                <IonItem lines="none"color={"light"}>
                     <IonGrid >
                         <IonRow>
                             <IonCol>

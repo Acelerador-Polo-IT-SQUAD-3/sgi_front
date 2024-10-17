@@ -1,14 +1,13 @@
-
-import React from 'react';
-import { IonButton, IonHeader, IonTitle } from '@ionic/react';
-import Sidebar from './Sidebar';
-import Logo from "../dummy-images/polo-it.png";
-
+import React from "react";
+import { IonButton, IonHeader, IonTitle, IonIcon } from "@ionic/react";
+import Sidebar from "./Sidebar";
+import Logo from "../../public/imgs/polo-it.png";
 
 interface HeaderButton {
   label: string;
   onClick?: () => void; // Hacer que onClick sea opcional
   routerLink?: string; // Hacer que routerLink sea opcional
+  icon?:string;
 }
 
 interface HeaderProps {
@@ -20,45 +19,10 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
   return (
     <>
       {activeSidebar ? (
-        <>
-          <Sidebar/>
-
-          <div className="flex justify-end items-end h-12 pr-2">
-            {buttons.map((button, index) => (
-              <IonButton
-                key={index}
-                onClick={button.onClick}
-                routerLink={button.routerLink}
-                fill="clear"
-                className="
-                w-[120px] 
-              h-[40px] 
-                mt-[13px] 
-                bg-[#E9EEF4] 
-                gap-[10px] 
-                rounded-tl-[10px] 
-                rounded-none 
-                opacity-100
-                text-black
-                rounded-none
-                text-xs
-                font-poppins
-                  text-[16px]
-                  font-medium
-                  leading-[24px]
-                  tracking-[-0.1px]
-                  text-center
-              "
-              >
-                {button.label}
-              </IonButton>
-            ))}
-          </div>
-        </>
+          <Sidebar buttons={buttons}/>
       ) : (
-
         <IonHeader className="flex justify-between items-center h-78 pr-2 bg-[#326789]">
-          <IonTitle className="flex items-center ml-14">
+          <IonTitle className="flex items-center ml-14" style={{ marginLeft: '108px' }}>
             <img
               src={Logo}
               alt="PoloIT"
@@ -72,23 +36,22 @@ const Header: React.FC<HeaderProps> = ({ buttons, activeSidebar }) => {
                 onClick={button.onClick}
                 routerLink={button.routerLink}
                 className="
-              w-[120px] 
-              h-[40px]
-              bg-[#E9EEF4] 
-              gap-[10px] 
-              rounded-[10px]
-              opacity-100
-              text-black
-              text-xs
-              font-poppins
-                  text-[16px]
-                  font-medium
-                  leading-[24px]
-                  tracking-[-0.1px]
-                  text-center
-              "
+                  w-[120px] 
+                  h-[40px]
+                  bg-[#E9EEF4] 
+                  gap-[10px] 
+                  rounded-[10px]
+                  opacity-100
+                  text-black
+                  text-xs
+                  font-poppins
+                      text-[12px]
+                      font-medium
+                      leading-[24px]
+                      tracking-[-0.1px]
+                      text-center
+                  "
                 fill="clear"
-
               >
                 {button.label}
               </IonButton>
