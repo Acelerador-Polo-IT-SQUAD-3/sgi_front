@@ -1,7 +1,8 @@
-import {IonButton, IonCol,IonGrid,IonInput,IonItem,IonLabel,IonList,IonRow,IonSelect,IonSelectOption,IonTitle,} from "@ionic/react";
+import { IonButton, IonCol, IonGrid, IonInput, IonItem, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonTitle, } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import { Team } from "../pages/TeamList";
 import { Program, Technology } from "../util/types"
+import Header from "../components/Header";
 
 interface TeamFilterProps {
   teams: Team[];
@@ -12,7 +13,7 @@ interface TeamFilterProps {
 
 }
 
-const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit,clearTeams }) => {
+const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam, onSubmit, clearTeams }) => {
   const [program, setProgram] = useState<string | undefined>(undefined);
   const [technology, setTechnology] = useState<Technology | undefined>(undefined);
   const [maxTeams, setMaxTeams] = useState<number | undefined>(undefined);
@@ -86,7 +87,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
   useEffect(() => {
     fetchSelect(setPrograms, 'prog');
     fetchSelect(setTechnologies, 'tech');
-  },[]);
+  }, []);
 
   const handleClear = () => {
     clearTeams()
@@ -99,7 +100,8 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
   };
 
   return (
-    <section className="px-2 mt-4 md:px-10 mb-4">
+
+    <section style={{ backgroundColor: '#FFF4EA' }} className="px-2 mt-4 md:px-10 mb-4">
       <IonTitle className="p-0 mb-2">Filtros de búsqueda</IonTitle>
       <IonList className="bg-transparent flex justify-between items-center">
         <IonItem lines="none" className="rounded-md ml-1" color={"dark"}>
@@ -109,13 +111,13 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
             value={program}
             onIonChange={(e) => setProgram(e.detail.value)}
             className="w-32"
-            
+
           >
             {programs.map((value) => {
               return (
-                  <IonSelectOption key={value.id} value={value.id}>
-                      {value.name} - {value.description}
-                  </IonSelectOption>
+                <IonSelectOption key={value.id} value={value.id}>
+                  {value.name} - {value.description}
+                </IonSelectOption>
               );
             })}
           </IonSelect>
@@ -163,7 +165,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 {technologies.map((value) => {
                   return (
                     <IonSelectOption key={value.id} value={value.id}>
-                        {value.name}
+                      {value.name}
                     </IonSelectOption>
                   );
                 })}
@@ -220,7 +222,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
                 {technologies.map((value) => {
                   return (
                     <IonSelectOption key={value.id} value={value.id}>
-                        {value.name}
+                      {value.name}
                     </IonSelectOption>
                   );
                 })}
@@ -234,6 +236,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ teams, onAddTeam, onRemoveTeam,
         <IonButton color={'success'} onClick={handleSubmit}>Enviar</IonButton>
       </div>
     </section>
+
   );
 };
 

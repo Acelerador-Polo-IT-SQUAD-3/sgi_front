@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { IonButton, IonContent, IonHeader, IonTitle } from '@ionic/react';
+import { IonButton, IonHeader, IonTitle } from '@ionic/react';
 import Sidebar from './Sidebar';
 import Logo from "../dummy-images/polo-it.png";
 

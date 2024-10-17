@@ -39,9 +39,11 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
   };
 
   return (
-    <IonList className='md:px-10 bg-transparent'>
-      <IonGrid>
-        <IonRow className='border rounded-sm border-gray-400'>
+    <IonList className='md:px-10 bg-[#FFF4EA]'>
+      <IonGrid className='bg-white'
+        style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 'bold' }}>
+        <IonRow className='border rounded-sm border-gray-400 Poppins, sans-serif '
+          style={{ backgroundColor: '#D3D3D3' }} >
           <IonCol className='text-center'>Nombre</IonCol>
           <IonCol className='text-center'>Apellido</IonCol>
           <IonCol className='text-center'>Email</IonCol>
@@ -49,27 +51,53 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({ participants, onEdi
           <IonCol className='text-center'>Acción</IonCol>
         </IonRow>
         {participants.map((participant, index) => (
-          <IonRow className='border-x-2 border-b rounded-sm border-gray-400 pt-2 flex items-center' key={index}>
+          <IonRow className='font-poppins border-x-2 border-b rounded-sm border-gray-400 pt-2 flex items-center' key={index}>
             <IonCol className='w-1 text-center'>{participant.name}</IonCol>
             <IonCol className='w-1 text-center'>{participant.surname}</IonCol>
             <IonCol className='w-1 text-center'>{participant.email}</IonCol>
             <IonCol className='w-1 text-center'>{participant.company}</IonCol>
             <IonCol className='w-1 text-center'>
-              <IonButton className='w-16 md:w-20' onClick={() => onEdit(participant)}>Editar</IonButton>
-              <IonButton className='w-16 md:w-20' color="danger" onClick={() => handleDelete(participant)}>Eliminar</IonButton>
-
+              <IonButton fill="clear"
+                style={{
+                  color: 'black',
+                  backgroundColor: '#f9e3e2',
+                  borderRadius: '10px',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '10px',
+                  padding: '4px 6px'
+                }}
+                className='w-16 md:w-20'
+                onClick={() => onEdit(participant)}
+              >
+                Editar
+              </IonButton>
+              <IonButton fill="clear"
+                style={{
+                  color: 'black',
+                  backgroundColor: '#f9e3e2',
+                  borderRadius: '10px',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '10px',
+                  padding: '4px 6px'
+                }}
+                className='w-16 md:w-20'
+                onClick={() => handleDelete(participant)}
+              >
+                Eliminar
+              </IonButton>
             </IonCol>
           </IonRow>
+
         ))}
       </IonGrid>
 
       <IonToast
-          isOpen={isOpen}
-          message="Se ha eliminado el usuario correctamente"
-          onDidDismiss={() => setIsOpen(false)}
-          duration={3000}
-          color={"light"}
-          className='text-center'
+        isOpen={isOpen}
+        message="Se ha eliminado el usuario correctamente"
+        onDidDismiss={() => setIsOpen(false)}
+        duration={3000}
+        color={"light"}
+        className='text-center'
       ></IonToast>
     </IonList>
   );

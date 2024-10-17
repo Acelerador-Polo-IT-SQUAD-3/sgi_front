@@ -16,12 +16,12 @@ import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
 import { IonReactRouter } from "@ionic/react-router";
 
-const Sidebar: React.FC= () => {
+const Sidebar: React.FC = () => {
   const location = useLocation();
   const user = sessionStorage.getItem("user");
   const userData = user ? JSON.parse(user) : null;
   const [menus, setMenus] = useState<Menu[]>([]);
-  const [userRole, setUserRole] = useState<number|undefined>(undefined);
+  const [userRole, setUserRole] = useState<number | undefined>(undefined);
 
   const getRole = (user: string | null) => {
     if (user) {
@@ -29,7 +29,7 @@ const Sidebar: React.FC= () => {
       return u.role_id; // Devuelve el rol_id
     }
     return null;
-  }; 
+  };
 
   const fetchMenus = async () => {
     try {
@@ -67,7 +67,7 @@ const Sidebar: React.FC= () => {
       <IonMenu contentId="main-content" style={{ height: '40%' }}>
         <IonContent>
           <IonList id="inbox-list" className="h-full">
-            <IonHeader className="!bg-white">
+            <IonHeader className="!bg-black">
               <IonToolbar>
                 <IonTitle className="bg-white text-black">
                   <div className="flex items-center">

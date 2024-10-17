@@ -3,6 +3,7 @@ import { IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIn
 import './ExploreContainer.css'
 import { Participant } from '../pages/UserList';
 
+
 interface EditModalProps {
   participant: Participant;
   isOpen: boolean;
@@ -28,33 +29,33 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
       <IonHeader>
-        <IonToolbar color={"dark"}>
+        <IonToolbar style={{ backgroundColor: '#FFF4EA' }}>
           <IonTitle>Editar Participante</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">Nombre</IonLabel>
             <IonInput value={name} onIonChange={e => setName(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">Apellido</IonLabel>
             <IonInput value={surname} onIonChange={e => setSurname(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">Email</IonLabel>
             <IonInput value={email} onIonChange={e => setEmail(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">Compañía</IonLabel>
             <IonInput value={company} onIonChange={e => setCompany(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">DNI</IonLabel>
             <IonInput value={dni} onIonChange={e => setDni(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem style={{ backgroundColor: '#FFF4EA' }}>
             <IonLabel position="stacked">Descripción</IonLabel>
             <IonInput value={description} onIonChange={e => setDescription(e.detail.value!)} />
           </IonItem>
@@ -65,8 +66,24 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
         </IonList>
       </IonContent>
       <IonFooter className='flex justify-end'>
-        <IonButton onClick={onClose} color="danger">Cancelar</IonButton>
-        <IonButton onClick={handleSave}>Confirmar</IonButton>
+        <IonButton onClick={onClose} sx={{
+          backgroundColor: '#E65C4F',
+          color: 'white',
+          borderRadius: '10px',
+          '&:hover': {
+            backgroundColor: '#d9534f',
+          },
+          margin: '0 5px',
+        }}>Cancelar</IonButton>
+        <IonButton onClick={handleSave} sx={{
+          backgroundColor: '#E65C4F',
+          color: 'white',
+          borderRadius: '10px',
+          '&:hover': {
+            backgroundColor: '#d9534f',
+          },
+          margin: '0 5px',
+        }}>Guardar</IonButton>
       </IonFooter>
     </IonModal>
   );

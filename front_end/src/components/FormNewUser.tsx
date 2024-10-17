@@ -72,12 +72,12 @@ const FormNewUser: React.FC = () => {
     }
     useEffect(() => {
         fetchRoles();
-    },[]);
+    }, []);
     //const { name, surname, dni, description, email, password, role_id } = req.body;
     return (
         <IonContent>
-            <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center">
-                <IonItem lines="none"color={"dark"}>
+            <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center bg-[#FFF4EA]">
+                <IonItem lines="none" color={"dark"}>
                     <IonGrid >
                         <IonRow>
                             <IonCol>
@@ -150,7 +150,7 @@ const FormNewUser: React.FC = () => {
                                     {roles.map((role) => {
                                         return (
                                             <IonSelectOption key={role.id} value={role.id}>
-                                                {role.name} 
+                                                {role.name}
                                             </IonSelectOption>
                                         );
                                     })}
