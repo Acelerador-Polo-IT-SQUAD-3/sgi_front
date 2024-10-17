@@ -7,6 +7,9 @@ import {
   IonCol,
   useIonAlert,
   IonToast,
+  IonContent,
+  IonCard,
+  IonCardContent,
 } from "@ionic/react";
 import { Participant } from "../pages/UserList";
 
@@ -54,60 +57,68 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
         console.log(`Dismissed with role: ${detail.role}`),
     });
   };
-
+ 
   return (
-    <IonList className="md:px-10 bg-transparent">
-      <IonGrid>
-        <IonRow className="border rounded-sm border-gray-400">
-          <IonCol className="text-center bg-white">Nombre</IonCol>
-          <IonCol className="text-center bg-white">Apellido</IonCol>
-          <IonCol className="text-center bg-white">Email</IonCol>
-          <IonCol className="text-center bg-white">Compañía</IonCol>
-          {userRole != 1 && (
-            <IonCol className="text-center bg-white">Acción</IonCol>
-          )}
-        </IonRow>
-        {participants.map((participant, index) => (
-          <IonRow
-            className="border-x-2 border-b rounded-sm border-gray-400 pt-2 flex items-center"
-            key={index}
-          >
-            <IonCol className="w-1 text-center">{participant.name}</IonCol>
-            <IonCol className="w-1 text-center">{participant.surname}</IonCol>
-            <IonCol className="w-1 text-center">{participant.email}</IonCol>
-            <IonCol className="w-1 text-center">{participant.company}</IonCol>
-            {userRole != 1 && (
-              <IonCol className="w-1 text-center">
-                <IonButton
-                  className="w-16 md:w-20"
-                  onClick={() => onEdit(participant)}
-                >
-                  Editar
-                </IonButton>
-                {userRole === 3 && (
-                  <IonButton
-                    className="w-16 md:w-20"
-                    color="danger"
-                    onClick={() => handleDelete(participant)}
-                  >
-                    Eliminar
-                  </IonButton>
+    <IonCard className="bg-white mx-24 mt-0 overflow-y-scroll scrollbar-hide">
+      <IonCardContent>
+        <IonList className="md:px-1 bg-white">
+          <IonGrid>
+            <IonRow className="border rounded-sm border-gray-400">
+              <IonCol className="text-center ">Nombre</IonCol>
+              <IonCol className="text-center ">Apellido</IonCol>
+              <IonCol className="text-center ">Email</IonCol>
+              <IonCol className="text-center ">Compañía</IonCol>
+              {userRole != 1 && (
+                <IonCol className="text-center ">Acción</IonCol>
+              )}
+            </IonRow>
+            {participants.map((participant, index) => (
+              <IonRow
+                className="border-x-2 border-b rounded-sm border-gray-400 pt-2 flex items-center"
+                key={index}
+              >
+                <IonCol className="w-1 text-center">{participant.name}</IonCol>
+                <IonCol className="w-1 text-center">
+                  {participant.surname}
+                </IonCol>
+                <IonCol className="w-1 text-center">{participant.email}</IonCol>
+                <IonCol className="w-1 text-center">
+                  {participant.company}
+                </IonCol>
+                {userRole != 1 && (
+                  <IonCol className="w-1 text-center">
+                    <IonButton
+                      className="w-16 md:w-20"
+                      onClick={() => onEdit(participant)}
+                    >
+                      Editar
+                    </IonButton>
+                    {userRole === 3 && (
+                      <IonButton
+                        className="w-16 md:w-20"
+                        color="danger"
+                        onClick={() => handleDelete(participant)}
+                      >
+                        Eliminar
+                      </IonButton>
+                    )}
+                  </IonCol>
                 )}
-              </IonCol>
-            )}
-          </IonRow>
-        ))}
-      </IonGrid>
+              </IonRow>
+            ))}
+          </IonGrid>
 
-      <IonToast
-        isOpen={isOpen}
-        message="Se ha eliminado el usuario correctamente"
-        onDidDismiss={() => setIsOpen(false)}
-        duration={3000}
-        color={"light"}
-        className="text-center"
-      ></IonToast>
-    </IonList>
+          <IonToast
+            isOpen={isOpen}
+            message="Se ha eliminado el usuario correctamente"
+            onDidDismiss={() => setIsOpen(false)}
+            duration={3000}
+            color={"light"}
+            className="text-center"
+          ></IonToast>
+        </IonList>
+      </IonCardContent>
+    </IonCard>
   );
 };
 

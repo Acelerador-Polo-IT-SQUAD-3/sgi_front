@@ -194,7 +194,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
         </div>
       )}
       <br />
-      <IonTitle className="p-0 mb-2 font-poppins text-[14px]">
+      <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">
         Configuración
       </IonTitle>
       <IonCard className="bg-white py-8">
