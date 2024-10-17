@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonList, IonFooter } from '@ionic/react';
 import './ExploreContainer.css'
 import { Participant } from '../pages/UserList';
+import Avatar from "../dummy-images/Avatar.png"
 
 
 interface EditModalProps {
@@ -29,8 +30,13 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
       <IonHeader>
-        <IonToolbar style={{ backgroundColor: '#FFF4EA' }}>
-          <IonTitle>Editar Participante</IonTitle>
+        <IonToolbar style={{ '--background': '#326789' }}>
+          <IonTitle>Nuevo Participante / Editar Participante</IonTitle>
+          <img
+            src={Avatar}
+            alt="Avatar"
+            style={{ height: "40px", width: "auto" }}
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent>

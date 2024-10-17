@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
 import { IonReactRouter } from "@ionic/react-router";
 
+
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const user = sessionStorage.getItem("user");
@@ -68,7 +69,7 @@ const Sidebar: React.FC = () => {
         <IonContent>
           <IonList id="inbox-list" className="h-full">
             <IonHeader className="!bg-black">
-              <IonToolbar>
+              <IonToolbar className="sidebar-toolbar">
                 <IonTitle className="bg-white text-black">
                   <div className="flex items-center">
                     <img src="src/dummy-images/desktop-icon.png" alt="icono desktop" className="w-4 h-4 mr-2" />
@@ -100,9 +101,11 @@ const Sidebar: React.FC = () => {
       <div className="ion-page " id="main-content">
         <IonHeader>
           <IonToolbar>
-            <IonButton slot="start" className="h-4 ml-2">
+
+            <IonButton slot="start" className="h-4 ml-2" style={{ '--background': '#326789' }}>
               <IonMenuButton></IonMenuButton>
             </IonButton>
+
             <IonTitle></IonTitle>
           </IonToolbar>
         </IonHeader>
