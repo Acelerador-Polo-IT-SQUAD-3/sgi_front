@@ -14,3 +14,9 @@ http://ionicframework.com/docs/theming/ */
     height: 30px; 
     font-size: 14px; 
   }
+
+  .custom-note {
+    font-size: 11px; 
+    color: #777472;
+    margin-left: 20px;
+  }
