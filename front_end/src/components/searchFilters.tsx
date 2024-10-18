@@ -6,9 +6,12 @@ import {
   IonSelectOption,
   IonTitle,
   IonButton,
+  IonGrid,
+  IonCard,
+  IonCol,
+  IonRow,
 } from "@ionic/react";
 import { Button } from "@mui/material";
-import { light } from "@mui/material/styles/createPalette";
 
 interface SearchFiltersProps {
   onSearch: (filters: {
@@ -137,94 +140,126 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   };
 
   return (
-    <section className="px-2 mt-4 md:px-10 mb-4">
-      <IonTitle className="p-0 mb-4">Filtros de búsqueda</IonTitle>
-      <IonList className="bg-transparent flex justify-between">
-        {/* Select para Roles */}
-        <IonItem lines="none" className="rounded-md" color={"light"}>
-          <IonSelect
-            interface="popover"
-            aria-label="Rol"
-            placeholder="Rol"
-            value={roleId}
-            onIonChange={(e) => setRoleId(e.detail.value)}
-            className="w-32"
-          >
-            {roles.map((role) => (
-              <IonSelectOption key={role.id} value={role.id}>
-                {role.name}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-        </IonItem>
+    <section className="mt-8 mx-16 mb-4 md:px-10 page-background">
+      <IonTitle className="p-0 mb-2 text-sm font-bold font-poppins">
+        Gestión de participantes
+      </IonTitle>
+      <IonGrid className="bg-transparent grid auto-rows-auto grid-flow-row md:grid-flow-col w-full gap-4 p-0">
+        <IonRow className="p-0 m-0">
+          <IonCol className="flex items-center p-0 m-0 h-8">
+            {/* Select para Roles */}
+            <IonItem
+              lines="none"
+              className="h-full p-0 m-0 w-full flex items-center rounded-md mr-2 shadow-md"
+            >
+              <IonSelect
+                interface="popover"
+                label="Rol"
+                value={roleId}
+                onIonChange={(e) => setRoleId(e.detail.value)}
+                className="m-0 bg-transparent text-sm"
+              >
+                {roles.map((role) => (
+                  <IonSelectOption key={role.id} value={role.id}>
+                    {role.name}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
 
-        {/* Select para Programas */}
-        <IonItem lines="none" className="rounded-md" color={"light"}>
-          <IonSelect
-            interface="popover"
-            aria-label="Curso/Proyecto"
-            placeholder="Curso/Proyecto"
-            value={programId}
-            onIonChange={(e) => setProgramId(e.detail.value)}
-            className="w-32"
-          >
-            {programs.map((program) => (
-              <IonSelectOption key={program.id} value={program.id}>
-                {program.name}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-        </IonItem>
+            {/* Select para Programas */}
+            <IonItem
+              lines="none"
+              className="h-full p-0 m-0 w-full flex items-center rounded-md mx-2 shadow-md"
+            >
+              <IonSelect
+                interface="popover"
+                label="Programa"
+                value={programId}
+                onIonChange={(e) => setProgramId(e.detail.value)}
+                className="m-0 bg-transparent text-sm"
+              >
+                {programs.map((program) => (
+                  <IonSelectOption key={program.id} value={program.id}>
+                    {program.name}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
+            {/* Select para Tecnologías */}
+            <IonItem
+              lines="none"
+              className="h-full p-0 m-0 w-full flex items-center rounded-md mx-2 shadow-md"
+            >
+              <IonSelect
+                interface="popover"
+                label="Tecnología"
+                value={technologyId}
+                onIonChange={(e) => setTechnologyId(e.detail.value)}
+                className="m-0 bg-transparent text-sm"
+              >
+                {technologies.map((technology) => (
+                  <IonSelectOption key={technology.id} value={technology.id}>
+                    {technology.name}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
 
-        {/* Select para Equipos */}
-        <IonItem lines="none" className="rounded-md" color={"light"}>
-          <IonSelect
-            interface="popover"
-            aria-label="Equipo"
-            placeholder="Equipo"
-            value={teamId}
-            onIonChange={(e) => setTeamId(e.detail.value)}
-            className="w-32"
-          >
-            {teams.map((team) => (
-              <IonSelectOption key={team.id} value={team.id}>
-                {team.name}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-        </IonItem>
+            {/* Select para Equipos */}
+            <IonItem
+              lines="none"
+              className="h-full p-0 m-0 w-full flex items-center rounded-md ml-2 shadow-md"
+            >
+              <IonSelect
+                interface="popover"
+                label="Equipo"
+                value={teamId}
+                onIonChange={(e) => setTeamId(e.detail.value)}
+                className="m-0 bg-transparent text-sm"
+              >
+                {teams.map((team) => (
+                  <IonSelectOption key={team.id} value={team.id}>
+                    {team.name}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
+          </IonCol>
 
-        {/* Select para Tecnologías */}
-        <IonItem lines="none" className="rounded-md" color={"light"}>
-          <IonSelect
-            interface="popover"
-             aria-label="Tecnología"
-            placeholder="Tecnología"
-            value={technologyId}
-            onIonChange={(e) => setTechnologyId(e.detail.value)}
-            className="w-32"
-          >
-            {technologies.map((technology) => (
-              <IonSelectOption key={technology.id} value={technology.id}>
-                {technology.name}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-        </IonItem>
-
-        <Button variant="contained" onClick={handleSearch}>
-          Buscar
-        </Button>
-      </IonList>
-
-      <div className="mt-4 flex justify-between">
-        {userRole === 3 && (
-          <IonButton routerLink="/profile/new-user" onClick={onAddParticipant}>
-            Nuevo Participante
-          </IonButton>
-        )}
-        <IonButton onClick={handleClearFilters}>Limpiar filtros</IonButton>
-      </div>
+          <IonCol className="flex items-center justify-end p-0 h-8 m-0">
+            <IonButton
+              onClick={handleClearFilters}
+              className="font-poppins normal-case text-sm"
+              color={"danger"}
+            >
+              Limpiar filtros
+            </IonButton>
+            <IonButton
+              onClick={handleSearch}
+              className="font-poppins normal-case ml-4 text-sm"
+              color={"danger"}
+            >
+              Buscar
+            </IonButton>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+      <IonRow className="m-0 p-0">
+        <IonCol className="h-8 mt-2 flex justify-between">
+          {userRole === 3 && (
+            <IonButton
+              routerLink="/profile/new-user"
+              onClick={onAddParticipant}
+              size="small"
+              className="font-poppins normal-case m-0 text-sm"
+              color={"danger"}
+            >
+              Nuevo Participante
+            </IonButton>
+          )}
+        </IonCol>
+      </IonRow>
     </section>
   );
 };
