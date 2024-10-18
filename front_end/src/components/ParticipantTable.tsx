@@ -96,10 +96,6 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
               )}
             </IonItem>
           </IonRow>
-<<<<<<< HEAD
-
-        ))}
-=======
         </IonCardHeader>
         <IonCardContent className="">
           {participants.map((participant, index) => (
@@ -149,7 +145,6 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
             </IonRow>
           ))}
         </IonCardContent>
->>>>>>> origin/develop
       </IonGrid>
 
       <IonToast

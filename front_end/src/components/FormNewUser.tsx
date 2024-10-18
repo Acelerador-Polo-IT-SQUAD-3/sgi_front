@@ -73,15 +73,10 @@ const FormNewUser: React.FC = () => {
       };
 
     useEffect(() => {
-<<<<<<< HEAD
-        fetchRoles();
-    }, []);
-=======
         fetchSelect(setRoles, "roles");
         fetchSelect(setOrganizations, "orgs");
         fetchSelect(setTechnologies, "tech");
     },[]);
->>>>>>> origin/develop
     //const { name, surname, dni, description, email, password, role_id } = req.body;
     return (
         <IonContent>
@@ -203,15 +198,9 @@ const FormNewUser: React.FC = () => {
                                     >
                                     {technologies.map((value) => {
                                         return (
-<<<<<<< HEAD
-                                            <IonSelectOption key={role.id} value={role.id}>
-                                                {role.name}
-                                            </IonSelectOption>
-=======
                                         <IonSelectOption key={value.id} value={value.id}>
                                             {value.name}
                                         </IonSelectOption>
->>>>>>> origin/develop
                                         );
                                     })}
                                     </IonSelect>
