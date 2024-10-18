@@ -3,6 +3,7 @@ import {
   IonCardContent,
   IonCol,
   IonGrid,
+  IonIcon,
   IonInput,
   IonLabel,
   IonList,
@@ -15,6 +16,7 @@ import React, { useState, useEffect } from "react";
 import { Team } from "../pages/TeamList";
 import { Program, Technology } from "../util/types";
 import { BsTrash3Fill } from "react-icons/bs";
+import { create, trash } from "ionicons/icons";
 
 interface TeamFilterProps {
   teams: Team[];
@@ -194,7 +196,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
         </div>
       )}
       <br />
-      <IonTitle className="p-0 mb-2 font-poppins text-[14px]">
+      <IonTitle className="p-0 mb-2 font-bold font-poppins text-[14px]">
         Configuración
       </IonTitle>
       <IonCard className="bg-white py-8">
@@ -262,11 +264,12 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
                     <p>{team.reqQuantity}</p>
                   </IonCol>
                   <IonCol className="flex justify-around">
-                    <BsTrash3Fill
+                    <IonIcon
+                      icon={trash}
+                      size="large"
                       style={{ color: "#D8434380" }}
-                      className="hover:text-[#D8434380] text-xl lg:text-2xl"
                       onClick={() => onRemoveTeam(team.id)}
-                    />
+                    ></IonIcon>
                   </IonCol>
                 </IonRow>
               ))}

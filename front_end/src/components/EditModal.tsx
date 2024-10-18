@@ -28,37 +28,37 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
       <IonHeader>
-        <IonToolbar color={"dark"}>
+        <IonToolbar color={"light"}>
           <IonTitle>Editar Participante</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">Nombre</IonLabel>
             <IonInput value={name} onIonChange={e => setName(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">Apellido</IonLabel>
             <IonInput value={surname} onIonChange={e => setSurname(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">Email</IonLabel>
             <IonInput value={email} onIonChange={e => setEmail(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">Compañía</IonLabel>
             <IonInput value={company} onIonChange={e => setCompany(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">DNI</IonLabel>
             <IonInput value={dni} onIonChange={e => setDni(e.detail.value!)} />
           </IonItem>
-          <IonItem color={"dark"}>
+          <IonItem color={"light"}>
             <IonLabel position="stacked">Descripción</IonLabel>
             <IonInput value={description} onIonChange={e => setDescription(e.detail.value!)} />
           </IonItem>
-          {/* <IonItem color={"dark"}>
+          {/* <IonItem color={"light"}>
             <IonLabel position="stacked">Contraseña</IonLabel>
             <IonInput value={password} onIonChange={e => setPassword(e.detail.value!)} type="password" />
           </IonItem> */}
