@@ -1,8 +1,8 @@
 import { IonContent, IonImg } from '@ionic/react'
 import React from 'react'
 import Carousel from './Carousel'
-import homeMentor from '../dummy-images/home-mentor.jpeg'
-import homeAdmin from '../dummy-images/home-admin.jpeg'
+import homeMentor from '../../public/imgs/home-mentor.jpeg'
+import homeAdmin from '../../public/imgs/home-admin.jpeg'
 
 
 interface HomeRoleViewProps {
