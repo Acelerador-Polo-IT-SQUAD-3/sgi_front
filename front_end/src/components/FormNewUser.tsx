@@ -243,7 +243,7 @@ const FormNewUser: React.FC = () => {
           <IonRow className="justify-end items-center px-64 ">
             <IonButton
               fill="clear"
-              className="bg-[#E65 px-2C4F] text-black normal-case rounded-lg"
+              className="bg-[#E65C4F] text-black normal-case rounded-lg"
               onClick={(e) => {
                 setName("");
                 setSurname("");
@@ -261,7 +261,7 @@ const FormNewUser: React.FC = () => {
             </IonButton>
             <IonButton
               fill="clear"
-              className="bg-[#E65 px-2C4F] text-black normal-case rounded-lg mx-6"
+              className="bg-[#E65C4F] text-black normal-case rounded-lg mx-6"
               type="submit"
             >
               Guardar
