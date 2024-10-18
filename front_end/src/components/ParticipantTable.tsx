@@ -60,7 +60,7 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
         console.log(`Dismissed with role: ${detail.role}`),
     });
   };
- 
+
   return (
     <IonCard className="bg-white mx-24 mt-0 relative overflow-y-scroll scrollbar-hide">
       <IonGrid className="p-0">
