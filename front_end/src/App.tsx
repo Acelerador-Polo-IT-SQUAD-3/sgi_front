@@ -12,6 +12,9 @@ import TeamList from './pages/TeamList';
 import FormNewUser from "./components/FormNewUser";
 
 
+
+
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -44,6 +47,7 @@ import "./theme/variables.css";
 
 setupIonicReact();
 
+
 const setPage = () => {
   const handleUser = sessionStorage.getItem("user");
   return handleUser ? (
@@ -60,6 +64,9 @@ const setPage = () => {
 const App: React.FC = () => (
   <IonApp className="font-poppins">
     <IonReactRouter>
+
+{/*       {sessionStorage.getItem('user') && <HeaderLogin />} */}
+
       {setPage()}
       <Route path="/home" component={Home} />
       <Route path="/welcome" component={Welcome} />

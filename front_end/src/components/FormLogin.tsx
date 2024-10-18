@@ -85,12 +85,12 @@ const FormLogin: React.FC = () => {
 
                         {error && <IonLabel color="danger" className="mt-2">{error}</IonLabel>}
 
-                        <IonLabel className="mt-4 text-sm">
+                        {/*       <IonLabel className="mt-4 text-sm">
                             ¿Todavía no tienes cuenta? <a href="/signin" className="text-black font-semibold hover:underline">Regístrate!</a>
                         </IonLabel>
                         <IonLabel className="mt-2 text-sm">
                             ¿Olvidaste tu contraseña? <a href="/reset-passwd" className="text-black font-semibold hover:underline">Recuperar cuenta.</a>
-                        </IonLabel>
+                        </IonLabel> */}
 
                     </div>
                 </form >
