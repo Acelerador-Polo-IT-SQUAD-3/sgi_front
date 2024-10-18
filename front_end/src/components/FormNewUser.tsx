@@ -1,9 +1,9 @@
 
 
-import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, IonSelect, IonTextarea, IonSelectOption } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, IonSelect, IonTextarea, IonSelectOption, IonTitle } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Role } from "../util/types"
+import { Role, Organization, Technology } from "../util/types"
 
 const FormNewUser: React.FC = () => {
     const [name, setName] = useState('');
@@ -13,7 +13,11 @@ const FormNewUser: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rolId, setRolId] = useState('');
+    const [organizationId, setOrganizationId] = useState('');
+    const [technologiesIds, setTechnologiesIds] = useState<string[]>([]);
     const [roles, setRoles] = useState<Role[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [technologies, setTechnologies] = useState<Technology[]>([]);
     const history = useHistory();
 
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -33,7 +37,9 @@ const FormNewUser: React.FC = () => {
                     description: description,
                     email: email,
                     password: password,
-                    role_id: rolId
+                    role_id: rolId,
+                    organization_id: organizationId,
+                    technologies_ids: technologiesIds 
                 })
             });
 
@@ -47,140 +53,191 @@ const FormNewUser: React.FC = () => {
             console.error('Error logging in:', error);
         }
     }
-    const fetchRoles = async () => {
+
+    const fetchSelect = async (setArray: any, serviceName: string) => {
         try {
-            // Realizamos la solicitud GET
-            const response = await fetch(`${apiUrl}/roles`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            // Si la solicitud fue exitosa, procesamos la respuesta
-            if (!response.ok) {
-                throw new Error('Error al obtener los roles');
-            }
-
-            // Parseamos el resultado a formato JSON
-            const data = await response.json();
-            setRoles(data);
+          const response = await fetch(`${apiUrl}/${serviceName}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Error al obtener los roles");
+          }
+          const data = await response.json();
+          setArray(data);
+        } catch (error) {
+          console.error("Error fetching roles:", error);
         }
-        catch (error) {
-            console.error('Error fetching roles:', error);
-        }
-    }
+      };
+
     useEffect(() => {
-        fetchRoles();
+        fetchSelect(setRoles, "roles");
+        fetchSelect(setOrganizations, "orgs");
+        fetchSelect(setTechnologies, "tech");
     },[]);
     //const { name, surname, dni, description, email, password, role_id } = req.body;
     return (
         <IonContent>
-            <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center">
-                <IonItem lines="none"color={"light"}>
-                    <IonGrid >
-                        <IonRow>
-                            <IonCol>
-                                <IonInput id='name'
-                                    className="ion-margin"
-                                    label="Name"
-                                    labelPlacement="stacked"
-                                    placeholder="Name"
-                                    value={name}
-                                    onIonChange={(e) => setName(e.detail.value!)} />
-                            </IonCol>
-                            <IonCol>
-                                <IonInput className="ion-margin"
-                                    label="Surname"
-                                    labelPlacement="stacked"
-                                    placeholder="Surname"
-                                    value={surname}
-                                    onIonChange={(e) => setSurname(e.detail.value!)} />
-                            </IonCol>
-                        </IonRow>
-                        <IonRow>
-                            <IonCol>
-                                <IonInput className="ion-margin"
-                                    label="E-mail"
-                                    labelPlacement="stacked"
-                                    placeholder="john.doe@example.com"
-                                    value={email}
-                                    onIonChange={(e) => setEmail(e.detail.value!)} />
+            <section className="mt-8 mx-16 mb-4 md:px-10 page-background">
+                <IonTitle className="p-0 mb-2 text-sm font-bold font-poppins">
+                    Nuevo Participante
+                </IonTitle>
+                <form id='new-user' onSubmit={handleSubmit} className="m-4 items-center">
 
-                            </IonCol>
-                            <IonCol>
-                                <IonInput className="ion-margin"
-                                    label="Password"
-                                    labelPlacement="stacked"
-                                    placeholder="********"
-                                    type="password"
-                                    value={password}
-                                    onIonChange={(e) => setPassword(e.detail.value!)} />
-                            </IonCol>
-                        </IonRow>
-                        <IonRow>
-                            <IonCol className="ion-padding">
-                                <IonTextarea className="ion-margin"
-                                    label="Description"
-                                    labelPlacement="stacked"
-                                    placeholder="Description"
-                                    value={description}
-                                    onIonChange={(e) => setDescription(e.detail.value!)} />
-                            </IonCol>
-                        </IonRow>
+                        <IonGrid >
+                            <IonRow>
+                                <IonCol>
+                                    <IonInput id='name'
+                                        className="ion-margin rounded-md bg-white"
+                                        label="Nombre"
+                                        labelPlacement="stacked"
+                                        placeholder="Nombre"
+                                        value={name}
+                                        onIonChange={(e) => setName(e.detail.value!)} />
+                                </IonCol>
+                                <IonCol>
+                                    <IonInput className="ion-margin rounded-md bg-white"
+                                        label="Apellido"
+                                        labelPlacement="stacked"
+                                        placeholder="Apellido"
+                                        value={surname}
+                                        onIonChange={(e) => setSurname(e.detail.value!)} />
+                                </IonCol>
+                            </IonRow>
+                            <IonRow>
+                                <IonCol>
+                                    <IonInput className="ion-margin rounded-md bg-white"
+                                        label="Email"
+                                        labelPlacement="stacked"
+                                        placeholder="john.doe@example.com"
+                                        value={email}
+                                        onIonChange={(e) => setEmail(e.detail.value!)} />
 
-                        <IonRow>
-                            <IonCol>
-                                <IonInput className="ion-margin"
-                                    label="DNI"
-                                    labelPlacement="stacked"
-                                    placeholder="11.111.111"
-                                    value={dni}
-                                    onIonChange={(e) => setDni(e.detail.value!)} />
+                                </IonCol>
+                                <IonCol>
+                                    <IonInput className="ion-margin rounded-md bg-white"
+                                        label="Contraseña"
+                                        labelPlacement="stacked"
+                                        placeholder="********"
+                                        type="password"
+                                        value={password}
+                                        onIonChange={(e) => setPassword(e.detail.value!)} />
+                                </IonCol>
+                            </IonRow>
+                            <IonRow>
+                                <IonCol className="ion-padding">
+                                    <IonTextarea className="ion-margin rounded-md bg-white"
+                                        label="Información del perfil"
+                                        labelPlacement="stacked"
+                                        placeholder="Información del perfil"
+                                        value={description}
+                                        onIonChange={(e) => setDescription(e.detail.value!)} />
+                                </IonCol>
+                            </IonRow>
 
-                            </IonCol>
-                            <IonCol>
-                                <IonSelect className="ion-margin"
-                                    interface="popover"
-                                    label="Rol"
-                                    labelPlacement="stacked"
-                                    placeholder="Rol"
-                                    value={rolId}
-                                    onIonChange={(e) => setRolId(e.detail.value)}>
-                                    {roles.map((role) => {
+                            <IonRow>
+                                <IonCol>
+                                    <IonInput className="ion-margin rounded-md bg-white"
+                                        label="DNI"
+                                        labelPlacement="stacked"
+                                        placeholder="11.111.111"
+                                        value={dni}
+                                        onIonChange={(e) => setDni(e.detail.value!)} />
+
+                                </IonCol>
+                                <IonCol>
+                                    <IonSelect className="ion-margin rounded-md bg-white"
+                                        interface="popover"
+                                        label="Rol"
+                                        labelPlacement="stacked"
+                                        placeholder="Rol"
+                                        value={rolId}
+                                        onIonChange={(e) => setRolId(e.detail.value)}>
+                                        {roles.map((role) => {
+                                            return (
+                                                <IonSelectOption key={role.id} value={role.id}>
+                                                    {role.name} 
+                                                </IonSelectOption>
+                                            );
+                                        })}
+                                    </IonSelect>
+
+                                </IonCol>
+                            </IonRow>
+
+                            <IonRow>
+                                <IonCol>
+                                    <IonSelect className="ion-margin rounded-md bg-white"
+                                        interface="popover"
+                                        label="Compañía"
+                                        labelPlacement="stacked"
+                                        placeholder="Compañía"
+                                        value={organizationId}
+                                        onIonChange={(e) => setOrganizationId(e.detail.value)}>
+                                        {organizations.map((org) => {
+                                            return (
+                                                <IonSelectOption key={org.id} value={org.id}>
+                                                    {org.name} 
+                                                </IonSelectOption>
+                                            );
+                                        })}
+                                    </IonSelect>
+                                </IonCol>
+                                <IonCol>  
+                                    <IonSelect
+                                        className="ion-margin rounded-md bg-white"
+                                        interface="popover"
+                                        label="Áreas de Conocimiento"
+                                        labelPlacement="stacked"
+                                        placeholder="Áreas de Conocimiento"
+                                        value={technologiesIds}
+                                        onIonChange={(e) => setTechnologiesIds(e.detail.value)}
+                                        multiple={true}
+                                    >
+                                    {technologies.map((value) => {
                                         return (
-                                            <IonSelectOption key={role.id} value={role.id}>
-                                                {role.name} 
-                                            </IonSelectOption>
+                                        <IonSelectOption key={value.id} value={value.id}>
+                                            {value.name}
+                                        </IonSelectOption>
                                         );
                                     })}
-                                </IonSelect>
+                                    </IonSelect>
+                                </IonCol>
+                            </IonRow>
 
-                            </IonCol>
-                        </IonRow>
+                            <IonRow className="justify-end items-center ">
+                                <button
+                                    style={{ width: "105px", height: "40px" }}
+                                    className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
+                                    onClick={(e) => {
+                                        setName('');
+                                        setSurname('');
+                                        setDni('');
+                                        setDescription('');
+                                        setEmail('');
+                                        setPassword('');
+                                        setRolId('');
+                                        setOrganizationId('');
+                                        setTechnologiesIds([]);
+                                        history.push('/profile/view-participants')
+                                    }}
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    style={{ width: "105px", height: "40px" }}
+                                    className="bg-[#E65C4F] text-black font-bold rounded-lg py-1"
+                                    type="submit"
+                                >
+                                    Guardar
+                                </button>
+                            </IonRow>
+                        </IonGrid>
 
-                        <IonRow className="justify-end items-center">
-                            <IonButton className="m-4 items-stretch"
-                                onClick={(e) => {
-                                    setName('');
-                                    setSurname('');
-                                    setDni('');
-                                    setDescription('');
-                                    setEmail('');
-                                    setPassword('');
-                                    setRolId('');
-                                    history.push('/profile/view-participants')
-                                }}
-                                size="default"> CANCEL
-                            </IonButton>
-
-                            <IonButton className="m-4 items-stretch" size="default" type='submit' > SUBMIT
-
-                            </IonButton>
-                        </IonRow>
-                    </IonGrid>
-                </IonItem>
-            </form>
+                </form>
+            </section>
         </IonContent >
     );
 }

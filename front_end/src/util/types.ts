@@ -19,3 +19,8 @@ export type Menu = {
     name: string;
     path: string;
   };
+
+  export type Organization = {
+    id: number;
+    name: string;
+};
