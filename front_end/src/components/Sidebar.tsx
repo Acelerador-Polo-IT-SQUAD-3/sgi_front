@@ -11,15 +11,17 @@ import {
   IonList,
   IonMenuToggle,
   IonIcon,
-  IonButtons
+  IonButtons,
+  IonNote
 } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Menu } from "../util/types"
-import desktopIcon from '../../src/dummy-images/desktop-icon.png'
-import Logo from "../dummy-images/polo-it.png";
+import desktopIcon from '../../public/imgs/desktop-icon.png'
+import Logo from "../../public/imgs/polo-it.png";
 import { close } from 'ionicons/icons';
 import { chatbubbles, logOut } from 'ionicons/icons';
+import "../theme/variables.css";
 
 interface HeaderProps {
   buttons: any[];
@@ -94,6 +96,7 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
                     <IonIcon icon={close} />
                   </IonButton>
                 </IonButtons>
+                <IonNote className="custom-note"> {userData ? userData.name + " " + userData.surname + " (" +userData.role_name + ")": ""}</IonNote>
               </IonToolbar>
             </IonHeader>
             {menus.map((menu, index) => (

@@ -61,10 +61,10 @@ const App: React.FC = () => (
   <IonApp className="font-poppins">
     <IonReactRouter>
       {setPage()}
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/welcome" component={Welcome} />
-      <Route exact path="/login" component={LogIn} />
-      <Route exact path="/signin" component={SignIn} />
+      <Route path="/home" component={Home} />
+      <Route path="/welcome" component={Welcome} />
+      <Route path="/login" component={LogIn} />
+      <Route path="/signin" component={SignIn} />
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
       <Route
         exact

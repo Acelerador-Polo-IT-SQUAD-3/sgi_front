@@ -1,8 +1,7 @@
 import React from "react";
 import { IonButton, IonHeader, IonTitle, IonIcon } from "@ionic/react";
 import Sidebar from "./Sidebar";
-import Logo from "../dummy-images/polo-it.png";
-import { chatbubbles, logOut } from 'ionicons/icons';
+import Logo from "../../public/imgs/polo-it.png";
 
 interface HeaderButton {
   label: string;
