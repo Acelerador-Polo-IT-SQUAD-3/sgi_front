@@ -98,7 +98,7 @@ const HomeRoleView: React.FC<HomeRoleViewProps> = ({ role }) => {
             }
             {
                 role === 2 && (
-                    <IonContent style={{ backgroundColor: '#FFF4EA' }}>
+                    <IonContent style={{ backgroundColor: '#FFF4EA', height: '100vh' }}>
 
                         <div className='h-[80%] flex justify-center items-center relative border-radius'>
                             <div className='relative' style={{ width: '1000px', height: '500px' }}>
@@ -122,8 +122,6 @@ const HomeRoleView: React.FC<HomeRoleViewProps> = ({ role }) => {
                             </div>
                             <p className='absolute text-7xl font-bold text-white'>¡Te damos la bienvenida!</p>
                         </div>
-
-
 
 
                         <div className=' flex justify-center gap-32 mt-10 mb-20'>
