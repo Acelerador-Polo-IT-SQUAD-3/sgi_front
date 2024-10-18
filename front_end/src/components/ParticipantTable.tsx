@@ -7,11 +7,14 @@ import {
   IonCol,
   useIonAlert,
   IonToast,
-  IonContent,
   IonCard,
   IonCardContent,
+  IonIcon,
+  IonCardHeader,
+  IonItem,
 } from "@ionic/react";
 import { Participant } from "../pages/UserList";
+import { create, trash } from "ionicons/icons";
 
 interface ParticipantTableProps {
   participants: Participant[];
@@ -57,67 +60,101 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
         console.log(`Dismissed with role: ${detail.role}`),
     });
   };
- 
+
   return (
-    <IonCard className="bg-white mx-24 mt-0 overflow-y-scroll scrollbar-hide">
-      <IonCardContent>
-        <IonList className="md:px-1 bg-white">
-          <IonGrid>
-            <IonRow className="border rounded-sm border-gray-400">
-              <IonCol className="text-center ">Nombre</IonCol>
-              <IonCol className="text-center ">Apellido</IonCol>
-              <IonCol className="text-center ">Email</IonCol>
-              <IonCol className="text-center ">Compañía</IonCol>
-              {userRole != 1 && (
-                <IonCol className="text-center ">Acción</IonCol>
-              )}
-            </IonRow>
-            {participants.map((participant, index) => (
-              <IonRow
-                className="border-x-2 border-b rounded-sm border-gray-400 pt-2 flex items-center"
-                key={index}
+    <IonCard className="bg-white mx-24 mt-0 relative overflow-y-scroll scrollbar-hide">
+      <IonGrid className="p-0">
+        <IonCardHeader className="sticky top-0 z-10 bg-white py-0 ">
+          <IonRow className="rounded-sm py-2">
+            <IonItem
+              color="light"
+              lines="none"
+              className="rounded-3xl w-full p-0 m-0 text-sm h-6 flex items-center font-poppins font-bold shadow-md"
+            >
+              <IonCol
+                size={userRole != 1 ? "3" : "4"}
+                className="text-center text-xs"
               >
-                <IonCol className="w-1 text-center">{participant.name}</IonCol>
-                <IonCol className="w-1 text-center">
-                  {participant.surname}
+                Nombre y apellido
+              </IonCol>
+              <IonCol
+                size={userRole != 1 ? "3" : "4"}
+                className="text-center text-xs"
+              >
+                Email
+              </IonCol>
+              <IonCol
+                size={userRole != 1 ? "3" : "4"}
+                className="text-center text-xs"
+              >
+                Compañía
+              </IonCol>
+              {userRole != 1 && (
+                <IonCol size="3" className="text-center text-xs">
+                  Acción
                 </IonCol>
-                <IonCol className="w-1 text-center">{participant.email}</IonCol>
-                <IonCol className="w-1 text-center">
+              )}
+            </IonItem>
+          </IonRow>
+        </IonCardHeader>
+        <IonCardContent className="">
+          {participants.map((participant, index) => (
+            <IonRow className="flex items-center w-full" key={index}>
+              <IonItem className="w-full h-12">
+                <IonCol
+                  size={userRole != 1 ? "3" : "4"}
+                  className="text-center w-full text-sm"
+                >
+                  {participant.name + " " + participant.surname}
+                </IonCol>
+
+                <IonCol
+                  size={userRole != 1 ? "3" : "4"}
+                  className="text-center w-full text-sm"
+                >
+                  {participant.email}
+                </IonCol>
+                <IonCol
+                  size={userRole != 1 ? "3" : "4"}
+                  className="text-center w-full text-sm"
+                >
                   {participant.company}
                 </IonCol>
                 {userRole != 1 && (
-                  <IonCol className="w-1 text-center">
-                    <IonButton
-                      className="w-16 md:w-20"
+                  <IonCol
+                    size="3"
+                    className="flex p-0 m-0 justify-center w-full text-sm"
+                  >
+                    <IonIcon
+                      icon={create}
+                      className="text-2xl mr-4"
+                      style={{ color: "#D8434380" }}
                       onClick={() => onEdit(participant)}
-                    >
-                      Editar
-                    </IonButton>
+                    ></IonIcon>
                     {userRole === 3 && (
-                      <IonButton
-                        className="w-16 md:w-20"
-                        color="danger"
+                      <IonIcon
+                        icon={trash}
+                        className="text-2xl"
+                        style={{ color: "#D8434380" }}
                         onClick={() => handleDelete(participant)}
-                      >
-                        Eliminar
-                      </IonButton>
+                      ></IonIcon>
                     )}
                   </IonCol>
                 )}
-              </IonRow>
-            ))}
-          </IonGrid>
+              </IonItem>
+            </IonRow>
+          ))}
+        </IonCardContent>
+      </IonGrid>
 
-          <IonToast
-            isOpen={isOpen}
-            message="Se ha eliminado el usuario correctamente"
-            onDidDismiss={() => setIsOpen(false)}
-            duration={3000}
-            color={"light"}
-            className="text-center"
-          ></IonToast>
-        </IonList>
-      </IonCardContent>
+      <IonToast
+        isOpen={isOpen}
+        message="Se ha eliminado el usuario correctamente"
+        onDidDismiss={() => setIsOpen(false)}
+        duration={3000}
+        color={"light"}
+        className="text-center"
+      ></IonToast>
     </IonCard>
   );
 };
