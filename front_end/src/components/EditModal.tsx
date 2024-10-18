@@ -67,7 +67,7 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
         </IonList>
       </IonContent>
       <IonFooter className='flex justify-end'>
-        <IonButton onClick={onClose} sx={{
+        <IonButton onClick={onClose} style={{
           backgroundColor: '#E65C4F',
           color: 'white',
           borderRadius: '10px',
@@ -76,7 +76,7 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
           },
           margin: '0 5px',
         }}>Cancelar</IonButton>
-        <IonButton onClick={handleSave} sx={{
+        <IonButton onClick={handleSave} style={{
           backgroundColor: '#E65C4F',
           color: 'white',
           borderRadius: '10px',
