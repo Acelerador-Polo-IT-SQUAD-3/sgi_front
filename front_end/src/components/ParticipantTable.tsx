@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import {
-  IonButton,
-  IonList,
   IonGrid,
   IonRow,
   IonCol,
@@ -62,14 +60,14 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
   };
 
   return (
-    <IonCard className="bg-white mx-24 mt-0 relative overflow-y-scroll scrollbar-hide">
+    <IonCard className="bg-white mx-24 mt-0 relative overflow-y-scroll scrollbar-hide font-poppins">
       <IonGrid className="p-0">
         <IonCardHeader className="sticky top-0 z-10 bg-white py-0 ">
           <IonRow className="rounded-sm py-2">
             <IonItem
               color="light"
               lines="none"
-              className="rounded-3xl w-full p-0 m-0 text-sm h-6 flex items-center font-poppins font-bold shadow-md"
+              className="rounded-lg w-full p-0 m-0 text-sm h-8 flex items-center font-bold shadow-md"
             >
               <IonCol
                 size={userRole != 1 ? "3" : "4"}
@@ -116,25 +114,25 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
                 </IonCol>
                 <IonCol
                   size={userRole != 1 ? "3" : "4"}
-                  className="text-center w-full text-sm"
+                  className="text-center w-full text-sms"
                 >
                   {participant.company}
                 </IonCol>
                 {userRole != 1 && (
                   <IonCol
                     size="3"
-                    className="flex p-0 m-0 justify-center w-full text-sm"
+                    className="flex p-0 m-0 justify-center w-full"
                   >
                     <IonIcon
                       icon={create}
-                      className="text-2xl mr-4"
+                      className="text-3xl mr-4"
                       style={{ color: "#D8434380" }}
                       onClick={() => onEdit(participant)}
                     ></IonIcon>
                     {userRole === 3 && (
                       <IonIcon
                         icon={trash}
-                        className="text-2xl"
+                        className="text-3xl"
                         style={{ color: "#D8434380" }}
                         onClick={() => handleDelete(participant)}
                       ></IonIcon>
