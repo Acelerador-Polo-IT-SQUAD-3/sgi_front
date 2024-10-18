@@ -40,6 +40,7 @@ const UserList: React.FC = () => {
         const data = await response.json();
 
         setParticipants(data);
+        console.log(participants);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

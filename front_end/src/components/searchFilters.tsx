@@ -230,15 +230,15 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
           <IonCol className="flex items-center justify-end p-0 h-8 m-0">
             <IonButton
               onClick={handleClearFilters}
-              className="font-poppins normal-case text-sm"
-              color={"danger"}
+              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg text-sm"
+              fill="clear"
             >
               Limpiar filtros
             </IonButton>
             <IonButton
               onClick={handleSearch}
-              className="font-poppins normal-case ml-4 text-sm"
-              color={"danger"}
+              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg ml-4 text-sm"
+              fill="clear"
             >
               Buscar
             </IonButton>
@@ -252,8 +252,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               routerLink="/profile/new-user"
               onClick={onAddParticipant}
               size="small"
-              className="font-poppins normal-case m-0 text-sm"
-              color={"danger"}
+              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg m-0 text-sm"
+              fill="clear"
             >
               Nuevo Participante
             </IonButton>
