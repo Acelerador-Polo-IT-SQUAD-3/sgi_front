@@ -116,3 +116,7 @@ ion-title::part(native) {
   --background: white !important;
   color: white;
 }
+
+.custom-background {
+  background-color: #fff4ea !important;
+}
