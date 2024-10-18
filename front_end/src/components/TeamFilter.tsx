@@ -294,6 +294,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
         </button>
       </div>
     </section>
+
   );
 };
 

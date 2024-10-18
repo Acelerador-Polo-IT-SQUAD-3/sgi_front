@@ -31,7 +31,7 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
   const user = sessionStorage.getItem("user");
   const userData = user ? JSON.parse(user) : null;
   const [menus, setMenus] = useState<Menu[]>([]);
-  const [userRole, setUserRole] = useState<number|undefined>(undefined);
+  const [userRole, setUserRole] = useState<number | undefined>(undefined);
 
   const getRole = (user: string | null) => {
     if (user) {
@@ -39,7 +39,7 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
       return u.role_id; // Devuelve el rol_id
     }
     return null;
-  }; 
+  };
 
   const fetchMenus = async () => {
     try {
