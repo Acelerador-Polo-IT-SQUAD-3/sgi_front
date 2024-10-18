@@ -94,9 +94,9 @@ ion-toolbar::part(native) {
   color: white;
   border: 2px solid black;
 }
-ion-toolbar {
+/*ion-toolbar {
   --background: #326789 !important;
-}
+}*/
 
 /* ion-header {
   --background: #e65c4f !important;
