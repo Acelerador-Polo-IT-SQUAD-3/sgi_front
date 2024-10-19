@@ -33,7 +33,6 @@ function FormRegister() {
             setErrors(newErrors);
             return;
         }
-
         
             const userData = {
                 name,
@@ -53,6 +52,7 @@ function FormRegister() {
         
                 if (!response.ok) {
                     const errorData = await response.json(); // Captura el cuerpo de la respuesta
+                    console.log(errorData.message || 'Error en el registrooo');
                     console.log(errorData.message || 'Error en el registrooo');
                     throw new Error('Error en el registro');
                 }
@@ -138,11 +138,11 @@ function FormRegister() {
                             Regístrate
                         </button>
 
-                        {/* Enlace de inicio de sesión */}
+                        {/* Enlace de inicio de sesión 
                         <IonLabel className='text-sm text-gray-600 mt-4'>
                             ¿Ya tienes una cuenta?{' '}
                             <a href="/login" className="text-black font-semibold hover:underline">Inicia sesión</a>
-                        </IonLabel>
+                        </IonLabel>*/}
                     </div>
                 </form>
             </div>
