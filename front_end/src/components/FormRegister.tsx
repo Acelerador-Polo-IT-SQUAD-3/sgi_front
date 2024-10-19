@@ -2,21 +2,23 @@ import { IonInput, IonItem, IonLabel } from '@ionic/react';
 import React, { useState } from 'react';
 
 function FormRegister() {
+    const [surname, setSurname] = useState<string>('');
     const [name, setName] = useState<string>('');  // Define el tipo de estado
-    const [mail, setMail] = useState<string>('');  // Define el tipo de estado
+    const [email, setEmail] = useState<string>('');  // Define el tipo de estado
     const [password, setPassword] = useState<string>(''); // Define el tipo de estado
 
-        const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+            const apiUrl = import.meta.env.VITE_API_URL;
         
             const userData = {
                 name,
-                mail,
+                email,
                 password,
+                surname,
             };
         
             try {
-                const apiUrl = import.meta.env.VITE_API_URL;
                 const response = await fetch(`${apiUrl}/auth/`, {
                 method: 'POST',
                 headers: {
@@ -27,7 +29,7 @@ function FormRegister() {
         
                 if (!response.ok) {
                     const errorData = await response.json(); // Captura el cuerpo de la respuesta
-            console.log(errorData.message || 'Error en el registrooo');
+                    console.log(errorData.message || 'Error en el registrooo');
                     throw new Error('Error en el registro');
                 }
         
@@ -66,15 +68,26 @@ function FormRegister() {
                             />
                         </IonItem>
 
+                        <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
+                            <IonLabel position="stacked" className='text-gray-600'>Apellido</IonLabel>
+                            <IonInput
+                                placeholder="Ingresa tu apellido"
+                                value={surname}
+                                required
+                                minlength={3}
+                                onIonChange={(e: CustomEvent) => setSurname(e.detail.value)} 
+                            />
+                        </IonItem>
+
                         {/* Campo de correo */}
                         <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
                             <IonLabel position="stacked" className='text-gray-600'>Correo electrónico</IonLabel>
                             <IonInput
                                 type="email"
                                 placeholder="nombre@correoelectronico.com"
-                                value={mail}
+                                value={email}
                                 required
-                                onIonChange={(e: CustomEvent) => setMail(e.detail.value)} // Se eliminó el '!'
+                                onIonChange={(e: CustomEvent) => setEmail(e.detail.value)} // Se eliminó el '!'
                             />
                         </IonItem>
 
