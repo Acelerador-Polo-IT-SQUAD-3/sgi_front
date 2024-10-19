@@ -6,10 +6,34 @@ function FormRegister() {
     const [name, setName] = useState<string>('');  // Define el tipo de estado
     const [email, setEmail] = useState<string>('');  // Define el tipo de estado
     const [password, setPassword] = useState<string>(''); // Define el tipo de estado
-
+    const [errors, setErrors] = useState<{ name?: string; surname?: string; email?: string; password?: string }>({});
+    
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const apiUrl = import.meta.env.VITE_API_URL;
+            
+        setErrors({});
+        const newErrors: { name?: string; surname?: string; email?: string; password?: string } = {};
+    
+        if (password.length === 0) {
+            newErrors.password = "La contraseña es obligatoria";
+        }
+        if (name.trim() === '') {
+            newErrors.name = "El nombre es obligatorio";
+        }
+        if (surname.trim() === '') {
+            newErrors.surname = "El apellido es obligatorio";
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            newErrors.email = "El correo electrónico no es válido";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         
             const userData = {
                 name,
@@ -62,10 +86,10 @@ function FormRegister() {
                             <IonInput
                                 placeholder="Ingresa tu nombre completo"
                                 value={name}
-                                required
                                 minlength={3}
                                 onIonChange={(e: CustomEvent) => setName(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
                         </IonItem>
 
                         <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
@@ -73,10 +97,10 @@ function FormRegister() {
                             <IonInput
                                 placeholder="Ingresa tu apellido"
                                 value={surname}
-                                required
                                 minlength={3}
                                 onIonChange={(e: CustomEvent) => setSurname(e.detail.value)} 
                             />
+                            {errors.surname && <p className="text-red-500 text-xs">{errors.surname}</p>}
                         </IonItem>
 
                         {/* Campo de correo */}
@@ -86,9 +110,9 @@ function FormRegister() {
                                 type="email"
                                 placeholder="nombre@correoelectronico.com"
                                 value={email}
-                                required
                                 onIonChange={(e: CustomEvent) => setEmail(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
                         </IonItem>
 
                         {/* Campo de contraseña */}
@@ -98,9 +122,9 @@ function FormRegister() {
                                 placeholder="********"
                                 type="password"
                                 value={password}
-                                required
                                 onIonChange={(e: CustomEvent) => setPassword(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                         </IonItem>
                         <p className='text-xs text-gray-500'>(Entre 8 y 12 caracteres)</p>
                     </div>
