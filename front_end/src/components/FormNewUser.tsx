@@ -35,7 +35,7 @@ const FormNewUser: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${apiUrl}/auth`, {
+      const response = await fetch(`${apiUrl}/auth/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
