@@ -101,11 +101,11 @@ function FormRegister() {
                             Regístrate
                         </button>
 
-                        {/* Enlace de inicio de sesión */}
+                        {/* Enlace de inicio de sesión 
                         <IonLabel className='text-sm text-gray-600 mt-4'>
                             ¿Ya tienes una cuenta?{' '}
                             <a href="/login" className="text-black font-semibold hover:underline">Inicia sesión</a>
-                        </IonLabel>
+                        </IonLabel>*/}
                     </div>
                 </form>
             </div>
