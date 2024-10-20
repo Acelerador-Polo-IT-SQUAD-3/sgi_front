@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
   IonItem,
-  IonList,
   IonSelect,
   IonSelectOption,
   IonTitle,
   IonButton,
   IonGrid,
-  IonCard,
   IonCol,
   IonRow,
 } from "@ionic/react";
-import { Button } from "@mui/material";
 
 interface SearchFiltersProps {
   onSearch: (filters: {
@@ -146,7 +143,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
       </IonTitle>
       <IonGrid className="bg-transparent grid auto-rows-auto grid-flow-row md:grid-flow-col w-full gap-4 p-0">
         <IonRow className="p-0 m-0">
-          <IonCol className="flex items-center p-0 m-0 h-8">
+          <IonCol size="9" className="flex items-center p-0 m-0 h-8">
             {/* Select para Roles */}
             <IonItem
               lines="none"
@@ -227,17 +224,17 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             </IonItem>
           </IonCol>
 
-          <IonCol className="flex items-center justify-end p-0 h-8 m-0">
+          <IonCol size="3" className="flex flex-wrap items-center justify-end p-0 h-8 m-0">
             <IonButton
               onClick={handleClearFilters}
-              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg text-sm"
+              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg mx-2 mr-1 text-sm"
               fill="clear"
             >
-              Limpiar filtros
+              Limpiar
             </IonButton>
             <IonButton
               onClick={handleSearch}
-              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg ml-4 text-sm"
+              className="bg-[#E65C4F] font-poppins text-black normal-case rounded-lg ml-1 mx-2 text-sm"
               fill="clear"
             >
               Buscar
