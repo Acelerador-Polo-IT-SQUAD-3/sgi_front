@@ -1,21 +1,22 @@
-@import 'swiper/swiper-bundle.css';
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
+@import "swiper/swiper-bundle.css";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.toolbar-background{
-    background: white !important;
+/* .toolbar-background {
+  background: white !important;
 }
-#inbox-list{
-    background: #faf8f8 !important;
+#inbox-list {
+  background: #faf8f8 !important;
 }
-.toolbar-background{
-    background: #dddddd !important;
+.toolbar-background {
+  background: #dddddd !important;
 }
-.alert-radio-label.sc-ion-alert-md{
-    color: black !important;
+.alert-radio-label.sc-ion-alert-md {
+  color: black !important;
 }
+ */

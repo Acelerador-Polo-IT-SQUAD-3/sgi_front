@@ -11,8 +11,22 @@ import {
   IonTitle,
   IonLabel,
 } from "@ionic/react";
+import {
+  IonButton,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonInput,
+  IonRow,
+  IonSelect,
+  IonTextarea,
+  IonSelectOption,
+  IonTitle,
+  IonLabel,
+} from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Role, Organization, Technology } from "../util/types";
 import { Role, Organization, Technology } from "../util/types";
 
 const FormNewUser: React.FC = () => {
@@ -29,13 +43,58 @@ const FormNewUser: React.FC = () => {
   const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [technologies, setTechnologies] = useState<Technology[]>([]);
   const history = useHistory();
+  const [errors, setErrors] = useState<{ name?: string; surname?: string; email?: string; password?: string; organizationId?: string; technologiesIds?: string; description?: string; rolId?: string; }>({});
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrors({});
+    const newErrors: {
+      name?: string;
+      surname?: string;
+      email?: string;
+      password?: string;
+      organizationId?: string;
+      technologiesIds?: string;
+      rolId?: string;
+      description?: string;
+    } = {};
+
+    // Validación de campos
+    if (password.length === 0) {
+      newErrors.password = "La contraseña es obligatoria";
+    }
+    if (name.trim() === '') {
+      newErrors.name = "El nombre es obligatorio";
+    }
+    if (surname.trim() === '') {
+      newErrors.surname = "El apellido es obligatorio";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      newErrors.email = "El correo electrónico no es válido";
+    }
+    if (organizationId === '') {
+      newErrors.organizationId = "La compañía es obligatoria";
+    }
+    if (technologiesIds.length === 0) {
+      newErrors.technologiesIds = "Debes seleccionar al menos una tecnología";
+    }
+    if (rolId.length === 0) {
+      newErrors.rolId = "Debes seleccionar el rol";
+    }
+    if (description.trim() === '') {
+      newErrors.description = "Debes escribir tu descripcion";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
-      const response = await fetch(`${apiUrl}/auth`, {
+      const response = await fetch(`${apiUrl}/auth/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,9 +120,34 @@ const FormNewUser: React.FC = () => {
       history.push("/profile/view-participants");
     } catch (error) {
       console.error("Error logging in:", error);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log(data);
+      history.push("/profile/view-participants");
+    } catch (error) {
+      console.error("Error logging in:", error);
     }
   };
 
+  const fetchSelect = async (setArray: any, serviceName: string) => {
+    try {
+      const response = await fetch(`${apiUrl}/${serviceName}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Error al obtener los roles");
+      }
+      const data = await response.json();
+      setArray(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
+  };
   const fetchSelect = async (setArray: any, serviceName: string) => {
     try {
       const response = await fetch(`${apiUrl}/${serviceName}`, {
@@ -113,8 +197,9 @@ const FormNewUser: React.FC = () => {
                     onIonChange={(e) => setName(e.detail.value!)}
                   />
                 </IonCol>
-              </IonRow>
-              <IonRow>
+                </IonRow>
+                {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                <IonRow>
                 {/*Email */}
                 <IonCol className="mt-4">
                   <IonLabel className="font-poppins font-bold">Email</IonLabel>
@@ -124,6 +209,7 @@ const FormNewUser: React.FC = () => {
                     value={email}
                     onIonChange={(e) => setEmail(e.detail.value!)}
                   />
+                  {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
                 </IonCol>
               </IonRow>
               <IonRow>
@@ -144,6 +230,7 @@ const FormNewUser: React.FC = () => {
                       );
                     })}
                   </IonSelect>
+                  {errors.rolId && <p className="text-red-500 text-xs">{errors.rolId}</p>}
                 </IonCol>
               </IonRow>
               <IonRow>
@@ -165,6 +252,7 @@ const FormNewUser: React.FC = () => {
                       );
                     })}
                   </IonSelect>
+                  {errors.technologiesIds && <p className="text-red-500 text-xs">{errors.technologiesIds}</p>}
                 </IonCol>
               </IonRow>
             </IonCol>
@@ -180,6 +268,7 @@ const FormNewUser: React.FC = () => {
                     value={surname}
                     onIonChange={(e) => setSurname(e.detail.value!)}
                   />
+                  {errors.surname && <p className="text-red-500 text-xs">{errors.surname}</p>}
                 </IonCol>
               </IonRow>
               <IonRow>
@@ -196,6 +285,7 @@ const FormNewUser: React.FC = () => {
                   />
                 </IonCol>
               </IonRow>
+              {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
               {/*
               <IonRow>
               <IonCol className="mt-4">
@@ -226,6 +316,7 @@ const FormNewUser: React.FC = () => {
                       );
                     })}
                   </IonSelect>
+                  {errors.organizationId && <p className="text-red-500 text-xs">{errors.organizationId}</p>}
                 </IonCol>
               </IonRow>
             </IonCol>
@@ -240,6 +331,7 @@ const FormNewUser: React.FC = () => {
               />
             </IonCol>
           </IonRow>
+          {errors.description && <p className="text-red-500 text-xs mx-64">{errors.description}</p>}
           <IonRow className="justify-end items-center px-64 ">
             <IonButton
               fill="clear"

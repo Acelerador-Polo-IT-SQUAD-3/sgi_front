@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonList, IonFooter } from '@ionic/react';
 import './ExploreContainer.css'
 import { Participant } from '../pages/UserList';
+import Avatar from "../dummy-images/Avatar.png"
+
 
 interface EditModalProps {
   participant: Participant;
@@ -65,8 +67,24 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
         </IonList>
       </IonContent>
       <IonFooter className='flex justify-end'>
-        <IonButton onClick={onClose} color="danger">Cancelar</IonButton>
-        <IonButton onClick={handleSave}>Confirmar</IonButton>
+        <IonButton onClick={onClose} style={{
+          backgroundColor: '#E65C4F',
+          color: 'white',
+          borderRadius: '10px',
+          '&:hover': {
+            backgroundColor: '#d9534f',
+          },
+          margin: '0 5px',
+        }}>Cancelar</IonButton>
+        <IonButton onClick={handleSave} style={{
+          backgroundColor: '#E65C4F',
+          color: 'white',
+          borderRadius: '10px',
+          '&:hover': {
+            backgroundColor: '#d9534f',
+          },
+          margin: '0 5px',
+        }}>Guardar</IonButton>
       </IonFooter>
     </IonModal>
   );

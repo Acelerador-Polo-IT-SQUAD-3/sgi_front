@@ -2,21 +2,46 @@ import { IonInput, IonItem, IonLabel } from '@ionic/react';
 import React, { useState } from 'react';
 
 function FormRegister() {
+    const [surname, setSurname] = useState<string>('');
     const [name, setName] = useState<string>('');  // Define el tipo de estado
-    const [mail, setMail] = useState<string>('');  // Define el tipo de estado
+    const [email, setEmail] = useState<string>('');  // Define el tipo de estado
     const [password, setPassword] = useState<string>(''); // Define el tipo de estado
-
-        const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const [errors, setErrors] = useState<{ name?: string; surname?: string; email?: string; password?: string }>({});
+    
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+            const apiUrl = import.meta.env.VITE_API_URL;
+            
+        setErrors({});
+        const newErrors: { name?: string; surname?: string; email?: string; password?: string } = {};
+    
+        if (password.length === 0) {
+            newErrors.password = "La contraseña es obligatoria";
+        }
+        if (name.trim() === '') {
+            newErrors.name = "El nombre es obligatorio";
+        }
+        if (surname.trim() === '') {
+            newErrors.surname = "El apellido es obligatorio";
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            newErrors.email = "El correo electrónico no es válido";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
         
             const userData = {
                 name,
-                mail,
+                email,
                 password,
+                surname,
             };
         
             try {
-                const apiUrl = import.meta.env.VITE_API_URL;
                 const response = await fetch(`${apiUrl}/auth/`, {
                 method: 'POST',
                 headers: {
@@ -27,7 +52,8 @@ function FormRegister() {
         
                 if (!response.ok) {
                     const errorData = await response.json(); // Captura el cuerpo de la respuesta
-            console.log(errorData.message || 'Error en el registrooo');
+                    console.log(errorData.message || 'Error en el registrooo');
+                    console.log(errorData.message || 'Error en el registrooo');
                     throw new Error('Error en el registro');
                 }
         
@@ -60,10 +86,21 @@ function FormRegister() {
                             <IonInput
                                 placeholder="Ingresa tu nombre completo"
                                 value={name}
-                                required
                                 minlength={3}
                                 onIonChange={(e: CustomEvent) => setName(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+                        </IonItem>
+
+                        <IonItem lines="none" className='bg-white border border-gray-400 rounded-lg'>
+                            <IonLabel position="stacked" className='text-gray-600'>Apellido</IonLabel>
+                            <IonInput
+                                placeholder="Ingresa tu apellido"
+                                value={surname}
+                                minlength={3}
+                                onIonChange={(e: CustomEvent) => setSurname(e.detail.value)} 
+                            />
+                            {errors.surname && <p className="text-red-500 text-xs">{errors.surname}</p>}
                         </IonItem>
 
                         {/* Campo de correo */}
@@ -72,10 +109,10 @@ function FormRegister() {
                             <IonInput
                                 type="email"
                                 placeholder="nombre@correoelectronico.com"
-                                value={mail}
-                                required
-                                onIonChange={(e: CustomEvent) => setMail(e.detail.value)} // Se eliminó el '!'
+                                value={email}
+                                onIonChange={(e: CustomEvent) => setEmail(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
                         </IonItem>
 
                         {/* Campo de contraseña */}
@@ -85,9 +122,9 @@ function FormRegister() {
                                 placeholder="********"
                                 type="password"
                                 value={password}
-                                required
                                 onIonChange={(e: CustomEvent) => setPassword(e.detail.value)} // Se eliminó el '!'
                             />
+                            {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                         </IonItem>
                         <p className='text-xs text-gray-500'>(Entre 8 y 12 caracteres)</p>
                     </div>
@@ -101,11 +138,11 @@ function FormRegister() {
                             Regístrate
                         </button>
 
-                        {/* Enlace de inicio de sesión */}
+                        {/* Enlace de inicio de sesión 
                         <IonLabel className='text-sm text-gray-600 mt-4'>
                             ¿Ya tienes una cuenta?{' '}
                             <a href="/login" className="text-black font-semibold hover:underline">Inicia sesión</a>
-                        </IonLabel>
+                        </IonLabel>*/}
                     </div>
                 </form>
             </div>
