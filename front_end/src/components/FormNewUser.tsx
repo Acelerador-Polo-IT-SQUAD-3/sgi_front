@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonCol,
-  IonContent,
   IonGrid,
   IonInput,
   IonRow,
@@ -80,7 +79,7 @@ const FormNewUser: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${apiUrl}/auth/`, {
+      const response = await fetch(`${apiUrl}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
