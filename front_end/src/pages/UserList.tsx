@@ -2,7 +2,6 @@ import { IonContent, IonToast } from "@ionic/react";
 import SearchFilters from "../components/searchFilters";
 import { useState, useEffect } from "react";
 import ParticipantTable from "../components/ParticipantTable";
-import EditModal from "../components/EditModal";
 
 export interface Participant {
   id: number;
@@ -16,8 +15,6 @@ export interface Participant {
 
 const UserList: React.FC = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
-  const [editingParticipant, setEditingParticipant] =
-    useState<Participant | null>(null);
   const [filters, setFilters] = useState<{
     role_id?: string;
     program_id?: string;
@@ -40,7 +37,7 @@ const UserList: React.FC = () => {
         const data = await response.json();
 
         setParticipants(data);
-        console.log(participants);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,10 +45,6 @@ const UserList: React.FC = () => {
 
     fetchData();
   }, [filters]);
-
-  const handleEdit = (participant: Participant) => {
-    setEditingParticipant(participant);
-  };
 
   const handleDelete = async (participant: Participant) => {
     try {
@@ -71,31 +64,6 @@ const UserList: React.FC = () => {
     }
   };
 
-  const handleSave = async (updatedParticipant: Participant) => {
-    try {
-      const response = await fetch(`${apiUrl}/user/${updatedParticipant.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedParticipant),
-      });
-
-      if (response.ok) {
-        setParticipants(
-          participants.map((p) =>
-            p.id === updatedParticipant.id ? updatedParticipant : p
-          )
-        );
-        setIsOpen(true);
-      } else {
-        console.error("Error updating participant:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error updating participant:", error);
-    }
-  };
-
   const handleSearch = (filters: {
     role_id?: string;
     program_id?: string;
@@ -111,30 +79,18 @@ const UserList: React.FC = () => {
     // Implementar lógica para agregar un nuevo participante
   };
 
-  const handleCloseModal = () => {
-    setEditingParticipant(null);
-  };
-
   return (
     <IonContent>
-      <section  className="h-full flex flex-col page-background">
+      <section className="h-full flex flex-col page-background">
         <SearchFilters
           onSearch={handleSearch}
           onAddParticipant={handleAddParticipant}
         />
         <ParticipantTable
           participants={participants}
-          onEdit={handleEdit}
+          onEdit={(participant) => {}}
           onDelete={handleDelete}
         />
-        {editingParticipant && (
-          <EditModal
-            participant={editingParticipant}
-            isOpen={true}
-            onClose={handleCloseModal}
-            onSave={handleSave}
-          />
-        )}
         <IonToast
           isOpen={isOpen}
           message="Se ha modificado el participante correctamente"
@@ -149,3 +105,4 @@ const UserList: React.FC = () => {
 };
 
 export default UserList;
+
