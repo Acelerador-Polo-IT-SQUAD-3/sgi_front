@@ -82,11 +82,10 @@ import {
         surname,
         email,
         organization_id: company,
-        technologies_ids: technologiesIds.join(", "),
+        technologies_ids: technologiesIds,
         dni,
         description,
       };
-      console.log(updatedParticipant)
       try {
         const response = await fetch(`${apiUrl}/user/${id}`, {
           method: "PATCH",
