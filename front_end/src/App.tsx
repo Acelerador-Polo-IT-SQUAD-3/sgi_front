@@ -10,7 +10,7 @@ import Comunication from "./pages/Comunication";
 import UserList from "./pages/UserList";
 import TeamList from './pages/TeamList';
 import FormNewUser from "./components/FormNewUser";
-
+import FormEditUser from "./components/FormEditUser";
 
 
 
@@ -45,6 +45,7 @@ import "./input.css";
 import "./theme/variables.css";
 
 
+
 setupIonicReact();
 
 
@@ -73,6 +74,7 @@ const App: React.FC = () => (
       <Route path="/login" component={LogIn} />
       <Route path="/signin" component={SignIn} />
       <Route exact path="/menu-and-nav" component={MenuAndNav} />
+      {/* <Route path="/profile/edit-user/:id" component={FormEditUser} /> */}
       <Route
         exact
         path="/profile/comunication"
@@ -92,6 +94,11 @@ const App: React.FC = () => (
         exact
         path="/profile/new-user"
         render={(props) => <Home {...props} childComponent={FormNewUser} />}
+      />
+      <Route
+        exact
+        path="/profile/edit-user/:id"
+        render={(props) => <Home {...props} childComponent={FormEditUser} />}
       />
     </IonReactRouter>
   </IonApp>
