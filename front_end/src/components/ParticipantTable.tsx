@@ -13,6 +13,7 @@ import {
 } from "@ionic/react";
 import { Participant } from "../pages/UserList";
 import { create, trash } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
 
 interface ParticipantTableProps {
   participants: Participant[];
@@ -35,6 +36,7 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const user = sessionStorage.getItem("user");
   const userRole = getRole(user);
+  const history = useHistory();
 
   const handleDelete = (participant: Participant) => {
     presentAlert({
@@ -57,6 +59,9 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
       onDidDismiss: ({ detail }) =>
         console.log(`Dismissed with role: ${detail.role}`),
     });
+  };
+  const handleEdit = (participant: Participant) => {
+    history.push(`/profile/edit-user/${participant.id}`);
   };
 
   return (
@@ -127,7 +132,7 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
                       icon={create}
                       className="text-3xl mr-4"
                       style={{ color: "#D8434380" }}
-                      onClick={() => onEdit(participant)}
+                      onClick={() => handleEdit(participant)}
                     ></IonIcon>
                     {userRole === 3 && (
                       <IonIcon

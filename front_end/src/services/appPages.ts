@@ -1,6 +1,7 @@
 
 import Config from "../components/Config";
 import FormNewUser from "../components/FormNewUser";
+import FormEditUser from "../components/FormEditUser";
 import Programs from "../components/Programs";
 import UserList from "../pages/UserList";
 import TeamList from '../pages/TeamList';
@@ -14,7 +15,7 @@ interface AppPage {
 
   title: string;
   url: string;
-  component: React.FC;
+  component: React.FC | React.FC<any>;
 }
 
 //Las paginas que no deben ser mostradas como opciones en el SideMenu deben tener id = 0 para que no sean asignadas a ningun rol, ya que seran accedidas
@@ -25,6 +26,12 @@ const appPages: AppPage[] = [
     title: "Nuevo Usuario",
     url: "/profile/new-user",
     component: FormNewUser,
+  },
+  {
+
+    title: "Editar Usuario",
+    url: "/profile/edit-user/:id",
+    component: FormEditUser,
   },
   {
     title: "Comunicación",

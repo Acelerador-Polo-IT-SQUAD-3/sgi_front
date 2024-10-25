@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonList, IonFooter } from '@ionic/react';
 import './ExploreContainer.css'
 import { Participant } from '../pages/UserList';
-import Avatar from "../dummy-images/Avatar.png"
 
 
 interface EditModalProps {
@@ -19,7 +18,6 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
   const [company, setCompany] = useState(participant.company);
   const [dni, setDni] = useState(participant.dni || '');
   const [description, setDescription] = useState(participant.description || '');
-  const [password, setPassword] = useState('');
 
   const handleSave = () => {
     const updatedParticipant = { ...participant, name, surname, email, company, dni, description };
@@ -60,10 +58,6 @@ const EditModal: React.FC<EditModalProps> = ({ participant, isOpen, onClose, onS
             <IonLabel position="stacked">Descripción</IonLabel>
             <IonInput value={description} onIonChange={e => setDescription(e.detail.value!)} />
           </IonItem>
-          {/* <IonItem color={"light"}>
-            <IonLabel position="stacked">Contraseña</IonLabel>
-            <IonInput value={password} onIonChange={e => setPassword(e.detail.value!)} type="password" />
-          </IonItem> */}
         </IonList>
       </IonContent>
       <IonFooter className='flex justify-end'>
