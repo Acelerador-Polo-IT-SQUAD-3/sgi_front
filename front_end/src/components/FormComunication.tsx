@@ -114,7 +114,7 @@ function FormComunication({ data }: FormComunicationProps) {
       <form onSubmit={handleSubmit} className="space-y-4">
       <IonGrid>
           <IonRow>
-            <IonCol size="4">
+            <IonCol size="6">
               <IonItem
                 lines="none"
                 className="rounded-md h-10 items-center m-0 mr-28 shadow-lg"
@@ -149,7 +149,7 @@ function FormComunication({ data }: FormComunicationProps) {
                 )}
               </IonItem>
             </IonCol>
-            <IonCol size="8">
+            <IonCol size="6">
               <IonItem lines="none" className="h-10 shadow-lg">
                 <IonInput
                   placeholder="Asunto"
