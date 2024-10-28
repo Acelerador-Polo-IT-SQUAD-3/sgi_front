@@ -48,8 +48,8 @@ const TeamList: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        const teamNames =  data?.equipos_creados.map((item: { equipo: string }) => item.equipo).join(', ');
-        const mentees =  data?.equipos_creados.map((item: { mentor_asignado: any }) => item.mentor_asignado?.name).join(', ');
+        const teamNames =  data?.equipos_creados?.map((item: { equipo: string }) => item?.equipo).join(', ');
+        const mentees =  data?.equipos_creados?.map((item: { mentor_asignado: any }) => item?.mentor_asignado?.name).join(', ');
         console.log('data: ',data)
         console.log('Datos enviados correctamente');
         setToastMessage(`Se ha ejecutado la asignación de equipos exitosamente. Equipos creados: ${teamNames}, Mentores: ${mentees}`)
