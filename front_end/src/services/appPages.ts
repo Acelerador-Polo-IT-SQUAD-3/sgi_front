@@ -30,7 +30,7 @@ const appPages: AppPage[] = [
   {
 
     title: "Editar Usuario",
-    url: "/profile/edit-user/:id",
+    url: "/profile/edit-user/:id/:profile",
     component: FormEditUser,
   },
   {

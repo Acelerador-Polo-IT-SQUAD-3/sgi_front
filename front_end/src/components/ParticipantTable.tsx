@@ -61,8 +61,25 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
     });
   };
   const handleEdit = (participant: Participant) => {
-    history.push(`/profile/edit-user/${participant.id}`);
+    history.push(`/profile/edit-user/${participant.id}/undefined`);
   };
+
+
+  function maskEmail(email: string): string {
+    const [localPart, domain] = email.split('@');
+
+    if (!domain) {
+      return email;
+    }
+    try{
+      const maskedLocalPart = localPart.length > 4
+        ? localPart.slice(0, 4) + '*'.repeat(localPart.length - 4)
+        : '*'.repeat(localPart.length);
+        return `${maskedLocalPart}@${domain}`;
+    }catch(e){
+      return email;
+    }    
+  }
 
   return (
     <IonCard className="bg-white mx-24 mt-0 relative overflow-y-scroll scrollbar-hide font-poppins">
@@ -115,7 +132,7 @@ const ParticipantTable: React.FC<ParticipantTableProps> = ({
                   size={userRole != 1 ? "3" : "4"}
                   className="text-center w-full text-sm"
                 >
-                  {participant.email}
+                  {maskEmail(participant.email)}
                 </IonCol>
                 <IonCol
                   size={userRole != 1 ? "3" : "4"}

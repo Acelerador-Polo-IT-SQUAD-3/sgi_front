@@ -195,19 +195,6 @@ const FormNewUser: React.FC = () => {
                   />
                 </IonCol>
               </IonRow>
-              {/*
-              <IonRow>
-              <IonCol className="mt-4">
-              <IonInput
-              className="rounded-md  bg-white px-2 shadow-md "
-              label="DNI"
-              placeholder="11.111.111"
-              value={dni}
-              onIonChange={(e) => setDni(e.detail.value!)}
-              />
-              </IonCol>
-              </IonRow>
-              */}
               <IonRow>
                 <IonCol className="mt-4">
                   <IonSelect
