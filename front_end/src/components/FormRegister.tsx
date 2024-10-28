@@ -1,5 +1,9 @@
 import { IonInput, IonItem, IonLabel } from '@ionic/react';
 import React, { useState } from 'react';
+import {
+    IonToast
+  } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 
 function FormRegister() {
     const [surname, setSurname] = useState<string>('');
@@ -7,7 +11,10 @@ function FormRegister() {
     const [email, setEmail] = useState<string>('');  // Define el tipo de estado
     const [password, setPassword] = useState<string>(''); // Define el tipo de estado
     const [errors, setErrors] = useState<{ name?: string; surname?: string; email?: string; password?: string }>({});
-    
+    const [isOpen, setIsOpen] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const history = useHistory();
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const apiUrl = import.meta.env.VITE_API_URL;
@@ -49,18 +56,26 @@ function FormRegister() {
                 },
                 body: JSON.stringify(userData),
             });
-        
+
                 if (!response.ok) {
                     const errorData = await response.json(); // Captura el cuerpo de la respuesta
                     console.log(errorData.message || 'Error en el registrooo');
-                    console.log(errorData.message || 'Error en el registrooo');
                     throw new Error('Error en el registro');
+                    
                 }
-        
+                
                 const data = await response.json();
                 console.log('Registro exitoso:', data);
+                setIsOpen(true)
+                setToastMessage('Graduado fue registrado exitosamente. Puedes ingresar con tus datos en la opción Inicio')
+                setSurname('')
+                setName('')
+                setEmail('')
+                setPassword('')
             } catch (error) {
                 console.error('Error al registrarse:', error);
+                setIsOpen(true)
+                setToastMessage('Error en el registro')
             }
         
     };
@@ -146,6 +161,14 @@ function FormRegister() {
                     </div>
                 </form>
             </div>
+            <IonToast
+                isOpen={isOpen}
+                message={toastMessage}
+                onDidDismiss={() => setIsOpen(false)}
+                duration={6000}
+                color={"light"}
+                className="text-center"
+            ></IonToast>
         </section>
     );
 }

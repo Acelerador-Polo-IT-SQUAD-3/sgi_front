@@ -17,7 +17,7 @@ import {
   import { Participant } from "../pages/UserList";
   
   const FormEditUser: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const { id, profile } = useParams<{ id: string, profile?: string }>();
     const [participant, setParticipant] = useState<Participant | null>(null);
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -234,7 +234,11 @@ import {
                 fill="clear"
                 className="bg-[#E65C4F] text-black normal-case rounded-lg"
                 onClick={() => {
-                  history.push("/profile/view-participants");
+                  if(profile === 'undefined'){
+                    history.push("/profile/view-participants");
+                  }else{
+                    history.push("/home");
+                  }
                 }}
               >
                 Cancelar

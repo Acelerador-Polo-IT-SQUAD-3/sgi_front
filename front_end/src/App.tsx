@@ -97,7 +97,7 @@ const App: React.FC = () => (
       />
       <Route
         exact
-        path="/profile/edit-user/:id"
+        path="/profile/edit-user/:id/:profile"
         render={(props) => <Home {...props} childComponent={FormEditUser} />}
       />
     </IonReactRouter>

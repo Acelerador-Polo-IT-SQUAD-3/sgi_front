@@ -5,7 +5,7 @@ import { IonLoading } from '@ionic/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomeRoleView from '../components/HomeRoleView';
-import { chatbubbles, logOut } from 'ionicons/icons';
+import { chatbubbles, logOut, person } from 'ionicons/icons';
 
 const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
   const history = useHistory();
@@ -21,15 +21,25 @@ const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
     return null;
   };
 
+  const getUserId = () => {
+    const handleUser = sessionStorage.getItem('user');
+    if (handleUser) {
+      const parsedUser = JSON.parse(handleUser);
+      console.log('parsedUser: ',parsedUser)
+      return parsedUser.id;
+    }
+    return null;
+  };
+
   useEffect(() => {
     const rolId = getRol();
     if (rolId) {
       setRole(rolId);
       setHeaderButtons(
         [
-          //{ label: "Profile", onClick: () => history.push("/menu-and-nav") },
-          ...(rolId !== 3 ? [{ label: "Comunicación", onClick: handleComunicacion, icon: 'chatbubbles' }] : []),
-          { label: "Logout", onClick: handleLogout, icon:'log-out' },
+          { label: "Profile", onClick: handleProfile, icon:'log-out', iconComponent: person },
+          ...(rolId !== 3 ? [{ label: "Comunicación", onClick: handleComunicacion, icon: 'chatbubbles', iconComponent: chatbubbles }] : []),
+          { label: "Logout", onClick: handleLogout, icon:'log-out', iconComponent: logOut },
         ]
       )
     } else {
@@ -45,6 +55,10 @@ const Home: React.FC<{ childComponent?: React.FC }> = ({ childComponent }) => {
 
   const handleComunicacion = () => {
     history.push('/profile/comunication');
+  };
+
+  const handleProfile = () => {
+    history.push(`/profile/edit-user/${getUserId()}/true`);
   };
 
   if (!role) {

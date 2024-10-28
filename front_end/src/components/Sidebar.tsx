@@ -67,7 +67,7 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
   }, []);
 
   useEffect(() => {
-    if (userRole) {
+    if (userRole && (!menus || menus?.length ===0)) {
       fetchMenus();
     }
   }, [userRole]);
@@ -138,7 +138,7 @@ const Sidebar: React.FC<HeaderProps> = ({ buttons }) => {
                 routerLink={button.routerLink}
                 fill="clear"
               >
-                <IonIcon icon={button.icon==='log-out'? logOut : chatbubbles} size="large" style={{ color: 'white' }}/>
+                <IonIcon icon={button.iconComponent} size="large" style={{ color: 'white' }}/>
               </IonButton>
             ))}
           </div>          
