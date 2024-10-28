@@ -35,9 +35,7 @@ const Comunication: React.FC = () => {
     }, [apiUrl]);
 
     return (
-        <IonContent>
             <FormComunication data={data} />
-        </IonContent>
     );
 };
 

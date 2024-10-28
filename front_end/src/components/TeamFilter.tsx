@@ -161,7 +161,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
             >
               <IonSelect
                 interface="popover"
-                label="Área de conocimiento del mentor"
+                label="Conocimiento del mentor"
                 value={mentorTechnology}
                 onIonChange={(e) => setMentorTechnology(e.detail.value)}
                 multiple={true}
@@ -232,7 +232,7 @@ const TeamFilter: React.FC<TeamFilterProps> = ({
                   >
                     <IonSelect
                       interface="popover"
-                      label="Área de conocimiento"
+                      label="Conocimiento de graduados"
                       value={technology}
                       onIonChange={(e) => setTechnology(e.detail.value)}
                       className="bg-"
