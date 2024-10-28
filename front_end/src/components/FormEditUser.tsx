@@ -96,7 +96,11 @@ import {
         });
         if (response.ok) {
           setIsOpen(true);
-          history.push("/profile/view-participants");
+          if(profile === 'undefined'){
+            history.push("/profile/view-participants");
+          }else{
+            history.push("/home");
+          }
         } else {
           console.error("Error updating participant:", response.statusText);
         }
