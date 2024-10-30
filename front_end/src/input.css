@@ -20,3 +20,12 @@
   color: black !important;
 }
  */
+ion-menu::part(backdrop) {
+    background-color: transparent; 
+    
+  }
+ion-menu::part(container){
+  box-shadow:  none !important;
+  
+  border-bottom-right-radius: 10px;
+}
